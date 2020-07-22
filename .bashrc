@@ -29,6 +29,7 @@ alias dotgit='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 ## Sources 
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+complete -o nospace -f -F _cd cd # overwrite cd behavior
 
 test -r "/usr/local/etc/profile.d/z.sh" && . /usr/local/etc/profile.d/z.sh
 
