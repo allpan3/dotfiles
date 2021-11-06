@@ -22,6 +22,8 @@
 	<integer>2</integer>
 	<key>Command</key>
 	<string></string>
+	<key>ConvertDosNewlines</key>
+	<true/>
 	<key>CopySelection</key>
 	<true/>
 	<key>Custom Color Presets</key>
@@ -256,6 +258,8 @@
 	<key>EnableProxyIcon</key>
 	<true/>
 	<key>EnableRendezvous</key>
+	<false/>
+	<key>EscapeShellCharsWithBackslash</key>
 	<false/>
 	<key>FlashTabBarInFullscreen</key>
 	<true/>
@@ -1089,7 +1093,7 @@ Split Horizontally with Current Profile</string>
 					<key>notes</key>
 					<string>Quoted string</string>
 					<key>precision</key>
-					<string>normal</string>
+					<string>very_low</string>
 					<key>regex</key>
 					<string>@?"(?:[^"\\]|\\.)*"</string>
 				</dict>
@@ -1097,7 +1101,7 @@ Split Horizontally with Current Profile</string>
 					<key>notes</key>
 					<string>Java/Python include paths</string>
 					<key>precision</key>
-					<string>very_low</string>
+					<string>low</string>
 					<key>regex</key>
 					<string>([[:letter:][:number:]._]+\.)+[[:letter:][:number:]._]+</string>
 				</dict>
@@ -4394,10 +4398,12 @@ Split Horizontally with Current Profile</string>
 					<string>\~?/?([[:letter:][:number:]:._~@+#-]+/+)+[[:letter:][:number:]._~@+#-]+/?</string>
 				</dict>
 				<dict>
+					<key>actions</key>
+					<array/>
 					<key>notes</key>
 					<string>Quoted string</string>
 					<key>precision</key>
-					<string>normal</string>
+					<string>very_low</string>
 					<key>regex</key>
 					<string>@?"(?:[^"\\]|\\.)*"</string>
 				</dict>
@@ -4405,7 +4411,7 @@ Split Horizontally with Current Profile</string>
 					<key>notes</key>
 					<string>Java/Python include paths</string>
 					<key>precision</key>
-					<string>very_low</string>
+					<string>low</string>
 					<key>regex</key>
 					<string>([[:letter:][:number:]._]+\.)+[[:letter:][:number:]._]+</string>
 				</dict>
@@ -6998,6 +7004,12 @@ Split Horizontally with Current Profile</string>
 	<false/>
 	<key>PassOnControlClick</key>
 	<true/>
+	<key>PasteSpecialRegex</key>
+	<string></string>
+	<key>PasteSpecialSubstitution</key>
+	<string></string>
+	<key>PasteSpecialUseRegexSubstitution</key>
+	<false/>
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>4</integer>
 	<key>PerPaneBackgroundImage</key>
