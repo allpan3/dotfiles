@@ -8,7 +8,7 @@
 #    0 - key is found
 #    1 - key is not found, and added the first time
 #    2 - key is not found, but not added due to -d
-#   -1 - ssh key is not set up
+#    3 - ssh key is not set up
 # This script is inspired by http://blog.joncairns.com/2013/12/understanding-ssh-agent-and-ssh-add and https://github.com/wwalker/ssh-find-agent
 # First, set up ssh key following instruction in http://rabexc.org/posts/using-ssh-agent
 
