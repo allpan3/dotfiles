@@ -6,7 +6,7 @@
 # Support both tcp server (-f) and UNIX socket (-s)
 #
 # emacs.sh -f|s SERVER_NAME [options]
-# -f|s is required; SERVER_NAME={gui_server|cli_server}; SERVER_NAME is just the server/socket name (not absolute path). 
+# -f|s is required; -f for TCP server, -s for UNIX socket; SERVER_NAME is the server/socket name. Only gui_server|cli_server is supported right now 
 # --sudo: open the file with sudo
 ###
 
