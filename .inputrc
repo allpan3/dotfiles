@@ -1,4 +1,4 @@
-
+set show-all-if-ambiguous on
 set completion-ignore-case On
 set colored-stats On
 set completion-prefix-display-length 3
