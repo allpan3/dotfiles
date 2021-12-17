@@ -13,10 +13,9 @@ while getopts ":T:f:s:" option; do
 done
 
 if [[ "${server_name}" == *"gui_server" ]]; then
-    # load ssh key to avoid entering passphrase when using tramp
-    # but only load if key is found. We do not want to type passphrase at emacs
-    # startup bascuse we may not use tramp.
-    # will need to type passphrase one time in this case if we use tramp later
+    # Load ssh key to avoid entering passphrase when using tramp
+    # But only load if key is found. If not found, don't add because we don't want to type passphrase at emacs startup
+    # Will need to type passphrase one time in emacs in the case we start emacs server first, then do ssh
     test -r $HOME/.scripts/ssh-agent-setup.sh && . $HOME/.scripts/ssh-agent-setup.sh -d
     ret=$?
 
