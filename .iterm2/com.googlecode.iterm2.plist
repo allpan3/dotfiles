@@ -12,6 +12,8 @@
 	<false/>
 	<key>AutoHideTmuxClientSession</key>
 	<true/>
+	<key>BracketedPasteMode</key>
+	<true/>
 	<key>ClosingTmuxTabKillsTmuxWindows</key>
 	<true/>
 	<key>ClosingTmuxTabKillsTmuxWindows_selection</key>
@@ -393,6 +395,17 @@ Split Horizontally with Current Profile</string>
 			<integer>8</integer>
 			<key>Text</key>
 			<string></string>
+		</dict>
+		<key>0xf746-0x0-0x72</key>
+		<dict>
+			<key>Action</key>
+			<integer>41</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>{"ConvertUnicodePunctuation":true,"WaitForPrompts":false,"Substitution":"","EscapeForShell":false,"Base64":false,"TabStopSize":4,"Delay":0.01,"RemoveNewlines":false,"Regex":"","ConvertNewlines":true,"TabTransform":0,"BracketAllowed":true,"UseRegexSubstitution":false,"ChunkSize":1024,"RemoveControls":true}</string>
+			<key>Version</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>HapticFeedbackForEsc</key>
@@ -1009,6 +1022,8 @@ Split Horizontally with Current Profile</string>
 			<true/>
 			<key>Mouse Reporting allow mouse wheel</key>
 			<true/>
+			<key>Movement Keys Scroll Outside Interactive Apps</key>
+			<false/>
 			<key>Name</key>
 			<string>Bash</string>
 			<key>Non Ascii Font</key>
@@ -2939,19 +2954,27 @@ Split Horizontally with Current Profile</string>
 					<key>Text</key>
 					<string>0x1e</string>
 				</dict>
-				<key>0x63-0x100000</key>
+				<key>0x63-0x100000-0x8</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
 					<key>Text</key>
 					<string>[c</string>
+					<key>Version</key>
+					<integer>1</integer>
 				</dict>
-				<key>0x6c-0x100000</key>
+				<key>0x6c-0x100000-0x25</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
 					<key>Text</key>
 					<string>[l</string>
+					<key>Version</key>
+					<integer>1</integer>
 				</dict>
 				<key>0x70-0x100000</key>
 				<dict>
@@ -3264,6 +3287,8 @@ Split Horizontally with Current Profile</string>
 			<key>Minimum Contrast</key>
 			<integer>0</integer>
 			<key>Mouse Reporting</key>
+			<true/>
+			<key>Mouse Reporting allow clicks and drags</key>
 			<true/>
 			<key>Mouse Reporting allow mouse wheel</key>
 			<false/>
@@ -3918,6 +3943,8 @@ Split Horizontally with Current Profile</string>
 			<key>Description</key>
 			<string>Default</string>
 			<key>Disable Window Resizing</key>
+			<true/>
+			<key>Enable Triggers in Interactive Apps</key>
 			<true/>
 			<key>Flashing Bell</key>
 			<false/>
@@ -4720,14 +4747,7 @@ Split Horizontally with Current Profile</string>
 			<key>Transparency</key>
 			<real>0.021825428299492321</real>
 			<key>Triggers</key>
-			<array>
-				<dict>
-					<key>action</key>
-					<string>CaptureTrigger</string>
-					<key>regex</key>
-					<string>^(Warning|WARNING|Error|ERROR):</string>
-				</dict>
-			</array>
+			<array/>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -7070,17 +7090,19 @@ Split Horizontally with Current Profile</string>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.16759751773049653</real>
+	<real>0.20017587606189319</real>
 	<key>StatusBarPosition</key>
 	<integer>1</integer>
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>SwitchPaneModifier</key>
-	<integer>5</integer>
+	<integer>9</integer>
 	<key>SwitchWindowModifier</key>
-	<integer>1</integer>
+	<integer>5</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
+	<key>TabTransform</key>
+	<integer>0</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>TabsHaveCloseButton</key>
