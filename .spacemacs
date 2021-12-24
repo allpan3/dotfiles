@@ -594,8 +594,6 @@ before packages are loaded."
   (global-git-commit-mode t)
   ;; major mode for custom shell rc files
   (add-to-list 'auto-mode-alist '("\\(bashrc\\|cshrc\\).*\\'" . sh-mode))
-  ;; enable undo-tree-mode
-  (global-undo-tree-mode)
 
 
   ;; Keybindings
@@ -639,9 +637,8 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "H-<backspace>") 'evil-delete-back-to-indentation)
   (define-key evil-insert-state-map (kbd "M-DEL") 'evil-delete-backward-word) ; M-backspace
   (global-set-key (kbd "H-/") 'evilnc-comment-or-uncomment-lines)
-  ;; (define-key evil-insert-state-map (kbd "C-/")  'evilnc-comment-operator)
-  ;; (define-key evil-motion-state-map (kbd "C-/")  'evilnc-comment-operator)
-  ; for some reason, in terminal C-/ is recognized as C-_. No such keymapping found.
+  (global-set-key (kbd "M-/") 'evilnc-comment-operator) ; behaves similar to block comment in VSCode
+                                        ; C-/ cannot be remapped otherwise undo will not work, so I use M-/ here instead. Also for some reason in terminal C-/ automatically sends C-_.
 
   ;; CLI keybinding
   ;; these commands sets up the keybindings used in CLI emacs. They  work in conjection with iTerm2 Emacs profile.
@@ -657,8 +654,6 @@ before packages are loaded."
   (global-set-key "\e[1;9B" (kbd "H-S-<down>"))   ; this does not work
   (global-set-key "\e[30~"  (kbd "H-<backspace>"))
   (global-set-key "\e[/"    (kbd "H-/"))
-  ;; (global-set-key (kbd "C-_") 'undo-tree-undo) ; in CLI emacs default is 'undo, which I couldn't find way to redo
-  ;; (global-set-key (kbd "M-_") 'undo-tree-redo)
 
 
   ;; Auto-Completion
@@ -674,7 +669,6 @@ before packages are loaded."
     (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-find-file
     (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory initially
     )
-
 
   )
 
