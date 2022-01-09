@@ -16,7 +16,7 @@ if [[ "${server_name}" == *"gui_server" ]]; then
     # Load ssh key to avoid entering passphrase when using tramp
     # But only load if key is found. If not found, don't add because we don't want to type passphrase at emacs startup
     # Will need to type passphrase one time in emacs in the case we start emacs server first, then do ssh
-    test -r $HOME/.scripts/ssh-agent-setup.sh && . $HOME/.scripts/ssh-agent-setup.sh -d
+    test -r $HOME/scripts/ssh-agent-setup.sh && . $HOME/scripts/ssh-agent-setup.sh -d
     ret=$?
 
     emacs --daemon=${server_name}
