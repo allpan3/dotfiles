@@ -12,6 +12,12 @@ export EDITOR="emacsclient -s $SERVER_SOCKET_DIR/cli_server"
 
 
 ########## Alias ##########
+alias ls='ls -GF'
+alias la='ls -A'
+alias ll='la -lh'
+# list info of directories instead of showing their contents
+# usually following wildcards; compare this to ll followed a directory name
+alias ld='ll -d'
 alias em="emacs.sh -s gui_server" # open the file in gui emacs
 alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
 alias typora="open -a typora"
