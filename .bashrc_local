@@ -1,0 +1,36 @@
+### Local bashrc file containing system-specific settings
+
+########## Variables ##########
+export PS1="\[\e[30;42m\][\w]\[\e[m\]\[\e[32m\] $\[\e[m\] "
+export PATH="$HOME/scripts:$PATH:/usr/local/sbin"
+# export CPATH="/usr/local/include"
+# export LIBRARY_PATH="/usr/local/lib"
+export SERVER_SOCKET_DIR=/tmp/emacs # the custom directory for TCP and Socket server
+# export EDITOR="emacs.sh -s cli_server"  # seems like env vars are not able to resolve alias, so specify full executable
+# this is more lightweight then calling emacs.sh,  but emacs server must have been started
+export EDITOR="emacsclient -s $SERVER_SOCKET_DIR/cli_server"
+
+
+########## Alias ##########
+alias ls='ls -GF'
+alias la='ls -A'
+alias ll='la -lh'
+# list info of directories instead of showing their contents
+# usually following wildcards; compare this to ll followed a directory name
+alias ld='ll -d'
+alias em="emacs.sh -s gui_server" # open the file in gui emacs
+alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
+alias typora="open -a typora"
+alias ssh='ssh.sh'
+
+
+########## Completion ##########
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+complete -o nospace -F _cd cd # overwrite cd behavior
+
+
+########## z ##########
+test -r "/usr/local/etc/profile.d/z.sh" && . /usr/local/etc/profile.d/z.sh
+
+
