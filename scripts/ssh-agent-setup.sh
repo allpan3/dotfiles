@@ -25,7 +25,7 @@ done
 
 if [ -f "$HOME/.ssh/id_rsa" ]; then
     # set up ssh key for every shell opened using the same agent
-    . $HOME/.scripts/ssh-find-agent.sh
+    . $HOME/scripts/ssh-find-agent.sh
     # list and automatically choose the fisrt agent; if no agent find, create agent
     ssh_find_agent -a
     if [[ $? -ne 0 && $add_key -eq 1 ]]; then
