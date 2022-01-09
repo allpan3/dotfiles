@@ -46,7 +46,7 @@ alias dgit='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 
 
 if [ -f "$HOME/.ssh/id_rsa" ]; then
-    . "$HOME/.scripts/ssh-agent-setup.sh"
+    . "$HOME/scripts/ssh-agent-setup.sh"
 fi
 
 
