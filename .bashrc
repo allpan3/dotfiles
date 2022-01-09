@@ -44,6 +44,9 @@ alias egrep='egrep --color=auto'
 alias dgit='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 
 
+########## Source ##########
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
 
 if [ -f "$HOME/.ssh/id_rsa" ]; then
     . "$HOME/scripts/ssh-agent-setup.sh"
