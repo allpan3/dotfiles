@@ -26,6 +26,10 @@
 	<string></string>
 	<key>ConvertDosNewlines</key>
 	<true/>
+	<key>Coprocess MRU</key>
+	<array>
+		<string></string>
+	</array>
 	<key>CopySelection</key>
 	<true/>
 	<key>Custom Color Presets</key>
@@ -551,12 +555,16 @@ Split Horizontally with Current Profile</string>
 			</dict>
 			<key>Ansi 4 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.97647058823529409</real>
+				<real>0.97577738761901855</real>
+				<key>Color Space</key>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.57647058823529407</real>
+				<real>0.77421230364757321</real>
 				<key>Red Component</key>
-				<real>0.74117647058823533</real>
+				<real>0.85614303978264394</real>
 			</dict>
 			<key>Ansi 5 Color</key>
 			<dict>
@@ -764,6 +772,17 @@ Split Horizontally with Current Profile</string>
 			</array>
 			<key>Keyboard Map</key>
 			<dict>
+				<key>0x2f-0x100000-0x2c</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>[/</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
 				<key>0x7a-0x100000</key>
 				<dict>
 					<key>Action</key>
