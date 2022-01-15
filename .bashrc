@@ -42,7 +42,9 @@ alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias dgit='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
-
+alias tatt="tmux -CC attach -t"
+alias tnew="tmux -CC new -s"
+alias tkill="tmux kill-session -t"
 
 ########## Source ##########
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
