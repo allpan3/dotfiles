@@ -358,6 +358,17 @@ Split Horizontally with Current Profile</string>
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0xd-0x100000-0x24</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
 		<key>0xf700-0x2c0000</key>
 		<dict>
 			<key>Action</key>
@@ -715,6 +726,8 @@ Split Horizontally with Current Profile</string>
 			<string>Default</string>
 			<key>Disable Window Resizing</key>
 			<true/>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -1068,7 +1081,7 @@ Split Horizontally with Current Profile</string>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>3000</integer>
+			<integer>5000</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -3967,6 +3980,7 @@ Split Horizontally with Current Profile</string>
 			<key>Bound Hosts</key>
 			<array>
 				<string>allpan@asic*</string>
+				<string>allpan@iron*</string>
 			</array>
 			<key>Character Encoding</key>
 			<integer>4</integer>
@@ -4457,7 +4471,7 @@ Split Horizontally with Current Profile</string>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>3000</integer>
+			<integer>5000</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Blue Component</key>
