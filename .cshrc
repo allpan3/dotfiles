@@ -93,7 +93,7 @@ if ( -f "$HOME/.cshrc_local" ) then
 endif
 
 
-# Ideally this should be in .login, but csh is not the login shell for this system. Doesn't see an issue putting here yet
-# Put at the end of this file becasuse this script modifies prompt
+# Ideally this should be in .login, but csh is not the login shell for some systems.
+# Don't see an issue putting here yet. Put at the end becasuse this script modifies prompt
 setenv ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX YES
-# source ${HOME}/.iterm2/iterm2_shell_integration.tcsh
+source ${HOME}/.iterm2/iterm2_shell_integration.tcsh
