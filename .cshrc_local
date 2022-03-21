@@ -1,0 +1,17 @@
+
+########## Shell Setup ##########
+
+########## Variables ##########
+set prompt="%{\033[30;44m%}[%~]%{\033[0m%}%{\033[34m%} %%%{\033[0m%} "          # shell prompt format
+# "set -f" adds a variable in _front of the list, and keep one unique copy
+# "set -l" adds a variable at the end(_last) of the list, and keep one unique copy
+set -f path = ( ~/local/bin $path )
+set -f path = ( ~/scripts $path )
+setenv MANPATH ~/local/share/man:$MANPATH 
+setenv DISPLAY ":5"
+setenv SERVER_SOCKET_DIR /tmp/emacs # the custom directory for TCP and Socket server
+setenv EDITOR "emacsclient -s $SERVER_SOCKET_DIR/cli_server"
+
+
+########## Aliases ##########
+alias ec "emacs.sh -s cli_server" # open the file in the current terminal window
