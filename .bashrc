@@ -31,12 +31,23 @@ shopt -s checkwinsize
 
 # an argument to the cd builtin command that is not a directory is assumed
 # to be the name of a variable whose value is the directory to change to.
-shopt -s cdable_vars
+# In darwin and linux, tab completion doesn't suggest variables. But in linux-gnu
+# it expands even when I just type `cd <TAB>`, which is annoying so not enabling.
+if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+    shopt -s cdable_vars
+fi
 shopt -s cdspell
 shopt -s dirspell direxpand
 
 
 ########## Aliases ##########
+alias ls='ls -F --color=auto'
+alias la='ls -A'
+alias ll='la -lh'
+alias llt="ll -t"
+# list info of directories instead of showing their contents
+# usually following wildcards; compare this to ll followed a directory name
+alias ld='ll -d'
 alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
