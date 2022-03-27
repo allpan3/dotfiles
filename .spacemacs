@@ -89,6 +89,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-excluded-packages
    '(
      vi-tilde-fringe
+     evil-terminal-cursor-changer
      )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -555,6 +556,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; turn off comment line background color in some themes
   (setq-default spacemacs-theme-comment-bg nil)
+
   )
 
 
@@ -580,6 +582,7 @@ before packages are loaded."
   ;; (message "Change to tcp server...")
   ;; (server-start)
   ;;   )
+
 
   ;; The following code is required to use TRAMP properly
   (setq-default tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*" )
