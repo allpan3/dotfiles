@@ -1,5 +1,8 @@
 ### Local bashrc file containing system-specific settings
 
+# Set up homebrew paths
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 ########## Variables ##########
 export PS1="\[\e[30;42m\][\w]\[\e[m\]\[\e[32m\] $\[\e[m\] "
 export PATH="$HOME/scripts:$PATH:/usr/local/sbin"
@@ -20,7 +23,8 @@ alias ssh='ssh.sh'
 
 ########## Completion ##########
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+
 complete -o nospace -F _cd cd # overwrite cd behavior
 
 
