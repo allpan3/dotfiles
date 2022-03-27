@@ -1,7 +1,12 @@
 ### Local bashrc file containing system-specific settings
 
 # Set up homebrew paths
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ "$HOSTNAME" == "ALLPAN-M-F0NP" ]; then
+  eval "$(/usr/local/Homebrew/bin/brew shellenv)"
+else 
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 
 ########## Variables ##########
 export PS1="\[\e[30;42m\][\w]\[\e[m\]\[\e[32m\] $\[\e[m\] "
