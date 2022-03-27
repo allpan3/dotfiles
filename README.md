@@ -15,10 +15,13 @@ There are a few ways to manage system-specific settings. Not all of them are ava
 
 1. Use condition statements based on `$(uname)` or `$(hostname)` to separate out system-specific settings within the same configuration file.
 
-2. Create system-specific "sub-files", conventionally named "`xxx.local`" to store system-specific settings, and include/source them in the main configuration files. Store these local files in system-specific branches.
+2. Create system-specific "sub-files", conventionally named "`xxx_local`" to store system-specific settings, and include/source them in the main configuration files. Store these local files in system-specific branches.
 3. Having separate versions of a configuration file and store each in a different system-specific branch. 
 
-    - There can still be a base version of the file stored in `master` for any systems without special settings to use, as well as storing the common part to allow syncing through rebasing. But, must be careful that there's no conflict with the system-specific versions, otherwise conflict-resolving will be required every time you do `dgit rebase`.
+   - There can still be a base version of the file stored in `master` for any systems without special settings to use, as well as storing the common part to allow syncing through rebasing. But, must be careful that there's no conflict with the system-specific versions, otherwise conflict-resolving will be required every time you do `dgit rebase`.
+   - If no base version is stored in `master` branch, must remember to add any common changes in all of the branches. This creates extra hassle in the syncing process.
 
-    - If no base version is stored in `master` branch, must remember to add any common changes in all of the branches. This creates extra hassle in the syncing process.
-
+### Pull from Repo
+```
+dgit pull origin --rebase
+```
