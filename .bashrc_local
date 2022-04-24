@@ -10,7 +10,7 @@ fi
 
 ########## Variables ##########
 export PS1="\[\e[30;42m\][\w]\[\e[m\]\[\e[32m\] $\[\e[m\] "
-export PATH="$HOME/scripts:$PATH:/usr/local/sbin"
+export PATH="$HOME/scripts:/Library/TeX/textbin:$PATH:/usr/local/sbin"
 # export CPATH="/usr/local/include"
 # export LIBRARY_PATH="/usr/local/lib"
 export SERVER_SOCKET_DIR=/tmp/emacs # the custom directory for TCP and Socket server
