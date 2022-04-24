@@ -42,24 +42,37 @@ This function should only modify configuration layer settings."
                         persp-autokill-buffer-on-remove 'kill-weak
                         spacemacs-layouts-restrict-spc-tab t)
      (auto-completion :variables
+                      auto-completion-return-key-behavior nil
+                      auto-completion-tab-key-behavior 'complete
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t
-                      auto-completion-idle-delay 0.1)
+                      auto-completion-idle-delay 0.1
+                      auto-completion-enable-help-tooltip 'manual)
      better-defaults
      emacs-lisp
      git
      helm
-     ;; lsp
      markdown
      multiple-cursors
-     javascript
+     tern
+     (javascript :variables
+                 javascript-backend 'tern)
+     (json :variables
+           json-backend nil)
      html
      php
      csv
-     shell-scripts
+     (shell-scripts :variables
+                    shell-scripts-backend nil)
      yaml
      python
      org
+     (lsp :enabled-for latex)
+     (latex :variables
+            ;; latex-backend 'lsp
+            latex-build-command "LaTeX"
+            latex-enable-auto-fill t
+            latex-enable-folding t)
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -265,7 +278,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14.0
+                               :size 16.0
                                :weight normal
                                :width normal)
 
@@ -555,7 +568,7 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; turn off comment line background color in some themes
-  (setq-default spacemacs-theme-comment-bg nil)
+  ;; (setq-default spacemacs-theme-comment-bg nil)
 
   )
 
@@ -564,7 +577,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   "Library to load while dumping.
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
-dump.")
+dump."
+
+
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -665,7 +681,7 @@ before packages are loaded."
     (define-key company-active-map (kbd "<escape>") 'company-abort)
     (define-key evil-insert-state-map (kbd "S-SPC") 'company-manual-begin) ;; Shift-SPC
     )
-  
+
 
   ;; dired mode; navigate directories using the same buffer
   (with-eval-after-load 'dired
@@ -673,6 +689,15 @@ before packages are loaded."
     (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory initially
     )
 
+  ;; Tex PDF viewer
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-source-correlate-method 'synctex)
+
+  (cond
+   ((string-equal system-type "darwin")
+    (progn (setq TeX-view-program-selection '((output-pdf "displayline")))))
+   )
   )
 
 
@@ -690,11 +715,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(tern yasnippet-snippets helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete unfill mwim ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
+   '(dap-mode bui company-quickhelp pdf-view-restore tablist tern yasnippet-snippets helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete unfill mwim ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
