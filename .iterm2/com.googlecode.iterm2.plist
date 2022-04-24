@@ -322,6 +322,17 @@ Split Vertically with Current Profile</string>
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0x7a-0x40000-0x6</key>
+		<dict>
+			<key>Action</key>
+			<integer>44</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
 		<key>0x7b-0xa0000</key>
 		<dict>
 			<key>Action</key>
@@ -1052,6 +1063,8 @@ Split Horizontally with Current Profile</string>
 			<integer>0</integer>
 			<key>Mouse Reporting</key>
 			<true/>
+			<key>Mouse Reporting allow clicks and drags</key>
+			<true/>
 			<key>Mouse Reporting allow mouse wheel</key>
 			<true/>
 			<key>Movement Keys Scroll Outside Interactive Apps</key>
@@ -1294,7 +1307,7 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.81427499999999997</real>
+									<real>0.87570000000000003</real>
 									<key>Red Component</key>
 									<real>0.90000000000000002</real>
 								</dict>
@@ -1336,7 +1349,7 @@ Split Horizontally with Current Profile</string>
 									<key>Green Component</key>
 									<real>0.90000000000000002</real>
 									<key>Red Component</key>
-									<real>0.80145</real>
+									<real>0.67859999999999998</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1372,7 +1385,7 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.64282500000000009</real>
+									<real>0.82710000000000006</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -1416,11 +1429,11 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.82710000000000006</real>
+									<real>0.90000000000000002</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.90000000000000002</real>
+									<real>0.72719999999999996</real>
 									<key>Red Component</key>
 									<real>0.63</real>
 								</dict>
@@ -1462,85 +1475,9 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.78862500000000013</real>
-									<key>Red Component</key>
-									<real>0.63</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>1</integer>
-								<key>auto-rainbow style</key>
-								<integer>3</integer>
-								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
-								<key>remove empty components</key>
-								<false/>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarCPUUtilizationComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.90000000000000002</real>
-									<key>Color Space</key>
-									<string>sRGB</string>
-									<key>Green Component</key>
 									<real>0.63</real>
 									<key>Red Component</key>
-									<real>0.65564999999999996</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>1</integer>
-								<key>auto-rainbow style</key>
-								<integer>3</integer>
-								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
-								<key>remove empty components</key>
-								<false/>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarMemoryUtilizationComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.90000000000000002</real>
-									<key>Color Space</key>
-									<string>sRGB</string>
-									<key>Green Component</key>
-									<real>0.63</real>
-									<key>Red Component</key>
-									<real>0.83992499999999992</real>
+									<real>0.77849999999999997</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1574,7 +1511,7 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.77580000000000005</real>
+									<real>0.77580000000000027</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -2909,7 +2846,7 @@ Split Horizontally with Current Profile</string>
 			<key>Bound Hosts</key>
 			<array>
 				<string>&amp;emacs*</string>
-				<string>&amp;Emacs</string>
+				<string>&amp;Emacs*</string>
 			</array>
 			<key>Character Encoding</key>
 			<integer>4</integer>
@@ -3535,8 +3472,12 @@ Split Horizontally with Current Profile</string>
 				<dict>
 					<key>algorithm</key>
 					<integer>1</integer>
+					<key>auto-rainbow style</key>
+					<integer>3</integer>
 					<key>font</key>
 					<string>.AppleSystemUIFont 12</string>
+					<key>remove empty components</key>
+					<false/>
 				</dict>
 				<key>components</key>
 				<array>
@@ -3571,8 +3512,12 @@ Split Horizontally with Current Profile</string>
 							<dict>
 								<key>algorithm</key>
 								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>3</integer>
 								<key>font</key>
 								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
 							</dict>
 						</dict>
 					</dict>
@@ -3602,17 +3547,61 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.90000000000000002</real>
+									<real>0.87570000000000003</real>
 									<key>Red Component</key>
-									<real>0.84599999999999997</real>
+									<real>0.90000000000000002</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
 							<dict>
 								<key>algorithm</key>
 								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>3</integer>
 								<key>font</key>
 								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
+							</dict>
+						</dict>
+					</dict>
+					<dict>
+						<key>class</key>
+						<string>iTermStatusBarHostnameComponent</string>
+						<key>configuration</key>
+						<dict>
+							<key>knobs</key>
+							<dict>
+								<key>base: compression resistance</key>
+								<integer>1</integer>
+								<key>base: priority</key>
+								<real>5</real>
+								<key>path</key>
+								<string>hostname</string>
+								<key>shared text color</key>
+								<dict>
+									<key>Alpha Component</key>
+									<real>1</real>
+									<key>Blue Component</key>
+									<real>0.63</real>
+									<key>Color Space</key>
+									<string>sRGB</string>
+									<key>Green Component</key>
+									<real>0.90000000000000002</real>
+									<key>Red Component</key>
+									<real>0.67859999999999998</real>
+								</dict>
+							</dict>
+							<key>layout advanced configuration dictionary value</key>
+							<dict>
+								<key>algorithm</key>
+								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>3</integer>
+								<key>font</key>
+								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
 							</dict>
 						</dict>
 					</dict>
@@ -3636,7 +3625,7 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.7380000000000001</real>
+									<real>0.82710000000000006</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -3649,8 +3638,56 @@ Split Horizontally with Current Profile</string>
 							<dict>
 								<key>algorithm</key>
 								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>3</integer>
 								<key>font</key>
 								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
+							</dict>
+						</dict>
+					</dict>
+					<dict>
+						<key>class</key>
+						<string>iTermStatusBarGitComponent</string>
+						<key>configuration</key>
+						<dict>
+							<key>knobs</key>
+							<dict>
+								<key>base: compression resistance</key>
+								<integer>1</integer>
+								<key>base: priority</key>
+								<real>5</real>
+								<key>iTermStatusBarGitComponentPollingIntervalKey</key>
+								<real>2</real>
+								<key>maxwidth</key>
+								<real>+infinity</real>
+								<key>minwidth</key>
+								<integer>0</integer>
+								<key>shared text color</key>
+								<dict>
+									<key>Alpha Component</key>
+									<real>1</real>
+									<key>Blue Component</key>
+									<real>0.90000000000000002</real>
+									<key>Color Space</key>
+									<string>sRGB</string>
+									<key>Green Component</key>
+									<real>0.72719999999999996</real>
+									<key>Red Component</key>
+									<real>0.63</real>
+								</dict>
+							</dict>
+							<key>layout advanced configuration dictionary value</key>
+							<dict>
+								<key>algorithm</key>
+								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>3</integer>
+								<key>font</key>
+								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
 							</dict>
 						</dict>
 					</dict>
@@ -3678,15 +3715,21 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.73799999999999988</real>
-									<key>Red Component</key>
 									<real>0.63</real>
+									<key>Red Component</key>
+									<real>0.77849999999999997</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
 							<dict>
 								<key>algorithm</key>
 								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>3</integer>
+								<key>font</key>
+								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
 							</dict>
 						</dict>
 					</dict>
@@ -3708,21 +3751,25 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.90000000000000002</real>
+									<real>0.77580000000000027</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
 									<real>0.63</real>
 									<key>Red Component</key>
-									<real>0.8460000000000002</real>
+									<real>0.90000000000000002</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
 							<dict>
 								<key>algorithm</key>
 								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>3</integer>
 								<key>font</key>
 								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
 							</dict>
 						</dict>
 					</dict>
