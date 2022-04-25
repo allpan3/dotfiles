@@ -19,7 +19,7 @@ do
     case "${option}" in
 	      f|s) server_name=${OPTARG}
 	           server_opt=-${option}
-	           server_arg="-${option} ${SERVER_SOCKET_DIR}/${OPTARG}";;
+	           server_arg="-${option} ${EMACS_SERVER_DIR}/${OPTARG}";;
         -) ;; # workaroud, otherwise --sudo will be parsed by -s
     esac
 done

@@ -57,13 +57,16 @@ alias tatt="tmux -CC attach -t"
 alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
 
+########## Variables #########
+export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
+
 ########## Source ##########
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
 
-if [ -f "$HOME/.ssh/id_rsa" ]; then
-    . "$HOME/scripts/ssh-agent-setup.sh"
-fi
+# if [ -f "$HOME/.ssh/id_rsa" ]; then
+    # . "$HOME/scripts/ssh-agent-setup.sh"
+# fi
 
 
 # .bashrc_local if it exists

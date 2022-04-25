@@ -4,13 +4,17 @@
 # Used in emacsclient -a option to start daemon if server not found.
 # This file should only be executed once for each server--at the server creation time
 
-# get the server name
+# Get the server name
 while getopts ":T:f:s:" option; do
     case "${option}" in
         f|s)
             server_name=${OPTARG}
     esac
 done
+
+
+# Create emacs tmp directory if not exist
+mkdir -p ${EMACS_SERVER_DIR}
 
 if [[ "${server_name}" == *"gui_server" ]]; then
     # Load ssh key to avoid entering passphrase when using tramp
