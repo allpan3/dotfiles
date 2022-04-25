@@ -14,7 +14,7 @@ done
 
 
 # Create emacs tmp directory if not exist
-mkdir -p ${EMACS_SERVER_DIR}
+mkdir -p -m 700 ${EMACS_SERVER_DIR}
 
 if [[ "${server_name}" == *"gui_server" ]]; then
     # Load ssh key to avoid entering passphrase when using tramp
