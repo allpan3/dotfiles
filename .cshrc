@@ -49,7 +49,7 @@ set fignore=(.o)
 ########## Variables ##########
 # "set -f" adds a variable in _front of the list, keep one copy
 # "set -l" adds a variable at the end(_last) of the list, keep one copy
-
+setenv EMACS_SERVER_DIR /tmp/emacs-allpan # the custom directory for TCP and Socket server
 
 ########## Aliases ##########
 alias his history
