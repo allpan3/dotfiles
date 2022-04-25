@@ -5,8 +5,7 @@ export PS1="\[\e[30;44m\][\w]\[\e[m\]\[\e[34m\] $\[\e[m\] "
 export PATH=${HOME}/scripts:${HOME}/local/bin:${PATH}
 # export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
 export MANPATH=$HOME/local/share/man:$MANPATH
-export SERVER_SOCKET_DIR=/tmp/emacs # the custom directory for TCP and Socket server
-export EDITOR="emacsclient -s $SERVER_SOCKET_DIR/cli_server"
+export EDITOR="emacsclient -s $EMACS_SERVER_DIR/cli_server"
 export DISPLAY=":5"
 
 
