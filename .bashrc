@@ -60,6 +60,22 @@ alias tkill="tmux kill-session -t"
 ########## Variables #########
 export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
 
+########## Keybinding ##########
+# readline does not bind over Ctrl-W since it is handled by the terminal driver by default
+# run the following command to disable it
+stty werase undef
+bind "\C-w":backward-delete-char
+bind '"\e\C-w":backward-kill-word' # ctrl-alt-w
+# need to bind super-ctrl-w to backward-kill-line
+bind "\C-h":backward-char
+# need to bind ctrl-alt-h to backward-word
+# need to bind super-ctrl-h to beginning of the line
+bind "\C-l":forward-char
+bind "\C-j":next-history
+bind "\C-k":previous-history
+bind "\C-b":kill-line # forward delete line
+bind '"\e[3;4~":backward-kill-line'
+
 ########## Source ##########
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"

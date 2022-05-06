@@ -650,7 +650,7 @@ before packages are loaded."
   (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-line-or-code) ; C-b (0x05) mapped to cmd-right
   (define-key evil-normal-state-map (kbd "C-e") 'mwim-end-of-line-or-code)
   (define-key evil-motion-state-map (kbd "C-e") 'mwim-end-of-line-or-code)
-
+ 
   ;; editing
   (define-key evil-insert-state-map (kbd "H-<backspace>") 'evil-delete-back-to-indentation)
   (define-key evil-normal-state-map (kbd "H-<backspace>") 'evil-delete-back-to-indentation)
@@ -671,8 +671,9 @@ before packages are loaded."
   (global-set-key "\e[1;9C" (kbd "H-S-<right>"))  ; ^[[1;9C mapped to cmd-shift-right. This doesn't work well in normal state; recommend to enter motion state first
   (global-set-key "\e[1;9A" (kbd "H-S-<up>"))     ; this does not work
   (global-set-key "\e[1;9B" (kbd "H-S-<down>"))   ; this does not work
-  (global-set-key "\e[30~"  (kbd "H-<backspace>"))
-  (global-set-key "\e[/"    (kbd "H-/"))
+  ;; (global-set-key (kbd "<M-delete>") 'evil-delete-back-to-indentation)
+  (global-set-key (kbd "M-<delete>") (kbd "H-<backspace>"))
+  ;; (global-set-key "\e[3;4~" (kbd "H-<backspace>"))
 
 
   ;; Auto-Completion

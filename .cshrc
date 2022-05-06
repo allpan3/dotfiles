@@ -71,19 +71,26 @@ alias mv "mv -v"
 alias ff 'find . -name $*'
 
 ########## bindkey ##########
+bindkey "^U" backward-kill-line
+bindkey "^H" backward-char
+bindkey "^L" forward-char
+bindkey "^M" down-history  # on mac, somehow ctrl-j and ctrl-m are reversed
+bindkey "^K" up-history
+bindkey "^W" backward-delete-char 
+bindkey "^B" kill-line
 bindkey "\e[1;1D" beginning-of-line
 bindkey "\e[1;1C" end-of-line
 bindkey "\e[1;3D" backward-word
 bindkey "\e[1;3C" forward-word
-bindkey "\e[30~" backward-kill-line   
-bindkey "\e[31~" kill-line 
-bindkey "\e[p" yank          # this affects kill-region
-bindkey "\e[M" set-mark-command
-bindkey "\e[y" copy-region-as-kill
+bindkey "\e[3;4~" backward-kill-line
+# bindkey "\e[p" yank          # this affects kill-region
+# bindkey "\e[M" set-mark-command
+# bindkey "\e[y" copy-region-as-kill
+# Comment out the following for now.
 # backward-kill-line has no default keybinding; ^w is kill-region, which has the same effect when no mark is set
 # but don't know how to have keybinding in tclsh now, so I have to map ^w to cmd-backspace;
 # and to make cmd-backspace trigger backward-kill-line, have to bind ^w to it. In tclsh, do not use yank
-bindkey "^w" backward-kill-line
+# bindkey "^w" backward-kill-line
 # csh has no undo/redo
 
 
