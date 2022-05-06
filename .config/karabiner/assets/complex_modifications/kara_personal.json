@@ -2,8 +2,158 @@
     "title": "aifusenno1 Personal Setting",
     "rules": [
     {
-        "description": "CAPS_LOCK to contrl when pressed with any other key, to ESC when alone.",
+        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace, +m to return (w/ modifier), to contrl when pressed with any other, to ESC when alone.",
         "manipulators": [
+            {
+                "type": "basic",
+                "from": {
+                    "key_code": "j",
+                    "modifiers": {
+                        "mandatory": [
+                            "left_control"
+                        ],
+                        "optional": [
+                            "left_shift",
+                            "left_option",
+                            "left_command",
+                            "fn"
+                        ]
+                    }
+                },
+                "to": [{
+                    "key_code": "down_arrow"
+                }],
+                "conditions": [{
+                    "type": "variable_if",
+                    "name": "caps_lock pressed",
+                    "value": 1
+                }]
+            },
+            {
+                "type": "basic",
+                "from": {
+                    "key_code": "k",
+                    "modifiers": {
+                        "mandatory": [
+                            "left_control"
+                        ],
+                        "optional": [
+                            "left_shift",
+                            "left_option",
+                            "left_command",
+                            "fn"
+                        ]
+                    }
+                },
+                "to": [{
+                    "key_code": "up_arrow"
+                }],
+                "conditions": [{
+                    "type": "variable_if",
+                    "name": "caps_lock pressed",
+                    "value": 1
+                }]
+            },
+            {
+                "type": "basic",
+                "from": {
+                    "key_code": "h",
+                    "modifiers": {
+                        "mandatory": [
+                            "left_control"
+                        ],
+                        "optional": [
+                            "left_shift",
+                            "left_option",
+                            "left_command",
+                            "fn"
+                        ]
+                    }
+                },
+                "to": [{
+                    "key_code": "left_arrow"
+                }],
+                "conditions": [{
+                    "type": "variable_if",
+                    "name": "caps_lock pressed",
+                    "value": 1
+                }]
+            },
+            {
+                "type": "basic",
+                "from": {
+                    "key_code": "l",
+                    "modifiers": {
+                        "mandatory": [
+                            "left_control"
+                        ],
+                        "optional": [
+                            "left_shift",
+                            "left_option",
+                            "left_command",
+                            "fn"
+                        ]
+                    }
+                },
+                "to": [{
+                    "key_code": "right_arrow"
+                }],
+                "conditions": [{
+                    "type": "variable_if",
+                    "name": "caps_lock pressed",
+                    "value": 1
+                }]
+            },
+            {
+                "type": "basic",
+                "from": {
+                    "key_code": "w",
+                    "modifiers": {
+                        "mandatory": [
+                            "left_control"
+                        ],
+                        "optional": [
+                            "left_shift",
+                            "left_option",
+                            "left_command",
+                            "fn"
+                        ]
+                    }
+                },
+                "to": [{
+                    "key_code": "delete_or_backspace"
+                }],
+                "conditions": [{
+                    "type": "variable_if",
+                    "name": "caps_lock pressed",
+                    "value": 1
+                }]
+            },
+            {
+                "type": "basic",
+                "from": {
+                    "key_code": "m",
+                    "modifiers": {
+                        "mandatory": [
+                            "left_control"
+                        ],
+                        "optional": [
+                            "left_shift",
+                            "left_option",
+                            "left_command",
+                            "fn"
+                        ]
+                    }
+                },
+                "to": [{
+                    "key_code": "return_or_enter"
+                }],
+                "conditions": [{
+                    "type": "variable_if",
+                    "name": "caps_lock pressed",
+                    "value": 1
+                }]
+            },
             {
                 "type": "basic",
                 "from": {

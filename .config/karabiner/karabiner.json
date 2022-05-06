@@ -46,17 +46,27 @@
                         ]
                     },
                     {
-                        "description": "Fn + hjkl to arrow keys",
+                        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace, +m to return (w/ modifier), to contrl when pressed with any other, to ESC when alone.",
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": {
                                         "mandatory": [
-                                            "fn"
+                                            "left_control"
                                         ],
                                         "optional": [
-                                            "any"
+                                            "left_shift",
+                                            "left_option",
+                                            "left_command",
+                                            "fn"
                                         ]
                                     }
                                 },
@@ -68,14 +78,24 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
                                         "mandatory": [
-                                            "fn"
+                                            "left_control"
                                         ],
                                         "optional": [
-                                            "any"
+                                            "left_shift",
+                                            "left_option",
+                                            "left_command",
+                                            "fn"
                                         ]
                                     }
                                 },
@@ -87,14 +107,24 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
                                         "mandatory": [
-                                            "fn"
+                                            "left_control"
                                         ],
                                         "optional": [
-                                            "any"
+                                            "left_shift",
+                                            "left_option",
+                                            "left_command",
+                                            "fn"
                                         ]
                                     }
                                 },
@@ -106,14 +136,24 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
                                         "mandatory": [
-                                            "fn"
+                                            "left_control"
                                         ],
                                         "optional": [
-                                            "any"
+                                            "left_shift",
+                                            "left_option",
+                                            "left_command",
+                                            "fn"
                                         ]
                                     }
                                 },
@@ -123,12 +163,65 @@
                                     }
                                 ],
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "CAPS_LOCK to contrl when pressed with any other key, to ESC when alone.",
-                        "manipulators": [
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ],
+                                        "optional": [
+                                            "left_shift",
+                                            "left_option",
+                                            "left_command",
+                                            "fn"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "m",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ],
+                                        "optional": [
+                                            "left_shift",
+                                            "left_option",
+                                            "left_command",
+                                            "fn"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "return_or_enter"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
                             {
                                 "from": {
                                     "key_code": "caps_lock",
