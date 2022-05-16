@@ -1,12 +1,22 @@
 ### Local bashrc file containing system-specific settings
 
-# Set up homebrew paths
+## Set up homebrew paths
 if [ "$HOSTNAME" == "ALLPAN-M-F0NP" ]; then
   eval "$(/usr/local/Homebrew/bin/brew shellenv)"
 else 
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+## Set up pyenv
+export PYENV_ROOT="/opt/pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+## Set up Google Clound SDK
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then . '/opt/google-cloud-sdk/path.bash.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then . '/opt/google-cloud-sdk/completion.bash.inc'; fi
 
 ########## Variables ##########
 export PS1="\[\e[30;42m\][\w]\[\e[m\]\[\e[32m\] $\[\e[m\] "
@@ -16,7 +26,6 @@ export PATH="$HOME/scripts:/Library/TeX/textbin:$PATH:/usr/local/sbin"
 # export EDITOR="emacs.sh -s cli_server"  # seems like env vars are not able to resolve alias, so specify full executable
 # this is more lightweight then calling emacs.sh,  but emacs server must have been started
 export EDITOR="emacsclient -s ${EMACS_SERVER_DIR}/cli_server"
-
 
 ########## Alias ##########
 alias em="emacs.sh -s gui_server" # open the file in gui emacs
@@ -34,5 +43,6 @@ complete -o nospace -F _cd cd # overwrite cd behavior
 
 ########## z ##########
 test -r "/usr/local/etc/profile.d/z.sh" && . /usr/local/etc/profile.d/z.sh
+
 
 
