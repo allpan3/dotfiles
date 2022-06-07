@@ -2,7 +2,7 @@
     "title": "aifusenno1 Personal Setting",
     "rules": [
     {
-        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace, +m to return (w/ modifier), to contrl when pressed with any other, to ESC when alone.",
+        "description": "CAPS_LOCK+hjkl to arrow keys, +n to backspace, +m to return (w/ modifier), to contrl when pressed with any other, to ESC when alone.",
         "manipulators": [
             {
                 "type": "basic",
@@ -107,7 +107,7 @@
             {
                 "type": "basic",
                 "from": {
-                    "key_code": "w",
+                    "key_code": "n",
                     "modifiers": {
                         "mandatory": [
                             "left_control"
