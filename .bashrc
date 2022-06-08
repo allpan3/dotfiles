@@ -64,9 +64,9 @@ export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Soc
 # readline does not bind over Ctrl-W since it is handled by the terminal driver by default
 # run the following command to disable it
 stty werase undef
-bind "\C-w":backward-delete-char
-bind '"\e\C-w":backward-kill-word' # ctrl-alt-w
-# need to bind super-ctrl-w to backward-kill-line
+bind "\C-n":backward-delete-char
+bind '"\e\C-n":backward-kill-word' # ctrl-alt-n
+# need to bind super-ctrl-n to backward-kill-line
 bind "\C-h":backward-char
 # need to bind ctrl-alt-h to backward-word
 # need to bind super-ctrl-h to beginning of the line
