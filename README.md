@@ -1,6 +1,15 @@
 
 ## Bare Git Repo
 
+## Install on a New Machine
+```
+git clone --separate-git-dir=$HOME/.dotfiles.git https://github.com/allpan3/dotfiles.git dotfiles-tmp
+rsync --recursive --verbose --exclude '.git' dotfiles-tmp/ $HOME/
+rm -rf dotfiles-tmp
+git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME config status.showUntrackedFiles no
+```
+Start a new shell to allow settings to take effect.
+
 ## Branch Organization
 Branches are organized in the following fashion: `master` branch contains all base files that are shared among all systems. Each system, if necessary, has its own branch where system-specific files plus all files from `master` are stored. Multiple systems can share one system-specific branch if that's sufficient. 
 
@@ -8,6 +17,7 @@ Shared files should be committed in the `master` branch. In system-specific bran
 If shared files are accidentally added and committed in a system-specific branch, use `dgit cherry-pick` to migrate them to the `master` branch.
 
 One minor issue with this method is, after switching from system-specific branches to `master` branch, the files which are only tracked in system-specific branches will be removed from the working tree. This may cause trouble if you perform certain activities in the `master` branch. Therefore, it is recommended to stay in system-specific branches for most of the work, and only switch to `master` branch when you commit the changes.
+
 
 ## Manage Multiple Systems
 
