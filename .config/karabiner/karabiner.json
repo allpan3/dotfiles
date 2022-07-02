@@ -46,7 +46,7 @@
                         ]
                     },
                     {
-                        "description": "CAPS_LOCK+hjkl to arrow keys, +n to backspace, +m to return (w/ modifier), to contrl when pressed with any other, to ESC when alone.",
+                        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace, +m to return (w/ modifier), to contrl when pressed with any other, to ESC when alone.",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -173,7 +173,7 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "n",
+                                    "key_code": "w",
                                     "modifiers": {
                                         "mandatory": [
                                             "left_control"
