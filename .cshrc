@@ -76,7 +76,7 @@ bindkey "^H" backward-char
 bindkey "^L" forward-char
 bindkey "^M" down-history  # somehow ctrl-j and ctrl-m are reversed, both on mac and linux. Setting ^M here modifies ^J
 bindkey "^K" up-history
-bindkey "^N" backward-delete-char 
+bindkey "^W" backward-delete-char 
 bindkey "^B" kill-line
 bindkey "\e[1;1D" beginning-of-line
 bindkey "\e[1;1C" end-of-line
