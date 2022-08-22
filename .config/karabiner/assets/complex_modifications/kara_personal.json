@@ -2,7 +2,112 @@
     "title": "aifusenno1 Personal Setting",
     "rules": [
     {
-        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace, +m to return (w/ modifier), to contrl when pressed with any other, to ESC when alone.",
+        "description": "CAPS_LOCK+arrows to fn+arrows,  (w/ modifiers). Must also enable the main CAPS_LOCK setiting.",
+        "manipulators": [
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "left_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "left_arrow",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_if",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "right_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "right_arrow",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_if",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "up_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "up_arrow",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_if",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "down_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "down_arrow",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_if",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        }
+        ]
+    },
+        {
+        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace, +m to return (w/ modifiers). Must also enable the main CAPS_LOCK setiting.",
         "manipulators": [
             {
                 "type": "basic",
@@ -153,7 +258,12 @@
                     "name": "caps_lock pressed",
                     "value": 1
                 }]
-            },
+            }
+        ]
+    },
+    {
+        "description": "CAPS_LOCK to control when pressed with any other key, to ESC when alone.",
+        "manipulators": [
             {
                 "type": "basic",
                 "from": {
@@ -172,7 +282,8 @@
                         }
                     },
                     {
-                        "key_code": "left_control"
+                        "key_code": "left_control",
+                        "lazy": true
                     }
                 ],
                 "to_if_alone": [{
@@ -285,6 +396,217 @@
                 "key_code": "right_arrow"
             }
             ]
+        }
+        ]
+    },
+        {
+        "description": "(original) left_ctrl becomes fn when combined with arrows, space, enter, \\ and ' (except when with left and right alone).",
+        "manipulators": [
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "left_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control",
+                        "left_command"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "left_arrow",
+                "modifiers": [
+                    "fn",
+                    "left_command"
+                ]
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "right_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control",
+                        "left_command"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "right_arrow",
+                "modifiers": [
+                    "fn",
+                    "left_command"
+                ]
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "up_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "up_arrow",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "down_arrow",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "down_arrow",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "return_or_enter",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "return_or_enter",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "backslash",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "backslash",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "spacebar",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "spacebar",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
+        },
+            {
+            "type": "basic",
+            "from": {
+                "key_code": "quote",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ],
+                    "optional": [
+                        "left_shift",
+                        "left_option",
+                        "left_command"
+                    ]
+                }
+            },
+            "to": [{
+                "key_code": "quote",
+                "modifiers": "fn"
+            }],
+            "conditions": [{
+                "type": "variable_unless",
+                "name": "caps_lock pressed",
+                "value": 1
+            }]
         }
         ]
     }
