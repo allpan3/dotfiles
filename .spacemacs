@@ -65,7 +65,8 @@ This function should only modify configuration layer settings."
      (shell-scripts :variables
                     shell-scripts-backend nil)
      yaml
-     python
+     (python :variables
+             python-backend 'anaconda)
      org
      (lsp :enabled-for latex)
      (latex :variables
@@ -102,7 +103,6 @@ This function should only modify configuration layer settings."
    dotspacemacs-excluded-packages
    '(
      vi-tilde-fringe
-     evil-terminal-cursor-changer
      )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -606,18 +606,19 @@ before packages are loaded."
   (setq tramp-inline-compress-start-size 1000000)
 
 
-  ;; typing while selected will replace the selected text
+  ;; Typing while selected will replace the selected text
   (delete-selection-mode t)
-  ;; enable git commit mode
+  ;; Enable git commit mode
   (require 'git-commit)
   (global-git-commit-mode t)
-  ;; major mode for custom shell rc files
+  ;; Major mode for custom shell rc files
   (add-to-list 'auto-mode-alist '("\\(bashrc\\|cshrc\\).*\\'" . sh-mode))
-
+  ;; undo-tree history directory
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo-tree")))
 
   ;; Keybindings
   ;; H- is the command (hyper/super) key. It only works in the GUI, not the CLI emacs
-  ;; common
+  ;; Common
   (spacemacs/set-leader-keys
     "q q" 'spacemacs/frame-killer
     "q Q" 'spacemacs/prompt-kill-emacs
@@ -630,28 +631,28 @@ before packages are loaded."
   (global-set-key (kbd "H-h") 'help-command)
   (global-set-key (kbd "H-l") (kbd "C-l"))
 
-  ;; navigation
-  ;; mapping H- combo to another key (like what I did above) doesn't work with shift translation to allow selection. Have to map cmd+arrow directly to function to make shift selection work
-  ;; in normal state, shift-arrow does not work. Only work in insert state
+  ;; Navigation
+  ;; Mapping H- combo to another key (like what I did above) doesn't work with shift translation to allow selection. Have to map cmd+arrow directly to function to make shift selection work
+  ;; In normal state, shift-arrow does not work. Only work in insert state
   (global-set-key (kbd "H-<left>") 'mwim-beginning-of-code-or-line)  ; from MWIM package
   (global-set-key (kbd "H-<right>") 'mwim-end-of-line-or-code)  ; from MWIM package; cmd-shift-right behaviors strangely in normal state, recommend to enter visual state first
   (global-set-key (kbd "H-<up>") 'evil-goto-first-line)  ; cmd-shift-up does not work
   (global-set-key (kbd "H-<down>") 'evil-goto-line)  ; cmd-shift-down does not work
-  ;; unify C-f and C-b behavior in all states
+  ;; Unify C-f and C-b behavior in all states
   (define-key evil-insert-state-map (kbd "C-f") 'evil-scroll-page-down)
   (define-key evil-insert-state-map (kbd "C-b") 'evil-scroll-page-up)
   ;; (define-key evil-motion-state-map (kbd "C-f") 'evil-scroll-page-down)  ; this is the default behavior
   ;; (define-key evil-motion-state-map (kbd "C-b") 'evil-scroll-page-up)    ; this is the default behavior
-  ;; unify C-d and C-u behavior in all states
+  ;; Unify C-d and C-u behavior in all states
   (define-key evil-insert-state-map (kbd "C-d") 'evil-scroll-down)
   (define-key evil-insert-state-map (kbd "C-u") 'evil-scroll-up)
-  ;; unify C-a and C-e behavior in all states (looks like C-a and C-e default behavior isn't from better-defaults (overriden by other layers)
+  ;; Unify C-a and C-e behavior in all states (looks like C-a and C-e default behavior isn't from better-defaults (overriden by other layers)
   (define-key evil-insert-state-map (kbd "C-a") 'mwim-beginning-of-code-or-line)  ; C-a (0x01) mapped to cmd-left
   (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-line-or-code) ; C-b (0x05) mapped to cmd-right
   (define-key evil-normal-state-map (kbd "C-e") 'mwim-end-of-line-or-code)
   (define-key evil-motion-state-map (kbd "C-e") 'mwim-end-of-line-or-code)
  
-  ;; editing
+  ;; Editing
   (define-key evil-insert-state-map (kbd "H-<backspace>") 'evil-delete-back-to-indentation)
   (define-key evil-normal-state-map (kbd "H-<backspace>") 'evil-delete-back-to-indentation)
   (define-key evil-insert-state-map (kbd "M-DEL") 'evil-delete-backward-word) ; M-backspace
@@ -660,10 +661,10 @@ before packages are loaded."
                                         ; C-/ cannot be remapped otherwise undo will not work, so I use M-/ here instead. Also for some reason in terminal C-/ automatically sends C-_.
 
   ;; CLI keybinding
-  ;; these commands sets up the keybindings used in CLI emacs. They  work in conjection with iTerm2 Emacs profile.
+  ;; These commands sets up the keybindings used in CLI emacs. They  work in conjection with iTerm2 Emacs profile.
   ;; I try to map to the H- keys whenever possible so that the behaviors automaticall depend on previous settings
-  ;; but for some reason sometimes it does not work, so I have to explicitly use function name
-  ;; also, \e[1;7 and \e[1;8 are bound to C-M- in spacemacs, and cannot be overridden, so I avoid them in profile
+  ;; But for some reason sometimes it does not work, so I have to explicitly use function name
+  ;; Also, \e[1;7 and \e[1;8 are bound to C-M- in spacemacs, and cannot be overridden, so I avoid them in profile
   (global-set-key "\e[l"    (kbd "H-l"))  ; ^[[l mapped to cmd-l
   (global-set-key "\e[1;1A" (kbd "H-<up>"))
   (global-set-key "\e[1;1B" (kbd "H-<down>"))
@@ -674,7 +675,8 @@ before packages are loaded."
   ;; (global-set-key (kbd "<M-delete>") 'evil-delete-back-to-indentation)
   (global-set-key (kbd "M-<delete>") (kbd "H-<backspace>"))
   ;; (global-set-key "\e[3;4~" (kbd "H-<backspace>"))
-
+  (global-set-key "\e[/" (kbd "H-/"))
+  
 
   ;; Auto-Completion
   (setq-default company-shell-dont-fetch-meta t) ; resolve shell completion slowness, see https://github.com/Alexander-Miller/company-shell
@@ -684,7 +686,7 @@ before packages are loaded."
     )
 
 
-  ;; dired mode; navigate directories using the same buffer
+  ;; Dired mode; navigate directories using the same buffer
   (with-eval-after-load 'dired
     (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-find-file
     (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory initially
