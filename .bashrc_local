@@ -1,11 +1,7 @@
 ### Local bashrc file containing system-specific settings
 
 ## Set up homebrew paths
-if [ "$HOSTNAME" == "ALLPAN-M-F0NP" ]; then
-  eval "$(/usr/local/Homebrew/bin/brew shellenv)"
-else 
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Set up pyenv
 export PYENV_ROOT="/opt/pyenv"
