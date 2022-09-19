@@ -3,13 +3,18 @@
 
 ## Install on a New Machine
 ```
-git clone -b <branch> --separate-git-dir=$HOME/.dotfiles.git https://github.com/allpan3/dotfiles.git dotfiles-tmp
-```
-`<branch>` is the system-specific branch you would like to install. If this is a new type of machine to set up, use `master` branch as the baseline.
-```
+git clone --separate-git-dir=$HOME/.dotfiles.git https://github.com/allpan3/dotfiles.git dotfiles-tmp
 rsync --recursive --verbose --exclude '.git' dotfiles-tmp/ $HOME/
 rm -rf dotfiles-tmp
 git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME config status.showUntrackedFiles no
+```
+Next, checkout the system-specific branch that you would like to install.
+```
+git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME checkout <branch>
+```
+If this is a new type of machine to set up, create a new branch for it.
+```
+git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME checkout -b <branch>
 ```
 Start a new shell to allow settings to take effect.
 
