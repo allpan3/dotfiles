@@ -30,9 +30,9 @@ shopt -s checkwinsize
 # to be the name of a variable whose value is the directory to change to.
 # In darwin and linux, tab completion doesn't suggest variables. But in linux-gnu
 # it expands even when I just type `cd <TAB>`, which is annoying so not enabling.
-if [[ "$OSTYPE" != "linux-gnu"* ]]; then
-    shopt -s cdable_vars
-fi
+# update: this issue doesn't exist in one of the "linux-gnu" machines I used. Need
+# to find another way to distinguish the problematic system
+shopt -s cdable_vars
 shopt -s cdspell
 shopt -s dirspell direxpand
 
