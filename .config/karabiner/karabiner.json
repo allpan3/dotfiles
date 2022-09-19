@@ -267,7 +267,7 @@
                         ]
                     },
                     {
-                        "description": "(original) left_ctrl becomes fn when combined with arrows, space, enter, \\ and ' (except when with left and right alone).",
+                        "description": "(original) left_ctrl becomes fn when combined with arrows, space, enter, backspace, \\ and ' (except when with left and right alone).",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -415,6 +415,35 @@
                                 "to": [
                                     {
                                         "key_code": "return_or_enter",
+                                        "modifiers": "fn"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_unless",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ],
+                                        "optional": [
+                                            "left_shift",
+                                            "left_option",
+                                            "left_command"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
                                         "modifiers": "fn"
                                     }
                                 ],
