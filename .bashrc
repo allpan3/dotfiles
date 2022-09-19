@@ -11,14 +11,11 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
-
 
 ########## Options ##########
 # check the window size after each command and, if necessary,
@@ -39,7 +36,6 @@ fi
 shopt -s cdspell
 shopt -s dirspell direxpand
 
-
 ########## Aliases ##########
 alias ls='ls -F --color=auto'
 alias la='ls -A'
@@ -52,6 +48,7 @@ alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias rm="rm -I"
 alias dgit='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias tatt="tmux -CC attach -t"
 alias tnew="tmux -CC new -s"
@@ -75,6 +72,15 @@ bind "\C-j":next-history
 bind "\C-k":previous-history
 bind "\C-b":kill-line # forward delete line
 bind '"\e[3;4~":backward-kill-line'
+
+########## man page colors ##########
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 ########## Source ##########
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
