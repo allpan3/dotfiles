@@ -14,8 +14,14 @@ if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then . '/opt/google-cloud-sdk/p
 # The next line enables shell command completion for gcloud.
 if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then . '/opt/google-cloud-sdk/completion.bash.inc'; fi
 
+########## Prompt ##########
+# References: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+#             https://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
+export GIT_PS1_SHOWDIRTYSTATE=1
+RESTORE='\[\033[0m\]'
+export PS1="\[\033[00;42;30m\][\w]${RESTORE}\[\033[33m\]\$(__git_ps1 \"[\[\033[03m\]%s\[\033[23m\]]\")${RESTORE} $ "
+
 ########## Variables ##########
-export PS1="\[\e[30;42m\][\w]\[\e[m\]\[\e[32m\] $\[\e[m\] "
 export PATH="$HOME/scripts:/Library/TeX/textbin:$PATH:/usr/local/sbin"
 # export CPATH="/usr/local/include"
 # export LIBRARY_PATH="/usr/local/lib"
@@ -31,8 +37,19 @@ alias ssh='ssh.sh'
 
 
 ########## Completion ##########
-export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+fi
 
 complete -o nospace -F _cd cd # overwrite cd behavior
 
