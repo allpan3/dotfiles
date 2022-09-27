@@ -33,12 +33,18 @@ shopt -s checkwinsize
 # update: this issue doesn't exist in one of the "linux-gnu" machines I used. Need
 # to find another way to distinguish the problematic system
 shopt -s cdable_vars
+# correct minor errors in cd directory spelling
 shopt -s cdspell
-shopt -s dirspell direxpand
+# if a directory name is given as a command name, it is cd'd
+shopt -s autocd
+# spelling correction on directory names during word completion if the directory name initially supplied does not exist
+shopt -s dirspell
+
 
 ########## Aliases ##########
 alias ls='ls -F --color=auto'
 alias la='ls -A'
+alias lt="la -t"
 alias ll='la -lh'
 alias llt="ll -t"
 # list info of directories instead of showing their contents
@@ -53,6 +59,7 @@ alias dgit='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias tatt="tmux -CC attach -t"
 alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
+alias gitviz="git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s""
 
 ########## Variables #########
 export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
@@ -85,6 +92,8 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 ########## Source ##########
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
+
+test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
 # if [ -f "$HOME/.ssh/id_rsa" ]; then
     # . "$HOME/scripts/ssh-agent-setup.sh"
