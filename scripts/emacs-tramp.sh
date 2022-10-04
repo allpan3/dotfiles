@@ -24,4 +24,4 @@ fi
 tramp="-T /ssh:fs:"
 
 # change this code to support both -f and -s
-emacsclient -s /tmp/emacs/remote_emacs.sock $tramp "${params[@]}"
+emacsclient -s ${EMACS_SERVER_DIR}/remote_emacs.sock $tramp "${params[@]}"

@@ -63,6 +63,7 @@ alias gitviz="git log --graph --full-history --all --color --pretty=format:"%x1b
 
 ########## Variables #########
 export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
+mkdir -p $EMACS_SERVER_DIR
 
 ########## Keybinding ##########
 # readline does not bind over Ctrl-W since it is handled by the terminal driver by default
