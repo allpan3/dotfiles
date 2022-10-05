@@ -16,9 +16,9 @@ done
 
 
 if [[ $(id -u) -eq 0 || $sudo -eq 1 ]]; then
-    tramp="-T /ssh:$(hostname)|sudo:$(hostname):"
+    tramp="-T /ssh:${USER}@$(hostname)|sudo:$(hostname):"
 else
-    tramp="-T /ssh:$(hostname):"
+    tramp="-T /ssh:${USER}@$(hostname):"
 fi
 
 # change this code to support both -f and -s

@@ -599,12 +599,13 @@ before packages are loaded."
   ;; (server-start)
   ;;   )
 
-
   ;; The following code is required to use TRAMP properly
-  (setq-default tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*" )
+  ;; this prompt pattern is no longer able to resolve my prompt. I worked it around in shell rc instead, so this is not needed as of now.
+  ;; (setq-default tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*" )
   (setq tramp-copy-size-limit 1000000)
   (setq tramp-inline-compress-start-size 1000000)
-
+  ;; (setq tramp-debug-buffer t)
+  ;; (setq tramp-verbose 6)
 
   ;; Typing while selected will replace the selected text
   (delete-selection-mode t)
@@ -651,7 +652,7 @@ before packages are loaded."
   (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-line-or-code) ; C-b (0x05) mapped to cmd-right
   (define-key evil-normal-state-map (kbd "C-e") 'mwim-end-of-line-or-code)
   (define-key evil-motion-state-map (kbd "C-e") 'mwim-end-of-line-or-code)
- 
+
   ;; Editing
   (define-key evil-insert-state-map (kbd "H-<backspace>") 'evil-delete-back-to-indentation)
   (define-key evil-normal-state-map (kbd "H-<backspace>") 'evil-delete-back-to-indentation)
@@ -676,7 +677,7 @@ before packages are loaded."
   (global-set-key (kbd "M-<delete>") (kbd "H-<backspace>"))
   ;; (global-set-key "\e[3;4~" (kbd "H-<backspace>"))
   (global-set-key "\e[/" (kbd "H-/"))
-  
+
 
   ;; Auto-Completion
   (setq-default company-shell-dont-fetch-meta t) ; resolve shell completion slowness, see https://github.com/Alexander-Miller/company-shell
