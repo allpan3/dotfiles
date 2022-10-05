@@ -21,7 +21,5 @@ else
     tramp="-T /ssh:$(hostname):"
 fi
 
-tramp="-T /ssh:fs:"
-
 # change this code to support both -f and -s
 emacsclient -s ${EMACS_SERVER_DIR}/remote_emacs.sock $tramp "${params[@]}"
