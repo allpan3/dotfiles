@@ -40,7 +40,6 @@ shopt -s autocd
 # spelling correction on directory names during word completion if the directory name initially supplied does not exist
 shopt -s dirspell
 
-
 ########## Aliases ##########
 alias ls='ls -F --color=auto'
 alias la='ls -A'
@@ -68,18 +67,21 @@ mkdir -p $EMACS_SERVER_DIR
 ########## Keybinding ##########
 # readline does not bind over Ctrl-W since it is handled by the terminal driver by default
 # run the following command to disable it
-stty werase undef
-bind "\C-w":backward-delete-char
-bind '"\e\C-w":backward-kill-word' # ctrl-alt-n
-# need to bind super-ctrl-w to backward-kill-line
-bind "\C-h":backward-char
-# need to bind ctrl-alt-h to backward-word
-# need to bind super-ctrl-h to beginning of the line
-bind "\C-l":forward-char
-bind "\C-j":next-history
-bind "\C-k":previous-history
-bind "\C-b":kill-line # forward delete line
-bind '"\e[3;4~":backward-kill-line'
+# Seems like key binding is causing issue with dumb termimal, temporarily working around by skipping
+if [ "$TERM" != "dumb" ]; then
+  stty werase undef
+  bind "\C-w":backward-delete-char
+  bind '"\e\C-w":backward-kill-word' # ctrl-alt-n
+  # need to bind super-ctrl-w to backward-kill-line
+  bind "\C-h":backward-char
+  # need to bind ctrl-alt-h to backward-word
+  # need to bind super-ctrl-h to beginning of the line
+  bind "\C-l":forward-char
+  bind "\C-j":next-history
+  bind "\C-k":previous-history
+  bind "\C-b":kill-line # forward delete line
+  bind '"\e[3;4~":backward-kill-line'
+fi
 
 ########## man page colors ##########
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -96,12 +98,13 @@ test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iter
 
 test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
-# .bashrc_local if it exists
+.bashrc_local if it exists
 if [ -f "$HOME/.bashrc_local" ]; then
     . "$HOME/.bashrc_local"
 fi
 
 ########## Post Local rc Commands ##########
+# unset PROMPT_COMMAND
 # Fix prompt for emacs tramp
 case "$TERM" in
     "dumb")
