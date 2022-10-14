@@ -98,7 +98,7 @@ test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iter
 
 test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
-.bashrc_local if it exists
+# .bashrc_local if it exists
 if [ -f "$HOME/.bashrc_local" ]; then
     . "$HOME/.bashrc_local"
 fi
