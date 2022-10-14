@@ -1,6 +1,6 @@
 # Filename: .bashrc
 # Description: Sources in on the class MASTER version for settings information
-# 
+#
 # Please (DO NOT) edit this file unless you are sure of what you are doing.
 # This file and other dotfiles have been written to work with each other.
 # Any change that you are not sure off can break things in an unpredicatable
@@ -11,20 +11,33 @@
 [[ -z ${MASTER} ]] && export MASTER=${LOGNAME%-*}
 [[ -z ${MASTERDIR} ]] && export MASTERDIR=$(eval echo ~${MASTER})
 
+
 # Set up class wide settings
 for file in ${MASTERDIR}/adm/bashrc.d/* ; do [[ -x ${file} ]] && . "${file}"; done
 
 # Set up local settings
 for file in ${HOME}/bashrc.d/* ; do [[ -x ${file} ]] && . "${file}"; done
 
-########## Variables ##########
-export PS1="\[\e[30;46m\][\w]\[\e[m\]\[\e[36m\] $\[\e[m\] "
-export PATH=${HOME}/scripts:${HOME}/local/bin:${PATH}
-export MANPATH=$HOME/local/share/man:$MANPATH
 
 ########## Machine-Specific Actions ##########
-if [ "$MASTER" == "ee140" ]; then
-  export DISPLAY=":53"
+if [ "${HOSTNAME%-*}" == "eda" ]; then
+  export DISPLAY=":181"
   source /share/b/bin/cds6 > /dev/null
 fi
+
+if [ "$MASTER" == "eecs151" ]; then
+  export DISPLAY=":50"
+  source /home/ff/eecs151/eecs151_fpga.sh
+fi
+
+
+########## Variables ##########
+export PS1="\[\e[30;46m\][\w]\[\e[m\]\[\e[36m\] $\[\e[m\] "
+export PATH=${HOME}/scripts:${HOME}/conda/bin:${HOME}/local/bin:${PATH}
+export MANPATH=$HOME/local/share/man:$MANPATH
+export EDITOR=vi
+
+########## Alias ##########
+alias em="emacs-tramp.sh -n"
+alias ec="emacs.sh -s cli_server"
 
