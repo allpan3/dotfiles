@@ -400,7 +400,7 @@
         ]
     },
         {
-        "description": "(original) left_ctrl becomes fn when combined with arrows, space, enter, backspace, \\ and ' (except when with left and right alone).",
+        "description": "(original) left_ctrl becomes fn when combined with arrows, space, enter, \\ and ' (except when with left and right alone).",
         "manipulators": [
             {
             "type": "basic",
@@ -525,31 +525,6 @@
             },
             "to": [{
                 "key_code": "return_or_enter",
-                "modifiers": "fn"
-            }],
-            "conditions": [{
-                "type": "variable_unless",
-                "name": "caps_lock pressed",
-                "value": 1
-            }]
-        },
-            {
-            "type": "basic",
-            "from": {
-                "key_code": "delete_or_backspace",
-                "modifiers": {
-                    "mandatory": [
-                        "left_control"
-                    ],
-                    "optional": [
-                        "left_shift",
-                        "left_option",
-                        "left_command"
-                    ]
-                }
-            },
-            "to": [{
-                "key_code": "delete_or_backspace",
                 "modifiers": "fn"
             }],
             "conditions": [{
