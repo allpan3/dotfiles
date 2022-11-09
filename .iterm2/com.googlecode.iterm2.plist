@@ -1139,7 +1139,7 @@ Split Horizontally with Current Profile</string>
 					<key>precision</key>
 					<string>normal</string>
 					<key>regex</key>
-					<string>\~?/?([[:letter:][:number:]:._~@+#-]+/+)+[[:letter:][:number:]._~@+#-]+/?</string>
+					<string>\~?/?([[:letter:][:number:]._-]+/+)+[[:letter:][:number:]._-]+/?</string>
 				</dict>
 				<dict>
 					<key>notes</key>
@@ -1187,7 +1187,7 @@ Split Horizontally with Current Profile</string>
 					<key>precision</key>
 					<string>very_high</string>
 					<key>regex</key>
-					<string>https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?([a-z0-9A-Z][-a-z0-9A-Z]*\.)+[A-Za-z][-A-Za-z]*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%?&amp;@=#\(\)~]*)?</string>
+					<string>((?&lt;!\()https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?([a-z0-9A-Z][-a-z0-9A-Z]*\.)+[A-Za-z][-A-Za-z]*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%?&amp;@=#\(\)~]*)?</string>
 				</dict>
 				<dict>
 					<key>notes</key>
@@ -1211,7 +1211,7 @@ Split Horizontally with Current Profile</string>
 					<key>precision</key>
 					<string>low</string>
 					<key>regex</key>
-					<string>[a-z0-9A-Z.#_~-]*@?[a-z0-9A-Z.#_~-]+</string>
+					<string>[/a-z0-9A-Z.#_~-]*@?[a-z0-9A-Z.#_~-]+</string>
 				</dict>
 			</array>
 			<key>Status Bar Layout</key>
@@ -1299,7 +1299,7 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.87570000000000003</real>
+									<real>0.84060000000000001</real>
 									<key>Red Component</key>
 									<real>0.90000000000000002</real>
 								</dict>
@@ -1341,7 +1341,7 @@ Split Horizontally with Current Profile</string>
 									<key>Green Component</key>
 									<real>0.90000000000000002</real>
 									<key>Red Component</key>
-									<real>0.67859999999999998</real>
+									<real>0.74880000000000002</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1377,7 +1377,7 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.82710000000000006</real>
+									<real>0.7218</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -1425,7 +1425,7 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.72719999999999996</real>
+									<real>0.86760000000000004</real>
 									<key>Red Component</key>
 									<real>0.63</real>
 								</dict>
@@ -1467,9 +1467,9 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.63</real>
+									<real>0.65700000000000003</real>
 									<key>Red Component</key>
-									<real>0.77849999999999997</real>
+									<real>0.63</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1480,6 +1480,48 @@ Split Horizontally with Current Profile</string>
 								<integer>3</integer>
 								<key>font</key>
 								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
+							</dict>
+						</dict>
+					</dict>
+					<dict>
+						<key>class</key>
+						<string>iTermStatusBarSwiftyStringComponent</string>
+						<key>configuration</key>
+						<dict>
+							<key>knobs</key>
+							<dict>
+								<key>base: compression resistance</key>
+								<integer>1</integer>
+								<key>base: priority</key>
+								<real>5</real>
+								<key>expression</key>
+								<string>\(profileName)</string>
+								<key>maxwidth</key>
+								<real>+infinity</real>
+								<key>minwidth</key>
+								<string>0</string>
+								<key>shared text color</key>
+								<dict>
+									<key>Alpha Component</key>
+									<real>1</real>
+									<key>Blue Component</key>
+									<real>0.90000000000000002</real>
+									<key>Color Space</key>
+									<string>sRGB</string>
+									<key>Green Component</key>
+									<real>0.63</real>
+									<key>Red Component</key>
+									<real>0.81359999999999999</real>
+								</dict>
+							</dict>
+							<key>layout advanced configuration dictionary value</key>
+							<dict>
+								<key>algorithm</key>
+								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>0</integer>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1503,7 +1545,7 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.77580000000000027</real>
+									<real>0.77580000000000005</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -1536,7 +1578,7 @@ Split Horizontally with Current Profile</string>
 			<key>Thin Strokes</key>
 			<integer>4</integer>
 			<key>Title Components</key>
-			<integer>6</integer>
+			<integer>4</integer>
 			<key>Transparency</key>
 			<real>0.021825428299492321</real>
 			<key>Triggers</key>
@@ -3543,7 +3585,7 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.87570000000000003</real>
+									<real>0.84060000000000001</real>
 									<key>Red Component</key>
 									<real>0.90000000000000002</real>
 								</dict>
@@ -3585,7 +3627,7 @@ Split Horizontally with Current Profile</string>
 									<key>Green Component</key>
 									<real>0.90000000000000002</real>
 									<key>Red Component</key>
-									<real>0.67859999999999998</real>
+									<real>0.74880000000000002</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -3621,7 +3663,7 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.82710000000000006</real>
+									<real>0.7218</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -3669,7 +3711,7 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.72719999999999996</real>
+									<real>0.86760000000000004</real>
 									<key>Red Component</key>
 									<real>0.63</real>
 								</dict>
@@ -3711,9 +3753,9 @@ Split Horizontally with Current Profile</string>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.63</real>
+									<real>0.65700000000000003</real>
 									<key>Red Component</key>
-									<real>0.77849999999999997</real>
+									<real>0.63</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -3724,6 +3766,48 @@ Split Horizontally with Current Profile</string>
 								<integer>3</integer>
 								<key>font</key>
 								<string>.AppleSystemUIFont 12</string>
+								<key>remove empty components</key>
+								<false/>
+							</dict>
+						</dict>
+					</dict>
+					<dict>
+						<key>class</key>
+						<string>iTermStatusBarSwiftyStringComponent</string>
+						<key>configuration</key>
+						<dict>
+							<key>knobs</key>
+							<dict>
+								<key>base: compression resistance</key>
+								<integer>1</integer>
+								<key>base: priority</key>
+								<real>5</real>
+								<key>expression</key>
+								<string>\(profileName)</string>
+								<key>maxwidth</key>
+								<real>+infinity</real>
+								<key>minwidth</key>
+								<string>0</string>
+								<key>shared text color</key>
+								<dict>
+									<key>Alpha Component</key>
+									<real>1</real>
+									<key>Blue Component</key>
+									<real>0.90000000000000002</real>
+									<key>Color Space</key>
+									<string>sRGB</string>
+									<key>Green Component</key>
+									<real>0.63</real>
+									<key>Red Component</key>
+									<real>0.81359999999999999</real>
+								</dict>
+							</dict>
+							<key>layout advanced configuration dictionary value</key>
+							<dict>
+								<key>algorithm</key>
+								<integer>1</integer>
+								<key>auto-rainbow style</key>
+								<integer>0</integer>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -3747,7 +3831,7 @@ Split Horizontally with Current Profile</string>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.77580000000000027</real>
+									<real>0.77580000000000005</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -3780,7 +3864,7 @@ Split Horizontally with Current Profile</string>
 			<key>Thin Strokes</key>
 			<integer>4</integer>
 			<key>Title Components</key>
-			<integer>5</integer>
+			<integer>2</integer>
 			<key>Transparency</key>
 			<real>0.021825428299492321</real>
 			<key>Triggers</key>
@@ -4396,7 +4480,7 @@ Split Horizontally with Current Profile</string>
 					<key>notes</key>
 					<string>Word bounded by whitespace</string>
 					<key>precision</key>
-					<string>very_low</string>
+					<string>low</string>
 					<key>regex</key>
 					<string>\S+</string>
 				</dict>
@@ -4414,7 +4498,7 @@ Split Horizontally with Current Profile</string>
 					<key>precision</key>
 					<string>normal</string>
 					<key>regex</key>
-					<string>\~?/?([[:letter:][:number:]:._~@+#-]+/+)+[[:letter:][:number:]._~@+#-]+/?</string>
+					<string>\~?/?([[:letter:][:number:]._-]+/+)+[[:letter:][:number:]._-]+/?</string>
 				</dict>
 				<dict>
 					<key>notes</key>
@@ -4428,7 +4512,7 @@ Split Horizontally with Current Profile</string>
 					<key>notes</key>
 					<string>Java/Python include paths</string>
 					<key>precision</key>
-					<string>very_low</string>
+					<string>normal</string>
 					<key>regex</key>
 					<string>([[:letter:][:number:]._]+\.)+[[:letter:][:number:]._]+</string>
 				</dict>
@@ -4462,7 +4546,7 @@ Split Horizontally with Current Profile</string>
 					<key>precision</key>
 					<string>very_high</string>
 					<key>regex</key>
-					<string>https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?([a-z0-9A-Z][-a-z0-9A-Z]*\.)+[A-Za-z][-A-Za-z]*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%?&amp;@=#\(\)~]*)?</string>
+					<string>((?&lt;!\()https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?([a-z0-9A-Z][-a-z0-9A-Z]*\.)+[A-Za-z][-A-Za-z]*((:[0-9]+)?)(/[a-zA-Z0-9;/.\-_+%?&amp;@=#~()]*)?)|(https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?([a-z0-9A-Z][-a-z0-9A-Z]*\.)+[A-Za-z][-A-Za-z]*((:[0-9]+)?)(/[a-zA-Z0-9;/.\-_+%?&amp;@=#~(]*)?)</string>
 				</dict>
 				<dict>
 					<key>notes</key>
@@ -4479,14 +4563,6 @@ Split Horizontally with Current Profile</string>
 					<string>very_high</string>
 					<key>regex</key>
 					<string>\btelnet:([a-z0-9A-Z_]+@)?([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\b</string>
-				</dict>
-				<dict>
-					<key>notes</key>
-					<string>File Name</string>
-					<key>precision</key>
-					<string>low</string>
-					<key>regex</key>
-					<string>[a-z0-9A-Z.#_~-]*@?[a-z0-9A-Z.#_~-]+</string>
 				</dict>
 			</array>
 			<key>Status Bar Layout</key>
