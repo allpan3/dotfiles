@@ -26,16 +26,21 @@ if [ "${HOSTNAME%-*}" == "eda" ]; then
 fi
 
 if [ "$MASTER" == "eecs151" ]; then
-  export DISPLAY=":50"
+  export DISPLAY=":51"
   source /home/ff/eecs151/eecs151_fpga.sh
 fi
 
 
 ########## Variables ##########
 export PS1="\[\e[30;46m\][\w]\[\e[m\]\[\e[36m\] $\[\e[m\] "
-export PATH=${HOME}/scripts:${HOME}/conda/bin:${HOME}/local/bin:${PATH}
+export COLORTERM=24bit
 export MANPATH=$HOME/local/share/man:$MANPATH
-export EDITOR=vi
+# export EDITOR=vi
+export EDITOR=hx
+export TMP_HOME=/home/tmp/$USER
+export RUSTUP_HOME=$TMP_HOME/local/opt/rustup
+export CARGO_HOME=$TMP_HOME/local/opt/cargo
+export PATH=$HOME/scripts:$TMP_HOME/local/opt/cargo/bin:$HOME/local/bin:$PATH
 
 ########## Alias ##########
 alias em="emacs-tramp.sh -n"
