@@ -1,0 +1,51 @@
+### Local bashrc file containing system-specific settings
+
+## Set up homebrew paths
+# test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+
+########## Prompt ##########
+test -e ~/scripts/git-prompt.sh && source ~/scripts/git-prompt.sh
+RESTORE='\[\033[0m\]'
+# export PS1="${debian_chroot:+(debian_chroot)}\[\033[00;44;30m\][\w]${RESTORE}\[\033[33m\]\$(__git_ps1 \"[\[\033[03m\]%s\033[23m\]]\")${RESTORE} $ "
+export PS1="\[\033[00;44;30m\][\w]${RESTORE}\[\033[33m\]\$(__git_ps1 \"[\[\033[03m\]%s\[\033[23m\]]\")${RESTORE} $ "
+
+
+########## Variables ##########
+[[ ":$PATH:" =~ ":${HOME}/local/bin:" ]] || PATH="${HOME}/local/bin:$PATH"
+[[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+# export PKG_CONFIG_PATH=~/local/lib/pkgconfig
+MANPATH="~/local/share/man${MANPATH:+:${MATHPATH}}"
+export PATH LD_LIBRARY_PATH
+
+########## Environment ##########
+# export TERM=xterm
+export FTP_PASSIVE_MODE=yes
+
+########## Completion ##########
+complete -o nospace -F _cd cd # overwrite cd behavior
+
+
+########## Miniconda ##########
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+CONDA_AUTO_ENV=0
+ __conda_setup="$('${HOME}/conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ] && [ $CONDA_AUTO_ENV -eq 1 ]; then
+    eval "$__conda_setup"
+else
+    # export PATH="/users/allpan/conda/bin:$PATH"
+    [[ ":$PATH:" =~ ":${HOME}/conda/bin:" ]] || PATH="${HOME}/conda/bin:$PATH"
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+########## Alias ##########
+alias em="emacs-tramp.sh -n"
+alias ec="emacs.sh -s cli_server"
+
+
+########## LSF ##########
+if [ -z "${LSF_SHLVL+x}" ]; then
+    export LSF_SHLVL=0
+    . /tools/support/lsf/conf/profile.lsf
+fi
