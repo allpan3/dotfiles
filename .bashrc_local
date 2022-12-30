@@ -1,0 +1,25 @@
+### Local bashrc file containing system-specific settings
+
+########## Prompt ##########
+export GIT_PS1_SHOWDIRTYSTATE=1
+RESTORE='\[\e[0m\]'
+export PS1="\[\e[0;38;5;43m\][\[\e[0;38;5;43m\]\u${RESTORE}@\[\e[0;38;5;43m\]\h\[\e[0;38;5;43m\]] ${RESTORE}\w\[\e[0;38;5;43m\]\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[0;38;5;43m\] $ ${RESTORE}"
+
+
+########## Variables ##########
+[[ ":$PATH:" =~ ":/usr/local/bin:" ]] || PATH="/usr/local/bin:$PATH"
+[[ ":$PATH:" =~ ":${HOME}/scripts:" ]] || PATH="${HOME}/scripts:$PATH"
+[[ ":$LD_LIBRARY_PATH:" =~ ":/usr/local/lib:" ]] || LD_LIBRARY_PATH="/usr/local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+[[ ":$MANPATH:" =~ ":/usr/local/share/man:" ]] || MANPATH="/usr/local/share/man${MANPATH:+:${MATHPATH}}"
+export PATH LD_LIBRARY_PATH MANPATH
+
+########## Miniconda ##########
+# Activate environment:   conda activate <env>
+# Deactivate environment: conda deactivate
+if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+    . "/opt/conda/etc/profile.d/conda.sh"
+else
+    export PATH="/opt/conda/bin:$PATH"
+fi
+
+
