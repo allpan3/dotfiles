@@ -14,45 +14,31 @@ if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then . '/opt/google-cloud-sdk/p
 # The next line enables shell command completion for gcloud.
 if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then . '/opt/google-cloud-sdk/completion.bash.inc'; fi
 
+
 ########## Prompt ##########
 # References: https://misc.flogisoft.com/bash/tip_colors_and_formatting
 #             https://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
 export GIT_PS1_SHOWDIRTYSTATE=1
-RESTORE='\[\033[0m\]'
-export PS1="\[\033[00;42;30m\][\w]${RESTORE}\[\033[33m\]\$(__git_ps1 \"[\[\033[03m\]%s\[\033[23m\]]\")${RESTORE} $ "
+RESTORE='\[\e[0m\]'
+export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE} $ "
 
 ########## Variables ##########
 export PATH="$HOME/scripts:/Library/TeX/textbin:$PATH:/usr/local/sbin"
-# export CPATH="/usr/local/include"
-# export LIBRARY_PATH="/usr/local/lib"
 # export EDITOR="emacs.sh -s cli_server"  # seems like env vars are not able to resolve alias, so specify full executable
-# this is more lightweight then calling emacs.sh,  but emacs server must have been started
-export EDITOR="emacsclient -s ${EMACS_SERVER_DIR}/cli_server"
+export EDITOR="emacsclient -s ${EMACS_SERVER_DIR}/cli_server" # this is more lightweight then calling emacs.sh,  but emacs server must have been started
 
 ########## Alias ##########
-alias em="emacs.sh -s gui_server" # open the file in gui emacs
-alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
 alias typora="open -a typora"
-alias ssh='ssh.sh'
+alias ssh="ssh.sh"
 
-
-########## Completion ##########
-if type brew &>/dev/null
-then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-  then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
-  fi
+########## Miniconda ##########
+# Activate environment:   conda activate <env>
+# Deactivate environment: conda deactivate
+if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+    . "/opt/conda/etc/profile.d/conda.sh"
+else
+    export PATH="/opt/conda/bin:$PATH"
 fi
-
-complete -o nospace -F _cd cd # overwrite cd behavior
-
 
 ########## z ##########
 test -r "/usr/local/etc/profile.d/z.sh" && . /usr/local/etc/profile.d/z.sh
