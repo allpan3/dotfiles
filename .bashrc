@@ -48,25 +48,29 @@ alias ll='la -lh'
 alias llt="ll -t"
 # list info of directories instead of showing their contents
 # usually following wildcards; compare this to ll followed a directory name
-alias ld='ll -d'
+alias lld='ll -d'
 alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias rm="rm -I"
 alias dgit='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias tatt="tmux -CC attach -t"
 alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
 alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
+
+if [[ "$USER" == "root" ]]; then
+  alias rm='rm -i'
+  alias cp='cp -i'
+  alias mv='mv -i'
+fi
+
+########## Emacs #########
+export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
+mkdir -p -m 700 $EMACS_SERVER_DIR
 alias et="emacs-tramp.sh -n"
 alias eg="emacs.sh -s gui_server" # open the file in gui emacs
 alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
-
-
-########## Variables #########
-export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
-mkdir -p -m 700 $EMACS_SERVER_DIR
 
 ########## Completion ##########
 if type brew &>/dev/null
