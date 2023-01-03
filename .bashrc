@@ -26,12 +26,11 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
-# an argument to the cd builtin command that is not a directory is assumed
+# An argument to the cd builtin command that is not a directory is assumed
 # to be the name of a variable whose value is the directory to change to.
-# In darwin and linux, tab completion doesn't suggest variables. But in linux-gnu
-# it expands even when I just type `cd <TAB>`, which is annoying so not enabling.
-# update: this issue doesn't exist in one of the "linux-gnu" machines I used. Need
-# to find another way to distinguish the problematic system
+# Observation so far: Sometimes tab completion suggests variable even
+# when I type `cd <TAB>`. Haven't figured out the exact cause of it. May be
+# related to bash-completion
 shopt -s cdable_vars
 # correct minor errors in cd directory spelling
 shopt -s cdspell
