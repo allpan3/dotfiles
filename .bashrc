@@ -14,7 +14,7 @@ HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
+HISTSIZE=500
 HISTFILESIZE=2000
 
 ########## Options ##########
@@ -27,17 +27,24 @@ shopt -s checkwinsize
 #shopt -s globstar
 
 # An argument to the cd builtin command that is not a directory is assumed
-# to be the name of a variable whose value is the directory to change to.
+# to be the name of a variable (or function, etc.) whose value is the directory to change to.
 # Observation so far: Sometimes tab completion suggests variable even
 # when I type `cd <TAB>`. Haven't figured out the exact cause of it. May be
 # related to bash-completion
-shopt -s cdable_vars
+# shopt -s cdable_vars
+
+# This option expands variables in the path when typing <TAB>.
+# This is still not ideal, but it fixes the issue where the $ sign
+# proceeding the variable in a path won't be escaped when <TAB> is typed
+shopt -s direxpand
+
 # correct minor errors in cd directory spelling
 shopt -s cdspell
 # if a directory name is given as a command name, it is cd'd
 shopt -s autocd
 # spelling correction on directory names during word completion if the directory name initially supplied does not exist
 shopt -s dirspell
+
 
 ########## Aliases ##########
 alias ls='ls -F --color=auto'
@@ -57,6 +64,9 @@ alias tatt="tmux -CC attach -t"
 alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
 alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
+alias his="history | grep"
+targz() { tar -zcvf $1.tar.gz;}
+untargz() { tar -zxvf $1;}
 
 if [[ "$USER" == "root" ]]; then
   alias rm='rm -i'
@@ -93,14 +103,23 @@ if [ "$TERM" != "dumb" ]; then
   bind '"\e[3;4~":backward-kill-line'
 fi
 
-########## man page colors ##########
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
+########## less and man page colors ##########
+# Source: http://unix.stackexchange.com/a/147
+# More info: http://unix.stackexchange.com/a/108840
+# Man Page: https://linux.die.net/man/5/termcap
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
+export LESS_TERMCAP_md=$(tput bold; tput setaf 2)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4) # yellow on blue
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7) # white
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+# export LESS_TERMCAP_ZN=$(tput ssubm)
+# export LESS_TERMCAP_ZV=$(tput rsubm)
+# export LESS_TERMCAP_ZO=$(tput ssupm)
+# export LESS_TERMCAP_ZW=$(tput rsupm)
 
 ########## Source ##########
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
@@ -113,6 +132,12 @@ if [ -f "$HOME/.bashrc_local" ]; then
     . "$HOME/.bashrc_local"
 fi
 
+# zoxide
+eval "$(zoxide init bash)"
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 ########## Post Local rc Commands ##########
 # unset PROMPT_COMMAND
 # Fix prompt for emacs tramp
@@ -121,3 +146,4 @@ case "$TERM" in
         PS1="> "
         ;;
 esac
+
