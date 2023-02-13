@@ -107,7 +107,7 @@
         ]
     },
         {
-        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace, +m to return (w/ modifiers). Must also enable the main CAPS_LOCK setiting.",
+        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace (w/ modifiers). Must also enable the main CAPS_LOCK setiting.",
         "manipulators": [
             {
                 "type": "basic",
@@ -227,31 +227,6 @@
                 },
                 "to": [{
                     "key_code": "delete_or_backspace"
-                }],
-                "conditions": [{
-                    "type": "variable_if",
-                    "name": "caps_lock pressed",
-                    "value": 1
-                }]
-            },
-            {
-                "type": "basic",
-                "from": {
-                    "key_code": "m",
-                    "modifiers": {
-                        "mandatory": [
-                            "left_control"
-                        ],
-                        "optional": [
-                            "left_shift",
-                            "left_option",
-                            "left_command",
-                            "fn"
-                        ]
-                    }
-                },
-                "to": [{
-                    "key_code": "return_or_enter"
                 }],
                 "conditions": [{
                     "type": "variable_if",
