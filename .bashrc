@@ -127,16 +127,19 @@ test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iter
 
 test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
+# zoxide
+if command -v zoxide > /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # .bashrc_local if it exists
 if [ -f "$HOME/.bashrc_local" ]; then
     . "$HOME/.bashrc_local"
 fi
 
-# zoxide
-eval "$(zoxide init bash)"
-
-# fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 ########## Post Local rc Commands ##########
 # unset PROMPT_COMMAND
