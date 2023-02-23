@@ -2,7 +2,7 @@
     "title": "aifusenno1 Personal Setting",
     "rules": [
     {
-        "description": "CAPS_LOCK+arrows to fn+arrows,  (w/ modifiers). Must also enable the main CAPS_LOCK setiting.",
+        "description": "CAPS_LOCK+arrows to fn+arrows (w/ modifiers). Must also enable the main CAPS_LOCK setting.",
         "manipulators": [
             {
             "type": "basic",
@@ -107,7 +107,7 @@
         ]
     },
         {
-        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace (w/ modifiers). Must also enable the main CAPS_LOCK setiting.",
+        "description": "CAPS_LOCK+hjkl to arrow keys (w/ modifiers). Must also enable the main CAPS_LOCK setting.",
         "manipulators": [
             {
                 "type": "basic",
@@ -202,31 +202,6 @@
                 },
                 "to": [{
                     "key_code": "right_arrow"
-                }],
-                "conditions": [{
-                    "type": "variable_if",
-                    "name": "caps_lock pressed",
-                    "value": 1
-                }]
-            },
-            {
-                "type": "basic",
-                "from": {
-                    "key_code": "w",
-                    "modifiers": {
-                        "mandatory": [
-                            "left_control"
-                        ],
-                        "optional": [
-                            "left_shift",
-                            "left_option",
-                            "left_command",
-                            "fn"
-                        ]
-                    }
-                },
-                "to": [{
-                    "key_code": "delete_or_backspace"
                 }],
                 "conditions": [{
                     "type": "variable_if",
