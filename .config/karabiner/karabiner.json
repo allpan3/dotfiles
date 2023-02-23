@@ -335,7 +335,7 @@
                         ]
                     },
                     {
-                        "description": "CAPS_LOCK+hjkl to arrow keys, +w to backspace (w/ modifiers). Must also enable the main CAPS_LOCK setiting.",
+                        "description": "CAPS_LOCK+hjkl to arrow keys (w/ modifiers). Must also enable the main CAPS_LOCK setting.",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -449,35 +449,6 @@
                                 "to": [
                                     {
                                         "key_code": "right_arrow"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "caps_lock pressed",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "w",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control"
-                                        ],
-                                        "optional": [
-                                            "left_shift",
-                                            "left_option",
-                                            "left_command",
-                                            "fn"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace"
                                     }
                                 ],
                                 "type": "basic"
