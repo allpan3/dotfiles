@@ -4,11 +4,9 @@
 # test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
 ########## Prompt ##########
-test -e ~/scripts/git-prompt.sh && source ~/scripts/git-prompt.sh
-RESTORE='\[\033[0m\]'
-# export PS1="${debian_chroot:+(debian_chroot)}\[\033[00;44;30m\][\w]${RESTORE}\[\033[33m\]\$(__git_ps1 \"[\[\033[03m\]%s\033[23m\]]\")${RESTORE} $ "
-export PS1="\[\033[00;44;30m\][\w]${RESTORE}\[\033[33m\]\$(__git_ps1 \"[\[\033[03m\]%s\[\033[23m\]]\")${RESTORE} $ "
-
+export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
+RESTORE='\[\e[0m\]'
+export PS1="\[\e[0;38;5;43m\][\[\e[1;38;5;43m\]\u\[\e[0;38;5;6m\]@\[\e[1;38;5;43m\]\h\[\e[0;38;5;43m\]]\[\e[1;38;5;6m\]\w\[\e[0;38;5;43m\]\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;43m\] $ ${RESTORE}"
 
 ########## Variables ##########
 [[ ":$PATH:" =~ ":${HOME}/local/bin:" ]] || PATH="${HOME}/local/bin:$PATH"
@@ -17,31 +15,34 @@ export PS1="\[\033[00;44;30m\][\w]${RESTORE}\[\033[33m\]\$(__git_ps1 \"[\[\033[0
 [[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 # export PKG_CONFIG_PATH=~/local/lib/pkgconfig
 MANPATH="~/local/share/man${MANPATH:+:${MATHPATH}}"
-INFOPATH="~/conda/share/info"
+export INFOPATH="~/.conda/share/info"
 export PATH LD_LIBRARY_PATH
+export COLORTERM=24bit
 
 ########## Environment ##########
 # export TERM=xterm
 export FTP_PASSIVE_MODE=yes
-export DISPLAY=":50"
+export DISPLAY=":60"
+
+########## Miniconda ##########
+# The base env bin is added to PATH and will always be implicitly activated
+# To activate/deactivate other environment, run the following commands
+# Activate environment:   conda activate <env>
+# Deactivate environment: cond deactivate
+CONDA_HOME=${HOME}/.conda
+. "${CONDA_HOME}/etc/profile.d/conda.sh"
+[[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
 
 ########## Completion ##########
 complete -o nospace -F _cd cd # overwrite cd behavior
 
-
-########## Miniconda ##########
-# Activate environment:   conda activate <env>
-# Deactivate environment: conda deactivate
-if [ -f "${HOME}/conda/etc/profile.d/conda.sh" ]; then
-    . "${HOME}/conda/etc/profile.d/conda.sh"
+if [[ -r "${CONDA_HOME}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${CONDA_HOME}/etc/profile.d/bash_completion.sh"
 else
-    [[ ":$PATH:" =~ ":${HOME}/conda/bin:" ]] || PATH="${HOME}/conda/bin:$PATH"
+    for COMPLETION in "${CONDA_HOME}/etc/bash_completion.d/"*; do
+        [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
 fi
-
-########## Alias ##########
-alias em="emacs-tramp.sh -n"
-alias ec="emacs.sh -s cli_server"
-
 
 ########## LSF ##########
 if [ -z "${LSF_SHLVL+x}" ]; then
