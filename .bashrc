@@ -8,12 +8,12 @@ case $- in
 esac
 
 ########## History ##########
-# don't put duplicate lines or lines starting with space in the history.
+# Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-# append to the history file, don't overwrite it
+# Append to the history file, don't overwrite it
 shopt -s histappend
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=500
 HISTFILESIZE=2000
 
@@ -38,13 +38,16 @@ shopt -s checkwinsize
 # proceeding the variable in a path won't be escaped when <TAB> is typed
 shopt -s direxpand
 
-# correct minor errors in cd directory spelling
+# Correct minor errors in cd directory spelling
 shopt -s cdspell
-# if a directory name is given as a command name, it is cd'd
+# If a directory name is given as a command name, it is cd'd
 shopt -s autocd
-# spelling correction on directory names during word completion if the directory name initially supplied does not exist
+# Spelling correction on directory names during word completion if the directory name initially supplied does not exist
 shopt -s dirspell
 
+# Append last command to history every time prompt is shown
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 ########## Aliases ##########
 alias ls='ls -F --color=auto'
@@ -52,8 +55,8 @@ alias la='ls -A'
 alias lt="la -t"
 alias ll='la -lh'
 alias llt="ll -t"
-# list info of directories instead of showing their contents
-# usually following wildcards; compare this to ll followed a directory name
+# List info of directories instead of showing their contents
+# Usually following wildcards; compare this to ll followed a directory name
 alias lld='ll -d'
 alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
