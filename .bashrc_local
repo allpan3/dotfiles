@@ -18,11 +18,9 @@ MANPATH="~/local/share/man${MANPATH:+:${MATHPATH}}"
 export INFOPATH="~/.conda/share/info"
 export PATH LD_LIBRARY_PATH
 export COLORTERM=24bit
-
-########## Environment ##########
 # export TERM=xterm
 export FTP_PASSIVE_MODE=yes
-export DISPLAY=":60"
+export DISPLAY=":51"
 
 ########## Miniconda ##########
 # The base env bin is added to PATH and will always be implicitly activated
@@ -44,8 +42,10 @@ else
     done
 fi
 
-########## LSF ##########
+########## Dev Environment ##########
 if [ -z "${LSF_SHLVL+x}" ]; then
     export LSF_SHLVL=0
     . /tools/support/lsf/conf/profile.lsf
 fi
+
+source .eda
