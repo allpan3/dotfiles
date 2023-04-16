@@ -48,4 +48,4 @@ if [ -z "${LSF_SHLVL+x}" ]; then
     . /tools/support/lsf/conf/profile.lsf
 fi
 
-source .eda
+source ~/.eda
