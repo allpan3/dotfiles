@@ -68,7 +68,7 @@ alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
 alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
 alias his="history | grep"
-targz() { tar -zcvf $1.tar.gz;}
+targz() { tar -zcvf $1.tar.gz $1;}
 untargz() { tar -zxvf $1;}
 
 if [[ "$USER" == "root" ]]; then
