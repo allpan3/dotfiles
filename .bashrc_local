@@ -1,8 +1,5 @@
 ### Local bashrc file containing system-specific settings
 
-## Set up homebrew paths
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 ## Set up pyenv
 export PYENV_ROOT="/opt/pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -20,11 +17,11 @@ if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then . '/opt/google-cloud
 #             https://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
 export GIT_PS1_SHOWDIRTYSTATE=1
 RESTORE='\[\e[0m\]'
-export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE} $ "
+export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE} ⨕ "
 
 ########## Variables ##########
 export PATH="$HOME/scripts:/Library/TeX/textbin:$PATH:/usr/local/sbin"
-# export EDITOR="emacs.sh -s cli_server"  # seems like env vars are not able to resolve alias, so specify full executable
+# export EDITOR="emacs.sh -s cli_server"
 export EDITOR="emacsclient -s ${EMACS_SERVER_DIR}/cli_server" # this is more lightweight then calling emacs.sh,  but emacs server must have been started
 
 ########## Alias ##########
@@ -54,6 +51,4 @@ then
         done
     fi
 fi
-
-
 
