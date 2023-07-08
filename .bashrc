@@ -50,14 +50,22 @@ shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 ########## Aliases ##########
-alias ls='ls -F --color=auto'
-alias la='ls -A'
-alias lt="la -t"
-alias ll='la -lh'
-alias llt="ll -t"
-# List info of directories instead of showing their contents
-# Usually following wildcards; compare this to ll followed a directory name
-alias lld='ll -d'
+if ! command -v exa &> /dev/null; then
+    alias ls='exa -F'
+    alias la='ls -a'
+    alias ll='la -lhg --git'
+    alias lt="la -t=modified"
+    alias llt="ll -t=modified"
+else
+    alias ls='ls -F --color=auto'
+    alias la='ls -A'
+    alias lt="la -t"
+    alias ll='la -lh'
+    alias llt="ll -t"
+    # List info of directories instead of showing their contents
+    # Usually following wildcards; compare this to ll followed a directory name
+    alias lld='ll -d'
+fi
 alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -125,13 +133,16 @@ export LESS_TERMCAP_mh=$(tput dim)
 # export LESS_TERMCAP_ZW=$(tput rsupm)
 
 ########## Source ##########
+## Set up homebrew paths if exists
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
 
 test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
 # zoxide
-if command -v zoxide > /dev/null; then
+if ! command -v zoxide &> /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
