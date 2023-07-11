@@ -20,7 +20,7 @@ export PATH LD_LIBRARY_PATH
 export COLORTERM=24bit
 # export TERM=xterm
 export FTP_PASSIVE_MODE=yes
-export DISPLAY=":51"
+# export DISPLAY=":51"   # Comment this out to use NoMachine
 
 ########## Miniconda ##########
 # The base env bin is added to PATH and will always be implicitly activated
@@ -48,4 +48,12 @@ if [ -z "${LSF_SHLVL+x}" ]; then
     . /tools/support/lsf/conf/profile.lsf
 fi
 
-source ~/.eda
+source /tools/flexlm/flexlm.sh
+export SYNOPSYS_ROOT=/tools/synopsys
+# VCS
+export VCS_HOME=${SYNOPSYS_ROOT}/vcs/P-2019.06-SP2-5   # later versions don't supoprt DVE
+export VCS_64=1
+export PATH=${VCS_HOME}/bin:${PATH}
+# Verdi
+export VERDI_HOME=${SYNOPSYS_ROOT}/verdi/S-2021.09-SP1-1
+export PATH=${VERDI_HOME}/bin:${PATH}
