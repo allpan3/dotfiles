@@ -24,6 +24,8 @@
 	<integer>2</integer>
 	<key>Command</key>
 	<string></string>
+	<key>CommandSelection</key>
+	<true/>
 	<key>ConvertDosNewlines</key>
 	<true/>
 	<key>Coprocess MRU</key>
@@ -1380,15 +1382,21 @@ Split Horizontally with Current Profile</string>
 			<real>15.058127776015228</real>
 			<key>Bold Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.90237069129943848</real>
+				<real>0.92156862745098034</real>
+				<key>Color Space</key>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.90237069129943848</real>
+				<real>0.92156862745098034</real>
 				<key>Red Component</key>
-				<real>0.90237069129943848</real>
+				<real>0.92156862745098034</real>
 			</dict>
 			<key>Bound Hosts</key>
 			<array/>
+			<key>Brighten Bold Text</key>
+			<true/>
 			<key>Character Encoding</key>
 			<integer>4</integer>
 			<key>Close Sessions On End</key>
@@ -2342,6 +2350,8 @@ Split Horizontally with Current Profile</string>
 			<key>Use Non-ASCII Font</key>
 			<false/>
 			<key>Use Tab Color</key>
+			<false/>
+			<key>Use Underline Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
 			<real>1</real>
@@ -5760,9 +5770,9 @@ Split Horizontally with Current Profile</string>
 	<true/>
 	<key>ToolbeltTools</key>
 	<array>
-		<string>Recent Directories</string>
 		<string>Command History</string>
 		<string>Captured Output</string>
+		<string>Recent Directories</string>
 	</array>
 	<key>UseBlackFillerColorForTmuxInFullScreen</key>
 	<false/>
