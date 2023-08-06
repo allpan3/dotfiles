@@ -142,7 +142,7 @@ test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iter
 test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
 # zoxide
-if ! command -v zoxide &> /dev/null; then
+if command -v zoxide &> /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
