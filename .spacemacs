@@ -75,6 +75,7 @@ This function should only modify configuration layer settings."
             latex-enable-auto-fill t
             latex-enable-folding t)
      major-modes
+     scala
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)

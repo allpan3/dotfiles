@@ -7,7 +7,9 @@ case $- in
     *) return;;
 esac
 
-########## History ##########
+###############################
+# History 
+###############################
 # Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -17,7 +19,9 @@ shopt -s histappend
 HISTSIZE=500
 HISTFILESIZE=2000
 
-########## Options ##########
+###############################
+# Options
+###############################
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -49,13 +53,35 @@ shopt -s dirspell
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-########## Aliases ##########
-if ! command -v exa &> /dev/null; then
+###############################
+# Source
+###############################
+## Set up homebrew paths if exists
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
+
+test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
+
+# zoxide
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+###############################
+# Aliases
+###############################
+if command -v exa &> /dev/null; then
     alias ls='exa -F'
     alias la='ls -a'
     alias ll='la -lhg --git'
-    alias lt="la -t=modified"
-    alias llt="ll -t=modified"
+    alias lt="la -s=oldest"
+    alias llt="ll -s=oldest"
 else
     alias ls='ls -F --color=auto'
     alias la='ls -A'
@@ -85,17 +111,23 @@ if [[ "$USER" == "root" ]]; then
   alias mv='mv -i'
 fi
 
-########## Emacs #########
+###############################
+# Emacs
+###############################
 export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
 mkdir -p -m 700 $EMACS_SERVER_DIR
 alias et="emacs-tramp.sh -n"
 alias eg="emacs.sh -s gui_server" # open the file in gui emacs
 alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
 
-########## Completion ##########
+###############################
+# Completion
+###############################
 complete -o nospace -F _cd cd # overwrite cd behavior
 
-########## Keybinding ##########
+###############################
+# Keybinding
+###############################
 # readline does not bind over Ctrl-W since it is handled by the terminal driver by default
 # run the following command to disable it
 # Seems like key binding is causing issue with dumb termimal, temporarily working around by skipping
@@ -114,7 +146,9 @@ if [ "$TERM" != "dumb" ]; then
   bind '"\e[3;4~":backward-kill-line'
 fi
 
-########## less and man page colors ##########
+###############################
+# less and man Page Colors
+###############################
 # Source: http://unix.stackexchange.com/a/147
 # More info: http://unix.stackexchange.com/a/108840
 # Man Page: https://linux.die.net/man/5/termcap
@@ -132,32 +166,18 @@ export LESS_TERMCAP_mh=$(tput dim)
 # export LESS_TERMCAP_ZO=$(tput ssupm)
 # export LESS_TERMCAP_ZW=$(tput rsupm)
 
-########## Source ##########
-## Set up homebrew paths if exists
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
-test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
-
-test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
-
-# zoxide
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init bash)"
-fi
-
-# fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
+###############################
+# Source Local rc
+###############################
 # .bashrc_local if it exists
 if [ -f "$HOME/.bashrc_local" ]; then
     . "$HOME/.bashrc_local"
 fi
 
-
-########## Post Local rc Commands ##########
 # unset PROMPT_COMMAND
 # Fix prompt for emacs tramp
+# DO this after sourcing local rc since prompt is set in local rc
 case "$TERM" in
     "dumb")
         PS1="> "
