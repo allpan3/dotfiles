@@ -1,0 +1,56 @@
+### Local bashrc file containing system-specific settings
+
+# export TZ="America/Los_Angeles"
+
+########## Prompt ##########
+export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
+RESTORE='\[\e[0m\]'
+export PS1="\[\e[0;38;5;43m\][\[\e[1;38;5;43m\]\u\[\e[0;38;5;6m\]@\[\e[1;38;5;43m\]\h\[\e[0;38;5;43m\]]\[\e[1;38;5;6m\]\w\[\e[0;38;5;43m\]\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;43m\] $ ${RESTORE}"
+
+########## Variables ##########
+[[ ":$PATH:" =~ ":${HOME}/scripts:" ]] || PATH="${HOME}/scripts:$PATH"
+
+
+########## Environment ##########
+# Installed from source
+[[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH"  # installed from source
+[[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/.local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+export MANPATH="${HOME}/.local/share/man${MANPATH:+:${MATHPATH}}"
+[[ ":$PATH:" =~ ":${HOME}/scripts:" ]] || PATH="${HOME}/scripts:$PATH"        # personal scripts
+[[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH"  # rustup
+export PATH LD_LIBRARY_PATH
+
+## Set up pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# The base env bin is added to PATH and will always be implicitly activated
+# To activate/deactivate other environment, run the following commands
+# Activate environment:   conda activate <env>
+# Deactivate environment: cond deactivate
+CONDA_HOME=${HOME}/.conda
+. "${CONDA_HOME}/etc/profile.d/conda.sh"
+[[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
+export INFOPATH="${CONDA_HOME}/share/info"
+
+########## Completion ##########
+complete -o nospace -F _cd cd # overwrite cd behavior
+
+if [[ -r "${CONDA_HOME}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${CONDA_HOME}/etc/profile.d/bash_completion.sh"
+else
+    for COMPLETION in "${CONDA_HOME}/etc/bash_completion.d/"*; do
+        [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+fi
+
+########## wezterm ##########
+# set alias if installed through flatpak
+if ! command -v wezterm &> /dev/null && command -v flatpak run org.wezfurlong.wezterm &> /dev/null; then
+  alias wezterm='flatpak run org.wezfurlong.wezterm'
+fi
+
+########## EDA ##########
+export LD_LIBRARY_PATH="/cad/mentor/2021.1/Mgc_home/shared/lib/:$LD_LIBRARY_PATH"
+
