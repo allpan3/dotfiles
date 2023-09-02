@@ -1,0 +1,31 @@
+### Local bashrc file containing system-specific settings
+
+
+########## Prompt ##########
+export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
+RESTORE='\[\e[0m\]'
+export PS1="\[\e[0;38;5;43m\][\[\e[1;38;5;43m\]\u\[\e[0;38;5;6m\]@\[\e[1;38;5;43m\]\h\[\e[0;38;5;43m\]]\[\e[1;38;5;6m\]\w\[\e[0;38;5;43m\]\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;43m\] $ ${RESTORE}"
+
+########## Variables ##########
+[[ ":$PATH:" =~ ":${HOME}/scripts:" ]] || PATH="${HOME}/scripts:$PATH"
+
+
+########## Miniconda ##########
+# Activate environment:   conda activate <env>
+# Deactivate environment: conda deactivate
+if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+    . "/opt/conda/etc/profile.d/conda.sh"
+else
+    export PATH="/opt/conda/bin:$PATH"
+fi
+
+########## Completion ##########
+complete -o nospace -F _cd cd # overwrite cd behavior
+
+if [[ -r "/etc/profile.d/bash_completion.sh" ]]; then
+    source "/etc/profile.d/bash_completion.sh"
+else
+    for COMPLETION in "/etc/bash_completion.d/"*; do
+        [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+fi
