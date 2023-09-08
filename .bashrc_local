@@ -1,5 +1,6 @@
 ### Local bashrc file containing system-specific settings
 
+export TZ="America/Los_Angeles"
 
 ########## Prompt ##########
 export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
@@ -29,3 +30,7 @@ else
         [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
     done
 fi
+
+########## iTerm2 ##########
+export iterm2_hostname=34.125.224.123
+test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
