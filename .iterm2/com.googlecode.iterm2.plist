@@ -948,6 +948,8 @@
 	<string>Arrangement</string>
 	<key>Default Bookmark Guid</key>
 	<string>3AC03E81-D2B7-4D4D-8295-55381B59A6CB</string>
+	<key>DefaultTabBarHeight</key>
+	<real>22</real>
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimOnlyText</key>
@@ -1173,6 +1175,8 @@ Split Horizontally with Current Profile</string>
 	<integer>0</integer>
 	<key>MaxVertically</key>
 	<false/>
+	<key>MinimalTabStyleOutlineStrength</key>
+	<real>0.20000000298023224</real>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1524,6 +1528,17 @@ Split Horizontally with Current Profile</string>
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
+				<key>0x5a-0x120000-0x6</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>0x12</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
 				<key>0x7a-0x100000</key>
 				<dict>
 					<key>Action</key>
@@ -1773,7 +1788,7 @@ Split Horizontally with Current Profile</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Menlo-Regular 16</string>
+			<string>MesloLGSNFM-Regular 16</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Open Toolbelt</key>
@@ -1791,7 +1806,7 @@ Split Horizontally with Current Profile</string>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>10000</integer>
+			<integer>50000</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1815,7 +1830,7 @@ Split Horizontally with Current Profile</string>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Status Bar</key>
-			<true/>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
