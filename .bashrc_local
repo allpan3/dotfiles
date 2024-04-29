@@ -22,7 +22,8 @@ export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s
 ########## Variables ##########
 export PATH="$HOME/scripts:/Library/TeX/textbin:$PATH:/usr/local/sbin"
 # export EDITOR="emacs.sh -s cli_server"
-export EDITOR="emacsclient -s ${EMACS_SERVER_DIR}/cli_server" # this is more lightweight then calling emacs.sh,  but emacs server must have been started
+# export EDITOR="emacsclient -s ${EMACS_SERVER_DIR}/cli_server" # this is more lightweight then calling emacs.sh,  but emacs server must have been started
+export EDITOR=vim
 
 ########## Alias ##########
 alias typora="open -a typora"
