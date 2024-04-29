@@ -102,6 +102,16 @@ alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
 alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
 alias his="history | grep"
+if command -v bat &> /dev/null; then
+  alias cat='bat'
+fi
+if command -v nvim &> /dev/null; then
+  alias vi='nvim'
+  alias vim='nvim'
+fi
+if type fd &> /dev/null; then
+  alias fd="fd --hidden"
+fi
 targz() { tar -zcvf $1.tar.gz $1;}
 untargz() { tar -zxvf $1;}
 
@@ -110,6 +120,17 @@ if [[ "$USER" == "root" ]]; then
   alias cp='cp -i'
   alias mv='mv -i'
 fi
+
+###############################
+# fzf
+###############################
+# Setting the default source for fzf (respects .ignore)
+if type fd &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --hidden --type f --strip-cwd-prefix'
+fi
+# if type rg &> /dev/null; then
+#   export FZF_DEFAULT_COMMAND='rg --files --hidden'
+# fi
 
 ###############################
 # Emacs
