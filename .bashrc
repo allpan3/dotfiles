@@ -96,7 +96,6 @@ alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias dgit='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias tatt="tmux -CC attach -t"
 alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
@@ -120,6 +119,9 @@ if [[ "$USER" == "root" ]]; then
   alias cp='cp -i'
   alias mv='mv -i'
 fi
+
+# git dot
+git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 
 ###############################
 # fzf
