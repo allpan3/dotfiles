@@ -1,0 +1,70 @@
+local wezterm = require("wezterm")
+local act = wezterm.action
+
+local bindings = {}
+
+bindings.keys = {
+	{ key = "Enter", mods = "SHIFT|SUPER", action = act.ToggleFullScreen },
+	{ key = "Enter", mods = "SUPER", action = act.TogglePaneZoomState },
+	{ key = "|", mods = "SUPER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "\\", mods = "SUPER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = "-", mods = "SUPER", action = act.DecreaseFontSize },
+	{ key = "+", mods = "SUPER", action = act.IncreaseFontSize },
+	{ key = "0", mods = "SUPER", action = act.ResetFontSize },
+	{ key = "1", mods = "SUPER", action = act.ActivateTab(0) },
+	{ key = "2", mods = "SUPER", action = act.ActivateTab(1) },
+	{ key = "3", mods = "SUPER", action = act.ActivateTab(2) },
+	{ key = "4", mods = "SUPER", action = act.ActivateTab(3) },
+	{ key = "5", mods = "SUPER", action = act.ActivateTab(4) },
+	{ key = "6", mods = "SUPER", action = act.ActivateTab(5) },
+	{ key = "7", mods = "SUPER", action = act.ActivateTab(6) },
+	{ key = "8", mods = "SUPER", action = act.ActivateTab(7) },
+	{ key = "9", mods = "SUPER", action = act.ActivateTab(-1) },
+	{ key = "c", mods = "SUPER", action = act.CopyTo("Clipboard") },
+	{ key = "c", mods = "SHIFT|SUPER", action = act.ActivateCopyMode },
+	{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
+	{ key = "f", mods = "SUPER", action = act.Search({ CaseInSensitiveString = "" }) }, -- default is case-sensitive
+	{ key = "h", mods = "SUPER", action = act.HideApplication },
+	{ key = "k", mods = "SUPER", action = act.ClearScrollback("ScrollbackAndViewport") },
+	{ key = "k", mods = "SHIFT|SUPER", action = act.ClearScrollback("ScrollbackOnly") },
+	{ key = "l", mods = "SUPER", action = act.ShowLauncher },
+	{ key = "l", mods = "SHIFT|SUPER", action = act.ShowDebugOverlay },
+	{ key = "m", mods = "SUPER", action = act.Hide },
+	{ key = "n", mods = "SUPER", action = act.SpawnWindow },
+	{ key = "p", mods = "SUPER", action = act.ActivateCommandPalette },
+	{ key = "q", mods = "SUPER", action = act.QuitApplication },
+	{ key = "r", mods = "SUPER", action = act.ReloadConfiguration },
+	{ key = "t", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
+	{ key = "t", mods = "SHIFT|SUPER", action = act.SpawnTab("DefaultDomain") },
+	{ key = "u", mods = "SUPER", action = act.CharSelect },
+	-- TODO: would be great if there's a way to only confirm when there's a process running (like iTerm)
+	{ key = "w", mods = "SUPER", action = act.CloseCurrentPane({ confirm = true }) }, -- closes the tab if last pane
+	{ key = "x", mods = "SHIFT|SUPER", action = act.QuickSelect },
+	{ key = "y", mods = "SUPER", action = act.SwitchWorkspaceRelative(1) },
+	{ key = "[", mods = "SHIFT|SUPER", action = act.ActivateTabRelative(-1) },
+	{ key = "]", mods = "SHIFT|SUPER", action = act.ActivateTabRelative(1) },
+	{ key = "[", mods = "SHIFT|ALT|SUPER", action = act.MoveTabRelative(-1) },
+	{ key = "]", mods = "SHIFT|ALT|SUPER", action = act.MoveTabRelative(1) },
+	{ key = "[", mods = "SUPER", action = act.ActivatePaneDirection("Prev") },
+	{ key = "]", mods = "SUPER", action = act.ActivatePaneDirection("Next") },
+	{ key = "PageUp", mods = "SHIFT", action = act.ScrollByPage(-1) },
+	{ key = "PageDown", mods = "SHIFT", action = act.ScrollByPage(1) },
+	{ key = "Copy", mods = "NONE", action = act.CopyTo("Clipboard") },
+	{ key = "Paste", mods = "NONE", action = act.PasteFrom("Clipboard") },
+	{ key = "LeftArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Left", 1 }) },
+	{ key = "RightArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Right", 1 }) },
+	{ key = "UpArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Up", 1 }) },
+	{ key = "DownArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Down", 1 }) },
+  -- Map SUPER to shell actions - ideally, use common keys/escape sequences shared by all terminals. Configure the same in neovim
+  { key = "Backspace", mods = "SUPER", action = act.SendString "\x1b[3;4~" },
+  { key = "LeftArrow", mods = "ALT", action = act.SendString "\x1bb" },
+  { key = "RightArrow", mods = "ALT", action = act.SendString "\x1bf" },
+  -- { key = "LeftArrow", mods = "SUPER", action = act.SendKey {key = "a", mods = "CTRL"} },
+  { key = "LeftArrow", mods = "SUPER", action = act.SendString "\x1b[H" }, -- HOME
+  -- { key = "RightArrow", mods = "SUPER", action = act.SendKey {key = "e", mods = "CTRL"} },
+  { key = "RightArrow", mods = "SUPER", action = act.SendString "\x1b[F" }, -- END
+  { key = "z", mods = "SUPER", action = act.SendKey {key = "_", mods = "CTRL"} },
+  { key = "z", mods = "SHIFT|SUPER", action = act.SendKey {key = "r", mods = "CTRL"} }, -- for neovim
+}
+
+return bindings
