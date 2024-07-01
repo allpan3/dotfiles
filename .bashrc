@@ -53,8 +53,8 @@ shopt -s dirspell
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-# git dot
-git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+# Alias for dotfiles bare repo
+git config --global alias.d '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 
 ###############################
 # fzf
