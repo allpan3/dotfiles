@@ -140,8 +140,6 @@ if command -v zoxide &> /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
-# fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # Setting the default source for fzf (respects .ignore)
 if type fd &> /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --hidden --type f --strip-cwd-prefix'
@@ -195,6 +193,10 @@ mkdir -p -m 700 $EMACS_SERVER_DIR
 alias et="emacs-tramp.sh -n"
 alias eg="emacs.sh -s gui_server" # open the file in gui emacs
 alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
+
+# Lazygit
+alias lg=lazygit
+alias lgd="lazygit --git-dir=$HOME/.dotfiles.git --work-tree=$HOME"
 
 if [[ "$USER" == "root" ]]; then
   alias rm='rm -i'
