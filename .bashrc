@@ -53,28 +53,6 @@ shopt -s dirspell
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-# Alias for dotfiles bare repo
-git config --global alias.d '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
-
-###############################
-# fzf
-###############################
-# Setting the default source for fzf (respects .ignore)
-if type fd &> /dev/null; then
-  export FZF_DEFAULT_COMMAND='fd --hidden --type f --strip-cwd-prefix'
-fi
-# if type rg &> /dev/null; then
-#   export FZF_DEFAULT_COMMAND='rg --files --hidden'
-# fi
-
-###############################
-# Emacs
-###############################
-export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
-mkdir -p -m 700 $EMACS_SERVER_DIR
-alias et="emacs-tramp.sh -n"
-alias eg="emacs.sh -s gui_server" # open the file in gui emacs
-alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
 
 ###############################
 # Completion
@@ -124,34 +102,37 @@ export LESS_TERMCAP_mh=$(tput dim)
 
 
 ###############################
-# Source Local rc
-###############################
-# .bashrc_local if it exists
-if [ -f "$HOME/.bashrc_local" ]; then
-    . "$HOME/.bashrc_local"
-fi
-
-# unset PROMPT_COMMAND
-# Fix prompt for emacs tramp
-# DO this after sourcing local rc since prompt is set in local rc
-case "$TERM" in
-    "dumb")
-        PS1="> "
-        ;;
-esac
-
-# INFO: put source and alias after .bashrc_local because some executables are set up there
-# Not sure if this will cause any side effect yet
-
-###############################
-# Source
+# Set up cmdline environment
 ###############################
 ## Set up homebrew paths if exists
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Source .bashrc_local if it exists
+if [ -f "$HOME/.bashrc_local" ]; then
+    . "$HOME/.bashrc_local"
+fi
+
+## Not sure if this is still needed
+# # unset PROMPT_COMMAND
+# # Fix prompt for emacs tramp
+# # DO this after sourcing local rc since prompt is set in local rc
+# case "$TERM" in
+#     "dumb")
+#         PS1="> "
+#         ;;
+# esac
+
+# INFO: put source and alias after .bashrc_local because some executables are set up there
+# Not sure if this will cause any side effect yet
+
+# git dot
+git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+
+# iTerm2 shell integration
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
 
+# git status in prompt
 test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
 # zoxide
@@ -161,11 +142,15 @@ fi
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Setting the default source for fzf (respects .ignore)
+if type fd &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --hidden --type f --strip-cwd-prefix'
+fi
+# if type rg &> /dev/null; then
+#   export FZF_DEFAULT_COMMAND='rg --files --hidden'
+# fi
 
-
-###############################
 # Aliases
-###############################
 if command -v exa &> /dev/null; then
     alias ls='exa -F'
     alias la='ls -a'
@@ -204,9 +189,15 @@ fi
 targz() { tar -zcvf $1.tar.gz $1;}
 untargz() { tar -zxvf $1;}
 
+# Emacs
+export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
+mkdir -p -m 700 $EMACS_SERVER_DIR
+alias et="emacs-tramp.sh -n"
+alias eg="emacs.sh -s gui_server" # open the file in gui emacs
+alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
+
 if [[ "$USER" == "root" ]]; then
   alias rm='rm -i'
   alias cp='cp -i'
   alias mv='mv -i'
 fi
-
