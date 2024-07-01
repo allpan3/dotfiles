@@ -53,73 +53,6 @@ shopt -s dirspell
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-###############################
-# Source
-###############################
-## Set up homebrew paths if exists
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-
-export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
-test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
-
-test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
-
-# zoxide
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init bash)"
-fi
-
-# fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-
-###############################
-# Aliases
-###############################
-if command -v exa &> /dev/null; then
-    alias ls='exa -F'
-    alias la='ls -a'
-    alias ll='la -lhg --git'
-    alias lt="la -s=oldest"
-    alias llt="ll -s=oldest"
-else
-    alias ls='ls -F --color=auto'
-    alias la='ls -A'
-    alias lt="la -t"
-    alias ll='la -lh'
-    alias llt="ll -t"
-    # List info of directories instead of showing their contents
-    # Usually following wildcards; compare this to ll followed a directory name
-    alias lld='ll -d'
-fi
-alias grep='grep --color=auto'
-alias zgrep='zgrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias tatt="tmux -CC attach -t"
-alias tnew="tmux -CC new -s"
-alias tkill="tmux kill-session -t"
-alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
-alias his="history | grep"
-if command -v bat &> /dev/null; then
-  alias cat='bat'
-fi
-if command -v nvim &> /dev/null; then
-  alias vi='nvim'
-  alias vim='nvim'
-fi
-if type fd &> /dev/null; then
-  alias fd="fd --hidden"
-fi
-targz() { tar -zcvf $1.tar.gz $1;}
-untargz() { tar -zxvf $1;}
-
-if [[ "$USER" == "root" ]]; then
-  alias rm='rm -i'
-  alias cp='cp -i'
-  alias mv='mv -i'
-fi
-
 # git dot
 git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 
@@ -206,4 +139,74 @@ case "$TERM" in
         PS1="> "
         ;;
 esac
+
+# INFO: put source and alias after .bashrc_local because some executables are set up there
+# Not sure if this will cause any side effect yet
+
+###############################
+# Source
+###############################
+## Set up homebrew paths if exists
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
+
+test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
+
+# zoxide
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+###############################
+# Aliases
+###############################
+if command -v exa &> /dev/null; then
+    alias ls='exa -F'
+    alias la='ls -a'
+    alias ll='la -lhg --git'
+    alias lt="la -s=oldest"
+    alias llt="ll -s=oldest"
+else
+    alias ls='ls -F --color=auto'
+    alias la='ls -A'
+    alias lt="la -t"
+    alias ll='la -lh'
+    alias llt="ll -t"
+    # List info of directories instead of showing their contents
+    # Usually following wildcards; compare this to ll followed a directory name
+    alias lld='ll -d'
+fi
+alias grep='grep --color=auto'
+alias zgrep='zgrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias tatt="tmux -CC attach -t"
+alias tnew="tmux -CC new -s"
+alias tkill="tmux kill-session -t"
+alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
+alias his="history | grep"
+if command -v bat &> /dev/null; then
+  alias cat='bat'
+fi
+if command -v nvim &> /dev/null; then
+  alias vi='nvim'
+  alias vim='nvim'
+fi
+if type fd &> /dev/null; then
+  alias fd="fd --hidden"
+fi
+targz() { tar -zcvf $1.tar.gz $1;}
+untargz() { tar -zxvf $1;}
+
+if [[ "$USER" == "root" ]]; then
+  alias rm='rm -i'
+  alias cp='cp -i'
+  alias mv='mv -i'
+fi
 
