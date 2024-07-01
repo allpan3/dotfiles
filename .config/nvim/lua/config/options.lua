@@ -38,4 +38,6 @@ vim.cmd("let g:netrw_liststyle = 3") -- set Explorer to tree style
 -- Disable autoformat on save
 vim.g.autoformat = false
 
-
+-- In case you don't want to use `:LazyExtras`,
+-- then you need to set the option below.
+vim.g.lazyvim_picker = "telescope"
