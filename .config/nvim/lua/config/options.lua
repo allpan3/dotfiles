@@ -41,3 +41,26 @@ vim.g.autoformat = false
 -- In case you don't want to use `:LazyExtras`,
 -- then you need to set the option below.
 vim.g.lazyvim_picker = "telescope"
+
+-- Clipboard: this solves ssh clipboard issues
+opt.clipboard = "unnamedplus"
+
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
+
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = paste,
+    ["*"] = paste,
+  },
+}
+
