@@ -26,6 +26,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.editor.mini-files" },
     { import = "lazyvim.plugins.extras.editor.mini-move" },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.dap.core" },
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},
@@ -39,7 +40,12 @@ require("lazy").setup({
 		-- version = "*", -- try installing the latest stable version for plugins that support semver
 	},
 	install = { colorscheme = { "tokyonight", "gruvbox" } },
-	checker = { enabled = true }, -- automatically check for plugin updates
+	checker = { 
+    enabled = true,
+    notify = false, -- get a notification when new updates are found
+    frequency = 86400, -- check for updates every hour
+
+  }, -- automatically check for plugin updates
 	performance = {
 		rtp = {
 			-- disable some rtp plugins
