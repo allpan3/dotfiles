@@ -8,14 +8,10 @@ return {
 		"EdenEast/nightfox.nvim",
 		lazy = true,
 	},
-  -- {
-  --   "catppuccin/nvim",
-  --   lazy = true,
-  -- },
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "tokyonight-moon", -- "catppuccin-mocha",
+			colorscheme = "catppuccin-mocha",
 		},
 	},
 }

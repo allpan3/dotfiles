@@ -114,7 +114,6 @@ return {
 	keys = {
 		{ "<leader><space>", false },
 		{ "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffers" },
-		{ "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffers" },
 		{ "<leader>gc", false }, -- don't seem useful
 		{ "<leader>gs", false }, -- don't seem useful
 		{
