@@ -31,6 +31,7 @@ map("n", "<S-Enter>", "o<Esc>")
 -- but each tab maintains a window layout
 vim.keymap.del("n", "<leader><tab>l")
 vim.keymap.del("n", "<leader><tab>f")
+vim.keymap.del("n", "<leader><tab>o")
 vim.keymap.del("n", "<leader><tab><tab>")
 vim.keymap.del("n", "<leader><tab>]")
 vim.keymap.del("n", "<leader><tab>[")
@@ -41,7 +42,8 @@ map("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<leader>td", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader>to", "<cmd>tabnew %<CR>", { desc = "New Tab w/ Current Buffer" })
+-- map("n", "<leader>to", "<cmd>tabnew %<CR>", { desc = "New Tab w/ Current Buffer" })
+map("n", "<leader>to", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 
 -- Window management
 map("n", "<leader>wv", "<C-w>v", { desc = "Split Window Right" }) -- :vsplit
@@ -60,20 +62,26 @@ map("n", "<leader>wh", "<C-w>h", { desc = "Focus on Window Left" })
 map("n", "<leader>wl", "<C-w>l", { desc = "Focus on Window Right" })
 map("n", "<leader>wn", "<C-w>w", { desc = "Cycle Through Windows" })
 map("n", "<leader>ww", "<cmd>TmuxNavigatePrevious<CR>", { desc = "Switch to Other Window" })
--- map("n", "<leader><tab>", "<cmd>TmuxNavigatePrevious<CR>", { desc = "Switch to Other Window" }) -- BUG: unsure why this doesn't work
-map("n", "<leader>wts", "<C-w>t<C-w>K", { desc = "Change Vertical to Horizontal" }) -- change vertical to horizontal
-map("n", "<leader>wtv", "<C-w>t<C-w>H", { desc = "Change Horizontal to Vertical" }) -- change horizontal to vertical
-
--- LazyVim default uses ctrl-arrow to rsize windows
+-- map("n", "<leader>`", "<cmd>TmuxNavigatePrevious<CR>", { desc = "Switch to Other Window" })
+map("n", "<leader>wts", "<C-w>t<C-w>K", { desc = "Change Vertical to Horizontal" })
+map("n", "<leader>wtv", "<C-w>t<C-w>H", { desc = "Change Horizontal to Vertical" })
+-- LazyVim default uses ctrl-arrow to resize windows. Use leader key instead
 map("n", "<leader>w<Up>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height" })
 map("n", "<leader>w<Down>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
 map("n", "<leader>w<Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease Window Width" })
 map("n", "<leader>w<Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
 
+-- Buffer management
+-- LazyVim default is <leader>`
+map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+-- FIXME: <leader><tab> is not working unless I assign <leader><tab><sth>, in which case then <leader><tab> works
+-- when I type very fast. Not sure if this is a LazyVim issue.
+-- map("n", "<leader><tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+
 -- Save File
 map({ "n", "x", "s" }, "<leader>fs", "<cmd>w<CR>", { desc = "Save File" })
 
--- Clear highlight
+-- Clear Highlight
 -- Disable LazyVim default hlsearch: don't want escaspe to clear highlight, use <leader>ur
 vim.keymap.del({ "i", "n" }, "<esc>")
 
@@ -81,6 +89,17 @@ vim.keymap.del({ "i", "n" }, "<esc>")
 map("n", "<M-f>", "e") -- word forward, match terminal
 map("n", "gh", "0", { desc = "Goto Beginning of Line" })
 map("n", "gl", "$", { desc = "Goto End of Line" })
+
+-- Move lines
+-- Remap to shift-alt-j/k because escape is registered as startin escape sequence (meta) when typing fast, always causing issue
+vim.keymap.del({ "n", "i", "v" }, "<A-j>")
+vim.keymap.del({ "n", "i", "v" }, "<A-k>")
+map("n", "<S-A-j>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
+map("n", "<S-A-k>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
+map("i", "<S-A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
+map("i", "<S-A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+map("v", "<S-A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
+map("v", "<S-A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
 -- Conceal level
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
@@ -103,4 +122,3 @@ map("n", "<C-/>", lazyterm, { desc = "Terminal (Root Dir)" })
 map("n", "<C-?>", function()
 	LazyVim.terminal()
 end, { desc = "Terminal (cwd)" })
-
