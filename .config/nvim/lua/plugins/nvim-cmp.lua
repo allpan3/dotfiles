@@ -31,8 +31,7 @@ return {
 			-- ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<S-Space>"] = toggle_complete(),
-			-- ["<C-e>"] = cmp.mapping.abort(),
+			["<C-c>"] = toggle_complete(), -- both show and abort; somehow S-space don't work anymore
 			["<Tab>"] = cmp.mapping.confirm({ select = true }), -- accept the current selected item, otherwise have to press down to select the first item
 			["<S-CR>"] = cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Replace,
