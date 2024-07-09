@@ -148,6 +148,11 @@ fi
 #   export FZF_DEFAULT_COMMAND='rg --files --hidden'
 # fi
 
+# direnv
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook bash)"
+fi
+
 # Aliases
 if command -v exa &> /dev/null; then
     alias ls='exa -F'
