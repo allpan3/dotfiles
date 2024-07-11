@@ -1,7 +1,7 @@
 ### Local bashrc file containing system-specific settings
 
 ## Set up pyenv
-export PYENV_ROOT="/opt/pyenv"
+export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
@@ -20,7 +20,8 @@ RESTORE='\[\e[0m\]'
 export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE} ⨕ "
 
 ########## Variables ##########
-export PATH="$HOME/scripts:/Library/TeX/textbin:$PATH:/usr/local/sbin"
+# macOS automatically adds all paths in /etc/paths.d
+export PATH="$HOME/scripts:$PATH"
 # export EDITOR="emacs.sh -s cli_server"
 # export EDITOR="emacsclient -s ${EMACS_SERVER_DIR}/cli_server" # this is more lightweight then calling emacs.sh,  but emacs server must have been started
 export EDITOR=vim
@@ -53,3 +54,9 @@ then
     fi
 fi
 
+
+########## fzf ##########
+# Auto-completion
+source "/opt/homebrew/opt/fzf/shell/completion.bash" 2> /dev/null
+# Key bindings
+source "/opt/homebrew/opt/fzf/shell/key-bindings.bash"
