@@ -11,7 +11,6 @@ return {
 			"lua-language-server",
 			"pyright",
 			"verible",
-			"autotools-language-server",
 		},
 		ui = {
 			icons = {
