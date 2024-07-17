@@ -37,8 +37,6 @@ if [ -d "$HOME/.pyenv" ]; then
 fi
 
 ########## Completion ##########
-complete -o nospace -F _cd cd # overwrite cd behavior
-
 if [[ -r "${CONDA_HOME}/etc/profile.d/bash_completion.sh" ]]; then
     source "${CONDA_HOME}/etc/profile.d/bash_completion.sh"
 else
