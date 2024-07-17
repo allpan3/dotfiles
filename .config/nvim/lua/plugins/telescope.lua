@@ -18,24 +18,6 @@ return {
 			LazyVim.pick("find_files", { hidden = true, default_text = line })()
 		end
 
-		local set_picker = function()
-			if vim.fn.executable("fd") == 1 then
-				return {
-					"fd",
-					"--hidden",
-					"--type=f",
-					"--ignore",
-				}
-			else
-				return {
-					"rg",
-					"--hidden",
-					"--ignore",
-					"--files",
-				}
-			end
-		end
-
 		return {
 			defaults = {
 				prompt_prefix = " ",
@@ -68,19 +50,6 @@ return {
 					height = 0.80,
 					preview_cutoff = 80,
 				},
-				-- open files in the first window that is an actual file.
-				-- use the current window if no other window is available.
-				get_selection_window = function()
-					local wins = vim.api.nvim_list_wins()
-					table.insert(wins, 1, vim.api.nvim_get_current_win())
-					for _, win in ipairs(wins) do
-						local buf = vim.api.nvim_win_get_buf(win)
-						if vim.bo[buf].buftype == "" then
-							return win
-						end
-					end
-					return 0
-				end,
 				mappings = {
 					i = {
 						["<c-t>"] = open_with_trouble,
@@ -103,11 +72,6 @@ return {
 						["<C-p>"] = actions.cycle_history_prev,
 					},
 				},
-			},
-			pickers = {
-				find_files = {
-					find_command = set_picker()
-        },
 			},
 		}
 	end,
