@@ -125,6 +125,9 @@ map("n", "<C-?>", function()
 	LazyVim.terminal()
 end, { desc = "Terminal (cwd)" })
 
+-- Copy current file path
+map("n", "<leader>pf", "<cmd>let @+ = expand('%:p')<cr>", {desc = "Copy File Path"})
+
 -- LazyVim menu
 vim.keymap.del("n","<leader>l")
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
