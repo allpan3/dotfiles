@@ -8,13 +8,7 @@ return {
 			-- calling `setup` is optional for customization
 			fzf.setup({})
 
-			vim.keymap.set("n", "<leader>zf", "<cmd>FzfLua files<CR>", { silent = true, desc = "Find Files" })
-		end,
-	},
-	{
-		"folke/which-key.nvim",
-		opts = function(_, opts)
-			opts.defaults["<leader>z"] = { name = "+fzf" }
+			vim.keymap.set("n", "<leader>fz", "<cmd>FzfLua files<CR>", { silent = true, desc = "Find Files w/ fzf" })
 		end,
 	},
 }
