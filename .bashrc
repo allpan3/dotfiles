@@ -53,12 +53,6 @@ shopt -s dirspell
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-
-###############################
-# Completion
-###############################
-complete -o nospace -F _cd cd # overwrite cd behavior
-
 ###############################
 # Keybinding
 ###############################
