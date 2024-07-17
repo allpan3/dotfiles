@@ -1,17 +1,24 @@
 return {
-	-- {
-	-- 	"folke/tokyonight.nvim",
-	-- 	lazy = true,
-	--    opts = { style = "moon" }
-	-- },
 	{
 		"EdenEast/nightfox.nvim",
 		lazy = true,
+    -- themes:
+    --   nightfox
+    --   dayfox
+    --   carbonfox
+	},
+	{
+		"nyoom-engineering/oxocarbon.nvim",
+    lazy = true,
+    -- Comment is too difficult to see
+    -- themes:
+    --   oxocarbon
 	},
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "catppuccin-mocha",
+			colorscheme = "carbonfox",
+			-- colorscheme = "catppuccin-mocha",
 		},
 	},
 }
