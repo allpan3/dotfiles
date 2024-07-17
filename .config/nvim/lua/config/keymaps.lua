@@ -124,3 +124,8 @@ map("n", "<C-/>", lazyterm, { desc = "Terminal (Root Dir)" })
 map("n", "<C-?>", function()
 	LazyVim.terminal()
 end, { desc = "Terminal (cwd)" })
+
+-- LazyVim menu
+vim.keymap.del("n","<leader>l")
+map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })

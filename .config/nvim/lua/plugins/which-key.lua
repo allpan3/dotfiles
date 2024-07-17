@@ -6,6 +6,7 @@ return {
 			mode = { "n", "v" },
 			{ "<leader>t", group = "tabs" },
 			{"<leader><tab>", group = "" }, -- removes LazyVim default name
+			{"<leader>l", group = "lazy" },
 		},
 	},
 }
