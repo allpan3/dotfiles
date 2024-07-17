@@ -13,12 +13,12 @@ return {
 			{ "<leader>pr", "<cmd>YankyClearHistory<CR>", desc = "Clear Yank History" },
 		},
 	},
-	{
+  {
 		"folke/which-key.nvim",
-		opts = function(_, opts)
-			if LazyVim.has("yanky.nvim") then
-        opts.defaults["<leader>p"] = { name = "+yanky" }
-		 	end
-		end,
+    opts = {
+      spec = {
+        { "<leader>p", group = "yanky", icon = { icon = "󰅇", color = "yellow" }, mode = {"n", "v"} },
+      },
+    },
 	},
 }

@@ -2,9 +2,10 @@ return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
 	opts = {
-		defaults = {
-			["<leader>t"] = { name = "+tabs" },
-			["<leader><tab>"] = { name = "" }, -- removes LazyVim default name
+		spec = {
+			mode = { "n", "v" },
+			{ "<leader>t", group = "tabs" },
+			{"<leader><tab>", group = "" }, -- removes LazyVim default name
 		},
 	},
 }

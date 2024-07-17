@@ -53,8 +53,10 @@ return {{
 },
   {
 		"folke/which-key.nvim",
-		opts = function(_, opts)
-      opts.defaults["<leader>e"] = { name = "+explorer" }
-		end,
+    opts = {
+      spec = {
+        { "<leader>e", group = "explorer", icon = { icon = "", color = "cyan" }, mode = {"n", "v"} },
+      },
+    },
 	},
 }

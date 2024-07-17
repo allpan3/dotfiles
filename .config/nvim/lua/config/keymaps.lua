@@ -18,7 +18,9 @@ end
 --   command_mode = "c",
 --   operator-pending = "o"
 
-vim.cmd("map <leader><space> :")
+-- vim.cmd("map <leader><space> :")
+-- TODO: This function doesn't support icon, not sure which function I should use
+vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
 
 -- Edit
 map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>") -- looks like not working in command mode (undo buffer instead of command)

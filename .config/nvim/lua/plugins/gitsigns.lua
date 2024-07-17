@@ -29,13 +29,12 @@ return {
 			end,
 		},
 	},
-	{
+  {
 		"folke/which-key.nvim",
-		opts = function(_, opts)
-			if LazyVim.has("gitsigns.nvim") then
-				opts.defaults["<leader>gh"] = { name = "" } -- removes LazyVim default name
-				opts.defaults["<leader>gt"] = { name = "+toggle" }
-			end
-		end,
+    opts = {
+      spec = {
+        { "<leader>gt", group = "toggle", mode = {"n", "v"} },
+      },
+    },
 	},
 }
