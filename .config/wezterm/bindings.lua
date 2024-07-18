@@ -55,16 +55,20 @@ bindings.keys = {
 	{ key = "RightArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Right", 1 }) },
 	{ key = "UpArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Up", 1 }) },
 	{ key = "DownArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Down", 1 }) },
-  -- Map SUPER to shell actions - ideally, use common keys/escape sequences shared by all terminals. Configure the same in neovim
-  { key = "Backspace", mods = "SUPER", action = act.SendString "\x1b[3;4~" },
-  { key = "LeftArrow", mods = "ALT", action = act.SendString "\x1bb" },
-  { key = "RightArrow", mods = "ALT", action = act.SendString "\x1bf" },
-  -- { key = "LeftArrow", mods = "SUPER", action = act.SendKey {key = "a", mods = "CTRL"} },
-  { key = "LeftArrow", mods = "SUPER", action = act.SendString "\x1b[H" }, -- HOME
-  -- { key = "RightArrow", mods = "SUPER", action = act.SendKey {key = "e", mods = "CTRL"} },
-  { key = "RightArrow", mods = "SUPER", action = act.SendString "\x1b[F" }, -- END
-  { key = "z", mods = "SUPER", action = act.SendKey {key = "_", mods = "CTRL"} },
-  { key = "z", mods = "SHIFT|SUPER", action = act.SendKey {key = "r", mods = "CTRL"} }, -- for neovim
+	-- Map SUPER to shell actions - ideally, use common keys/escape sequences shared by all shells
+  -- (or at least set it up in shells). Configure the same in neovim
+	{ key = "Backspace", mods = "SUPER", action = act.SendKey({ key = "u", mods = "CTRL" }) },
+	{ key = "Backspace", mods = "ALT", action = act.SendKey({ key = "w", mods = "CTRL" }) },
+	{ key = "Delete", mods = "SUPER", action = act.SendKey({ key = "b", mods = "CTRL" }) },
+	{ key = "Delete", mods = "ALT", action = act.SendString("\x1bd") },
+	{ key = "LeftArrow", mods = "ALT", action = act.SendString("\x1bb") },
+	{ key = "RightArrow", mods = "ALT", action = act.SendString("\x1bf") },
+	-- { key = "LeftArrow", mods = "SUPER", action = act.SendKey {key = "a", mods = "CTRL"} },
+	{ key = "LeftArrow", mods = "SUPER", action = act.SendString("\x1b[H") }, -- HOME
+	-- { key = "RightArrow", mods = "SUPER", action = act.SendKey {key = "e", mods = "CTRL"} },
+	{ key = "RightArrow", mods = "SUPER", action = act.SendString("\x1b[F") }, -- END
+	{ key = "z", mods = "SUPER", action = act.SendKey({ key = "_", mods = "CTRL" }) },
+	{ key = "z", mods = "SHIFT|SUPER", action = act.SendKey({ key = "r", mods = "CTRL" }) }, -- for neovim
 }
 
 return bindings

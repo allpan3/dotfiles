@@ -61,17 +61,12 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 # Seems like key binding is causing issue with dumb termimal, temporarily working around by skipping
 if [ "$TERM" != "dumb" ]; then
   stty werase undef
-  bind "\C-w":backward-delete-char
-  bind '"\e\C-w":backward-kill-word' # ctrl-alt-n
-  # need to bind super-ctrl-w to backward-kill-line
-  bind "\C-h":backward-char
-  # need to bind ctrl-alt-h to backward-word
-  # need to bind super-ctrl-h to beginning of the line
-  bind "\C-l":forward-char
-  bind "\C-j":next-history
-  bind "\C-k":previous-history
-  bind "\C-b":kill-line # forward delete line
-  bind '"\e[3;4~":backward-kill-line'
+  bind "\C-w":backward-kill-word # default both bash and neovim.
+  bind "\ed":kill-word # default in bash. 
+  bind "\C-b":kill-line # forward delete line, originally ctrl-k. ctrl-b not used in neovim default, so can make it match
+  bind "\C-u":backward-kill-line # default both bash and neovim
+  bind "\C-j":next-history      # remap ctrl-j/k to the same effect as j/k
+  bind "\C-k":previous-history  # these two should be set locally in neovim for every command interface
 fi
 
 ###############################
