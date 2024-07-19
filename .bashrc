@@ -126,7 +126,7 @@ test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh
 
 # zoxide
 if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init bash)"
+    eval "$(zoxide init bash --cmd cd)"
 fi
 
 # Setting the default source for fzf (respects .ignore)
