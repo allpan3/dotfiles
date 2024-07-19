@@ -19,14 +19,15 @@ require("lazy").setup({
 		-- add LazyVim and import its plugins
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
 		-- import any extras modules here
-    { import = "lazyvim.plugins.extras.coding.mini-surround" },
-    { import = "lazyvim.plugins.extras.coding.yanky" },
-    { import = "lazyvim.plugins.extras.editor.illuminate" },
-    -- { import = "lazyvim.plugins.extras.editor.mini-diff" }, -- conflicts with gitsigns
-    { import = "lazyvim.plugins.extras.editor.mini-files" },
-    { import = "lazyvim.plugins.extras.editor.mini-move" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    { import = "lazyvim.plugins.extras.dap.core" },
+		{ import = "lazyvim.plugins.extras.coding.mini-surround" },
+		{ import = "lazyvim.plugins.extras.coding.yanky" },
+		{ import = "lazyvim.plugins.extras.editor.illuminate" },
+		-- { import = "lazyvim.plugins.extras.editor.mini-diff" }, -- conflicts with gitsigns
+		{ import = "lazyvim.plugins.extras.editor.mini-files" },
+		{ import = "lazyvim.plugins.extras.editor.mini-move" },
+		-- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+		{ import = "lazyvim.plugins.extras.dap.core" },
+		{ import = "lazyvim.plugins.extras.coding.copilot" },
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},
@@ -39,12 +40,11 @@ require("lazy").setup({
 		version = false, -- always use the latest git commit
 		-- version = "*", -- try installing the latest stable version for plugins that support semver
 	},
-	checker = { 
-    enabled = true,
-    notify = false, -- get a notification when new updates are found
-    frequency = 86400, -- check for updates every hour
-
-  }, -- automatically check for plugin updates
+	checker = {
+		enabled = true,
+		notify = false, -- get a notification when new updates are found
+		frequency = 86400, -- check for updates every hour
+	}, -- automatically check for plugin updates
 	performance = {
 		rtp = {
 			-- disable some rtp plugins
