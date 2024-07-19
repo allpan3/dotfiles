@@ -62,7 +62,7 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 if [ "$TERM" != "dumb" ]; then
   stty werase undef
   bind "\C-w":backward-kill-word # default both bash and neovim.
-  bind "\ed":kill-word # default in bash. 
+  bind "\M-d":kill-word # default in bash. 
   bind "\C-b":kill-line # forward delete line, originally ctrl-k. ctrl-b not used in neovim default, so can make it match
   bind "\C-u":backward-kill-line # default both bash and neovim
   bind "\C-j":next-history      # remap ctrl-j/k to the same effect as j/k
