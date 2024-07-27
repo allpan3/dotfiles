@@ -17,7 +17,7 @@ If this is a new type of machine to set up, create a new branch for it.
 git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME checkout -b <branch>
 ```
 Start a new shell to allow settings to take effect.
-Use `git d` for any git commands targeted for this bare metal (alias set in shell configuration).
+Use `git dot` for any git commands targeted for this bare metal (alias set in shell configuration).
 
 ## Branch Organization
 Branches are organized in the following fashion: `master` branch contains all base files that are shared among all systems. Each system, if necessary, has its own branch where system-specific files plus all files from `master` are stored. Multiple systems can share one system-specific branch if that's sufficient. 
