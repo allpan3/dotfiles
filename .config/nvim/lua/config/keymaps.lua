@@ -1,6 +1,8 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- LazyVim default keymaps are automatically loaded: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
+-- remap: recursively map the keys when the rhs contains lhs
+-- silent: when mapping a key to a command, don't show the command prompt popup
 local function map(mode, lhs, rhs, opts)
 	local options = { noremap = true, silent = true }
 	if opts then
@@ -18,7 +20,6 @@ end
 --   command_mode = "c",
 --   operator-pending = "o"
 
--- vim.cmd("map <leader><space> :")
 -- TODO: This function doesn't support icon, not sure which function I should use
 vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
 
@@ -57,14 +58,11 @@ map("n", "<leader>|", "<C-W>s", { desc = "Split Window Below" })
 vim.keymap.del("n", "<leader>-")
 vim.keymap.del("n", "<leader>w-")
 map("n", "<leader>w=", "<C-w>=", { desc = "Make Windows Equal Size" })
--- LazyVim default uses ctrl-hjkl to move around windows
 map("n", "<leader>wj", "<C-w>j", { desc = "Focus on Window Below" })
 map("n", "<leader>wk", "<C-w>k", { desc = "Focus on Window Above" })
 map("n", "<leader>wh", "<C-w>h", { desc = "Focus on Window Left" })
 map("n", "<leader>wl", "<C-w>l", { desc = "Focus on Window Right" })
 map("n", "<leader>wn", "<C-w>w", { desc = "Cycle Through Windows" })
-map("n", "<leader>ww", "<cmd>TmuxNavigatePrevious<CR>", { desc = "Switch to Other Window" })
--- map("n", "<leader>`", "<cmd>TmuxNavigatePrevious<CR>", { desc = "Switch to Other Window" })
 map("n", "<leader>wts", "<C-w>t<C-w>K", { desc = "Change Vertical to Horizontal" })
 map("n", "<leader>wtv", "<C-w>t<C-w>H", { desc = "Change Horizontal to Vertical" })
 -- LazyVim default uses ctrl-arrow to resize windows. Use leader key instead
@@ -72,6 +70,13 @@ map("n", "<leader>w<Up>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height
 map("n", "<leader>w<Down>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
 map("n", "<leader>w<Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease Window Width" })
 map("n", "<leader>w<Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
+vim.keymap.del("n", "<leader>wm")
+LazyVim.toggle.map("<leader>wf", LazyVim.toggle.maximize)
+-- Setting inside zellij doesn't work, maybe LazyVim has the priority
+map("n", "<C-h>", "<cmd>ZellijNavigateLeft<CR>")
+map("n", "<C-j>", "<cmd>ZellijNavigateDown<CR>")
+map("n", "<C-k>", "<cmd>ZellijNavigateUp<CR>")
+map("n", "<C-l>", "<cmd>ZellijNavigateRight<CR>")
 
 -- Buffer management
 -- LazyVim default is <leader>`
@@ -82,6 +87,7 @@ map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- Save File
 map({ "n", "x", "s" }, "<leader>fs", "<cmd>w<CR>", { desc = "Save File" })
+vim.keymap.set({ "n", "x", "s" }, "<leader>fS", ":w ", { desc = "Save as" })
 
 -- Clear Highlight
 -- Disable LazyVim default hlsearch: don't want escaspe to clear highlight, use <leader>ur
@@ -103,9 +109,14 @@ map("i", "<S-A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<S-A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 map("v", "<S-A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
+-- Save and quite
+map("n", "<leader>qw", "<cmd>wq<cr>", { desc = "Save and Quit" })
+
 -- Conceal level
-local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map("n", "<leader>uC", function() LazyVim.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+LazyVim.toggle.map(
+	"<leader>uC",
+	LazyVim.toggle("conceallevel", { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } })
+)
 
 -- By default, pasting in visual mode puts the replaced text in register. This keeps the old text
 map("v", "p", '"_dP')
@@ -126,9 +137,9 @@ map("n", "<C-?>", function()
 end, { desc = "Terminal (cwd)" })
 
 -- Copy current file path
-map("n", "<leader>pf", "<cmd>let @+ = expand('%:p')<cr>", {desc = "Copy File Path"})
+map("n", "<leader>pf", "<cmd>let @+ = expand('%:p')<cr>", { desc = "Copy File Path" })
 
 -- LazyVim menu
-vim.keymap.del("n","<leader>l")
+vim.keymap.del("n", "<leader>l")
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })

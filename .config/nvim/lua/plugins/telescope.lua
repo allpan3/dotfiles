@@ -56,8 +56,8 @@ return {
 						-- ["<a-t>"] = open_selected_with_trouble,
 						["<a-i>"] = find_files_no_ignore,
 						["<a-h>"] = find_files_with_hidden,
-						["<C-j>"] = actions.move_selection_next,
-						["<C-k>"] = actions.move_selection_previous,
+						["<C-j>"] = actions.move_selection_next,       -- this overrides default keymap
+						["<C-k>"] = actions.move_selection_previous,   -- this overrides default keymap
 						["<C-n>"] = actions.cycle_history_next,
 						["<C-p>"] = actions.cycle_history_prev,
 						["<C-f>"] = actions.preview_scrolling_down,

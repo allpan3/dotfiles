@@ -16,7 +16,7 @@ return {
 	{ "nvim-neo-tree/neo-tree.nvim", enabled = false }, -- use nvim-tree instead
 	{ "folke/persistence.nvim", enabled = false }, -- use auto-session instead
   { "echasnovski/mini.pairs", enabled = false },
-	"christoomey/vim-tmux-navigator", -- tmux & split window navigation
+  { "https://github.com/fresh2dev/zellij.vim.git", lazy = false } -- enable neovim/zellij seamless navigation
 	--  { "folke/neoconf.nvim", cmd = "Neoconf" },
 	--   "folke/neodev.nvim",
 }
