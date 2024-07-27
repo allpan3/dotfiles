@@ -65,8 +65,6 @@ if [ "$TERM" != "dumb" ]; then
   bind "\M-d":kill-word # default in bash. 
   bind "\C-b":kill-line # forward delete line, originally ctrl-k. ctrl-b not used in neovim default, so can make it match
   bind "\C-u":backward-kill-line # default both bash and neovim
-  bind "\C-j":next-history      # remap ctrl-j/k to the same effect as j/k
-  bind "\C-k":previous-history  # these two should be set locally in neovim for every command interface
 fi
 
 ###############################
@@ -174,6 +172,10 @@ fi
 if command -v nvim &> /dev/null; then
   alias vi='nvim'
   alias vim='nvim'
+  export EDITOR='nvim'
+fi
+if command -v zellij &> /dev/null; then
+  alias zj='zellij'
 fi
 if type fd &> /dev/null; then
   alias fd="fd --hidden"
