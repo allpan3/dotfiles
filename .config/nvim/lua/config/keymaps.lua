@@ -11,6 +11,8 @@ local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
+-- remap: recursively map the keys when the rhs contains lhs
+-- silent: when mapping a key to a command, don't show the command prompt popup
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
@@ -69,6 +71,8 @@ map("n", "<leader>w<Up>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height
 map("n", "<leader>w<Down>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
 map("n", "<leader>w<Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease Window Width" })
 map("n", "<leader>w<Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
+vim.keymap.del("n", "<leader>wm")
+LazyVim.toggle.map("<leader>wz", LazyVim.toggle.maximize) -- zoomed
 
 -- Buffer management
 -- LazyVim default is <leader>`
