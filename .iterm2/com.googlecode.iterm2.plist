@@ -14,6 +14,8 @@
 	<true/>
 	<key>BracketedPasteMode</key>
 	<true/>
+	<key>ClickToSelectCommand</key>
+	<false/>
 	<key>ClosingTmuxTabKillsTmuxWindows</key>
 	<true/>
 	<key>ClosingTmuxTabKillsTmuxWindows_selection</key>
@@ -1176,7 +1178,7 @@ Split Horizontally with Current Profile</string>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
 	<key>HotkeyModifiers</key>
-	<integer>524576</integer>
+	<integer>131330</integer>
 	<key>LeftTabBarWidth</key>
 	<real>114</real>
 	<key>Log Smart Selection Debug Info</key>
@@ -1191,7 +1193,7 @@ Split Horizontally with Current Profile</string>
 			<key>ASCII Anti Aliased</key>
 			<true/>
 			<key>ASCII Ligatures</key>
-			<true/>
+			<false/>
 			<key>AWDS Pane Directory</key>
 			<string></string>
 			<key>AWDS Pane Option</key>
@@ -6058,6 +6060,8 @@ Split Horizontally with Current Profile</string>
 	<false/>
 	<key>TmuxDashboardLimit</key>
 	<integer>30</integer>
+	<key>TmuxUnpauseAutomatically</key>
+	<true/>
 	<key>TmuxUsesDedicatedProfile</key>
 	<false/>
 	<key>TmuxVariableWindowSizesSupported</key>
