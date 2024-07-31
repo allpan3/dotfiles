@@ -19,6 +19,8 @@ local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
+-- remap: recursively map the keys when the rhs contains lhs
+-- silent: when mapping a key to a command, don't show the command prompt popup
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
