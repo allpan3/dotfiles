@@ -73,10 +73,10 @@ map("n", "<leader>w<Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase W
 vim.keymap.del("n", "<leader>wm")
 LazyVim.toggle.map("<leader>wf", LazyVim.toggle.maximize)
 -- Setting inside zellij doesn't work, maybe LazyVim has the priority
-map("n", "<C-h>", "<cmd>ZellijNavigateLeft<CR>")
-map("n", "<C-j>", "<cmd>ZellijNavigateDown<CR>")
-map("n", "<C-k>", "<cmd>ZellijNavigateUp<CR>")
-map("n", "<C-l>", "<cmd>ZellijNavigateRight<CR>")
+-- map("n", "<C-h>", "<cmd>ZellijNavigateLeft<CR>")
+-- map("n", "<C-j>", "<cmd>ZellijNavigateDown<CR>")
+-- map("n", "<C-k>", "<cmd>ZellijNavigateUp<CR>")
+-- map("n", "<C-l>", "<cmd>ZellijNavigateRight<CR>")
 
 -- Buffer management
 -- LazyVim default is <leader>`

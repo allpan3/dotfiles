@@ -174,7 +174,7 @@ if command -v nvim &> /dev/null; then
   alias vim='nvim'
   export EDITOR='nvim'
 fi
-if command -v zellij &> /dev/null; then
+if command -v zellij --version &> /dev/null; then
   alias zj='zellij'
 fi
 if type fd &> /dev/null; then
