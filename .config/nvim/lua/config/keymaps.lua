@@ -49,14 +49,13 @@ map("n", "<leader>td", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader>to", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 
 -- Window management
+vim.keymap.del("n", "<leader>-")
 map("n", "<leader>wv", "<C-w>v", { desc = "Split Window Right" }) -- :vsplit
 map("n", "<leader>ws", "<C-w>s", { desc = "Split window Below" }) -- :split
 map("n", "<leader>w\\", "<C-W>v", { desc = "Split Window Right" })
 map("n", "<leader>w|", "<C-W>s", { desc = "Split Window Below" })
 map("n", "<leader>\\", "<C-W>v", { desc = "Split Window Right" })
 map("n", "<leader>|", "<C-W>s", { desc = "Split Window Below" })
-vim.keymap.del("n", "<leader>-")
-vim.keymap.del("n", "<leader>w-")
 map("n", "<leader>w=", "<C-w>=", { desc = "Make Windows Equal Size" })
 map("n", "<leader>wj", "<C-w>j", { desc = "Focus on Window Below" })
 map("n", "<leader>wk", "<C-w>k", { desc = "Focus on Window Above" })
@@ -70,20 +69,10 @@ map("n", "<leader>w<Up>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height
 map("n", "<leader>w<Down>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
 map("n", "<leader>w<Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease Window Width" })
 map("n", "<leader>w<Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
-vim.keymap.del("n", "<leader>wm")
-LazyVim.toggle.map("<leader>wf", LazyVim.toggle.maximize)
--- Setting inside zellij doesn't work, maybe LazyVim has the priority
--- map("n", "<C-h>", "<cmd>ZellijNavigateLeft<CR>")
--- map("n", "<C-j>", "<cmd>ZellijNavigateDown<CR>")
--- map("n", "<C-k>", "<cmd>ZellijNavigateUp<CR>")
--- map("n", "<C-l>", "<cmd>ZellijNavigateRight<CR>")
 
 -- Buffer management
 -- LazyVim default is <leader>`
-map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
--- FIXME: <leader><tab> is not working unless I assign <leader><tab><sth>, in which case then <leader><tab> works
--- when I type very fast. Not sure if this is a LazyVim issue.
--- map("n", "<leader><tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+map("n", "<leader><tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- Save File
 map({ "n", "x", "s" }, "<leader>fs", "<cmd>w<CR>", { desc = "Save File" })
