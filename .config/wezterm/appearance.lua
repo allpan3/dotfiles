@@ -6,7 +6,8 @@ local scheme = wezterm.get_builtin_color_schemes()["Dark+"]
 ----------------
 return {
 	color_scheme = "Dark+",
-	font = wezterm.font("MesloLGS Nerd Font Mono"),
+	-- font = wezterm.font("MesloLGS Nerd Font Mono"),
+	font = wezterm.font("JetBrainsMono Nerd Font"),
 	font_size = 14,
 
 	-- Tab bar

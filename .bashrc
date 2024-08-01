@@ -119,6 +119,9 @@ git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
 
+# wezterm shell integration
+test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
+
 # git status in prompt
 test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
 
@@ -177,6 +180,7 @@ fi
 if command -v zellij --version &> /dev/null; then
   alias zj='zellij'
 fi
+
 if type fd &> /dev/null; then
   alias fd="fd --hidden"
 fi
