@@ -94,6 +94,13 @@ export LESS_TERMCAP_mh=$(tput dim)
 ## Set up homebrew paths if exists
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
+## Local executable paths
+[[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH"  # installed from source
+[[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/.local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+[[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH="${HOME}/.local/share/man${MANPATH:+:${MATHPATH}}"
+[[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH"  # rustup
+[[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"        # personal scripts
+
 # Source .bashrc_local if it exists
 if [ -f "$HOME/.bashrc_local" ]; then
     . "$HOME/.bashrc_local"
