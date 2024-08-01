@@ -3,12 +3,12 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-    *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 ###############################
-# History 
+# History
 ###############################
 # Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -62,8 +62,8 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 if [ "$TERM" != "dumb" ]; then
   stty werase undef
   bind "\C-w":backward-kill-word # default both bash and neovim.
-  bind "\M-d":kill-word # default in bash. 
-  bind "\C-b":kill-line # forward delete line, originally ctrl-k. ctrl-b not used in neovim default, so can make it match
+  bind "\M-d":kill-word          # default in bash.
+  bind "\C-b":kill-line          # forward delete line, originally ctrl-k. ctrl-b not used in neovim default, so can make it match
   bind "\C-u":backward-kill-line # default both bash and neovim
 fi
 
@@ -73,20 +73,39 @@ fi
 # Source: http://unix.stackexchange.com/a/147
 # More info: http://unix.stackexchange.com/a/108840
 # Man Page: https://linux.die.net/man/5/termcap
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
-export LESS_TERMCAP_md=$(tput bold; tput setaf 2)
+export LESS_TERMCAP_mb=$(
+  tput bold
+  tput setaf 2
+) # green
+export LESS_TERMCAP_md=$(
+  tput bold
+  tput setaf 2
+)
 export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4) # yellow on blue
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7) # white
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_so=$(
+  tput bold
+  tput setaf 3
+  tput setab 4
+) # yellow on blue
+export LESS_TERMCAP_se=$(
+  tput rmso
+  tput sgr0
+)
+export LESS_TERMCAP_us=$(
+  tput smul
+  tput bold
+  tput setaf 7
+) # white
+export LESS_TERMCAP_ue=$(
+  tput rmul
+  tput sgr0
+)
 export LESS_TERMCAP_mr=$(tput rev)
 export LESS_TERMCAP_mh=$(tput dim)
 # export LESS_TERMCAP_ZN=$(tput ssubm)
 # export LESS_TERMCAP_ZV=$(tput rsubm)
 # export LESS_TERMCAP_ZO=$(tput ssupm)
 # export LESS_TERMCAP_ZW=$(tput rsupm)
-
 
 ###############################
 # Set up cmdline environment
@@ -95,15 +114,18 @@ export LESS_TERMCAP_mh=$(tput dim)
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Local executable paths
-[[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH"  # installed from source
+[[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH" # installed from source
 [[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/.local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 [[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH="${HOME}/.local/share/man${MANPATH:+:${MATHPATH}}"
-[[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH"  # rustup
-[[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"        # personal scripts
+[[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH" # rustup
+[[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
+
+# Set up function for completion for aliases
+source ${HOME}/.scripts/complete-alias.sh
 
 # Source .bashrc_local if it exists
 if [ -f "$HOME/.bashrc_local" ]; then
-    . "$HOME/.bashrc_local"
+  . "$HOME/.bashrc_local"
 fi
 
 ## Not sure if this is still needed
@@ -119,9 +141,6 @@ fi
 # INFO: put source and alias after .bashrc_local because some executables are set up there
 # Not sure if this will cause any side effect yet
 
-# git dot
-git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
-
 # iTerm2 shell integration
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
@@ -133,12 +152,12 @@ test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.co
 test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
 
 # zoxide
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init bash --cmd cd)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init bash --cmd cd)"
 fi
 
 # Setting the default source for fzf (respects .ignore)
-if type fd &> /dev/null; then
+if type fd &>/dev/null; then
   export FZF_DEFAULT_COMMAND='fd --hidden --type f --strip-cwd-prefix'
 fi
 # if type rg &> /dev/null; then
@@ -146,53 +165,63 @@ fi
 # fi
 
 # direnv
-if command -v direnv &> /dev/null; then
+if command -v direnv &>/dev/null; then
   eval "$(direnv hook bash)"
 fi
 
-# Aliases
-if command -v exa &> /dev/null; then
-    alias ls='exa -F'
-    alias la='ls -a'
-    alias ll='la -lhg --git'
-    alias lt="la -s=oldest"
-    alias llt="ll -s=oldest"
+# ls - use exa if available
+if command -v exa &>/dev/null; then
+  alias ls='exa -F' && complete -F _complete_alias ls
+  alias la='ls -a' && complete -F _complete_alias la
+  alias ll='la -lhg --git' && complete -F _complete_alias ll
+  alias lt="la -s=oldest" && complete -F _complete_alias lt
+  alias llt="ll -s=oldest" && complete -F _complete_alias llt
+  alias ltree="exa --tree" && complete -F _complete_alias ltree
 else
-    alias ls='ls -F --color=auto'
-    alias la='ls -A'
-    alias lt="la -t"
-    alias ll='la -lh'
-    alias llt="ll -t"
-    # List info of directories instead of showing their contents
-    # Usually following wildcards; compare this to ll followed a directory name
-    alias lld='ll -d'
+  alias ls='ls -F --color=auto' && complete -F _complete_alias ls
+  alias la='ls -A' && complete -F _complete_alias la
+  alias lt="la -t" && complete -F _complete_alias lt
+  alias ll='la -lh' && complete -F _complete_alias ll
+  alias llt="ll -t" && complete -F _complete_alias llt
+  # List info of directories instead of showing their contents
+  # Usually following wildcards; compare this to ll followed a directory name
+  alias lld='ll -d' && complete -F _complete_alias lld
 fi
-alias grep='grep --color=auto'
-alias zgrep='zgrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+
+# grep
+alias grep='grep --color=auto' && complete -F _complete_alias grep
+alias zgrep='zgrep --color=auto' && complete -F _complete_alias zgrep
+alias fgrep='fgrep --color=auto' && complete -F _complete_alias fgrep
+alias egrep='egrep --color=auto' && complete -F _complete_alias egrep
+
+alias his="history | grep"
+
+if command -v bat &>/dev/null; then
+  alias cat='bat' & complete -F _complete_alias cat
+fi
+
+if command -v nvim &>/dev/null; then
+  alias vi='nvim' && complete -F _complete_alias vi
+  export EDITOR='nvim'
+fi
+
+if command -v zellij --version &>/dev/null; then
+  [ -f ${HOME}/.config/zellij/zellij-completion.sh ] && source ${HOME}/.config/zellij/zellij-completion.sh
+  alias zj='zellij' && complete -F _complete_alias zj
+fi
+
+if type fd &>/dev/null; then
+  alias fd="fd --hidden" && complete -F _complete_alias fd
+fi
+
+# tar helper fuctions
+targz() { tar -zcvf $1.tar.gz $1; }
+untargz() { tar -zxvf $1; }
+
+# tmux iterm2 integration
 alias tatt="tmux -CC attach -t"
 alias tnew="tmux -CC new -s"
 alias tkill="tmux kill-session -t"
-alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
-alias his="history | grep"
-if command -v bat &> /dev/null; then
-  alias cat='bat'
-fi
-if command -v nvim &> /dev/null; then
-  alias vi='nvim'
-  alias vim='nvim'
-  export EDITOR='nvim'
-fi
-if command -v zellij --version &> /dev/null; then
-  alias zj='zellij'
-fi
-
-if type fd &> /dev/null; then
-  alias fd="fd --hidden"
-fi
-targz() { tar -zcvf $1.tar.gz $1;}
-untargz() { tar -zxvf $1;}
 
 # Emacs
 export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
@@ -201,16 +230,20 @@ alias et="emacs-tramp.sh -n"
 alias eg="emacs.sh -s gui_server" # open the file in gui emacs
 alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
 
-# Lazygit
-alias lg=lazygit
-alias lgd="lazygit --git-dir=$HOME/.dotfiles.git --work-tree=$HOME"
+# git
+# git dot alias
+git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
+
+# lazygit
+alias lg=lazygit && complete -F _complete_alias lg
+alias lgd="lazygit --git-dir=$HOME/.dotfiles.git --work-tree=$HOME" && complete -F _complete_alias lgd
 
 if [[ "$USER" == "root" ]]; then
-  alias rm='rm -i'
-  alias cp='cp -i'
-  alias mv='mv -i'
+  alias rm='rm -i' && complete -F _complete_alias rm
+  alias cp='cp -i' && complete -F _complete_alias cp
+  alias mv='mv -i' && complete -F _complete_alias mv
 fi
-
 
 ###############################
 # Functions
@@ -247,7 +280,7 @@ _zellij_update_tab_name() {
     else
       tab_name=$PWD
       if [[ $tab_name == $HOME ]]; then
-      tab_name="~"
+        tab_name="~"
       else
         tab_name=${tab_name##*/}
       fi
@@ -259,4 +292,3 @@ _zellij_update_tab_name() {
 
 _zellij_update_tab_name
 CHPWD_COMMAND="${CHPWD_COMMAND:+$CHPWD_COMMAND;}_zellij_update_tab_name"
-
