@@ -203,3 +203,53 @@ if [[ "$USER" == "root" ]]; then
   alias cp='cp -i'
   alias mv='mv -i'
 fi
+
+
+###############################
+# Functions
+###############################
+_chpwd_hook() {
+  shopt -s nullglob
+
+  local f
+
+  # run commands in CHPWD_COMMAND variable on dir change
+  if [[ "$PREVPWD" != "$PWD" ]]; then
+    local IFS=$';'
+    for f in $CHPWD_COMMAND; do
+      "$f"
+    done
+    unset IFS
+  fi
+  # refresh last working dir record
+  export PREVPWD="$PWD"
+}
+
+# create a PROPMT_COMMAND equivalent to store chpwd functions
+typeset -g CHPWD_COMMAND=""
+# add `;` after _chpwd_hook if PROMPT_COMMAND is not empty
+PROMPT_COMMAND="_chpwd_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+
+_zellij_update_tab_name() {
+  if [[ -n $ZELLIJ ]]; then
+    tab_name=''
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+      tab_name+=$(basename "$(git rev-parse --show-toplevel)")/
+      tab_name+=$(git rev-parse --show-prefix)
+      tab_name=${tab_name%/}
+    else
+      tab_name=$PWD
+      if [[ $tab_name == $HOME ]]; then
+      tab_name="~"
+      else
+        tab_name=${tab_name##*/}
+      fi
+    fi
+    command nohup zellij action rename-tab $tab_name >/dev/null 2>&1
+    # command nohup zellij action rename-session $(PWD)
+  fi
+}
+
+_zellij_update_tab_name
+CHPWD_COMMAND="${CHPWD_COMMAND:+$CHPWD_COMMAND;}_zellij_update_tab_name"
+
