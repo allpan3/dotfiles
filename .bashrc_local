@@ -28,7 +28,7 @@ export PATH="$HOME/scripts:$PATH"
 
 ########## Alias ##########
 alias typora="open -a typora"
-alias ssh="ssh.sh"
+alias ssh="source ${HOME}/.scripts/ssh-find-agent.sh && source ${HOME}/.scripts/ssh-agent-setup.sh && ssh"
 
 ########## Miniconda ##########
 # Activate environment:   conda activate <env>
