@@ -15,7 +15,6 @@ return {
 	{ "LazyVim/LazyVim", priority = 10000, lazy = false, config = true, cond = true, version = "*" },
 	{ "nvim-neo-tree/neo-tree.nvim", enabled = false }, -- use nvim-tree instead
 	{ "folke/persistence.nvim", enabled = false }, -- use auto-session instead
-  { "echasnovski/mini.pairs", enabled = false },
-	--  { "folke/neoconf.nvim", cmd = "Neoconf" },
-	--   "folke/neodev.nvim",
+	{ "echasnovski/mini.pairs", enabled = false },
+	-- { "folke/noice.nvim", enabled = false },
 }

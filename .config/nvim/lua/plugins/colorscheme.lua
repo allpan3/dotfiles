@@ -8,17 +8,17 @@ return {
     --   carbonfox
 	},
 	{
-		"nyoom-engineering/oxocarbon.nvim",
+		"allpan3/oxocarbon.nvim",
     lazy = true,
-    -- Comment is too difficult to see
     -- themes:
     --   oxocarbon
 	},
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "carbonfox",
-			-- colorscheme = "catppuccin-mocha",
+      colorscheme = "oxocarbon",
+			-- colorscheme = "carbonfox",
+			-- colorscheme = "catppuccin",
 		},
 	},
 }

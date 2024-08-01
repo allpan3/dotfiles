@@ -1,12 +1,11 @@
 return {
 	"folke/which-key.nvim",
-	event = "VeryLazy",
 	opts = {
 		spec = {
-			mode = { "n", "v" },
 			{ "<leader>t", group = "tabs" },
-			{"<leader><tab>", group = "" }, -- removes LazyVim default name
-			{"<leader>l", group = "lazy" },
+			{ "<leader><tab>", desc = "Switch to Other Buffer" }, -- Overrides LazyVim default
+			{ "<leader>l", group = "lazy" },
+			{ "<leader><space>", icon = "" }, 
 		},
 	},
 }
