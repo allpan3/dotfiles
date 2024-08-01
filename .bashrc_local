@@ -7,17 +7,7 @@ export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
 RESTORE='\[\e[0m\]'
 export PS1="\[\e[0;38;5;43m\][\[\e[1;38;5;43m\]\u\[\e[0;38;5;6m\]@\[\e[1;38;5;43m\]\h\[\e[0;38;5;43m\]]\[\e[1;38;5;6m\]\w\[\e[0;38;5;43m\]\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;43m\] $ ${RESTORE}"
 
-########## Variables ##########
-[[ ":$PATH:" =~ ":${HOME}/scripts:" ]] || PATH="${HOME}/scripts:$PATH"
-
 ########## Environment ##########
-# Installed from source
-[[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH"  # installed from source
-[[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/.local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
-MANPATH="${HOME}/.local/share/man${MANPATH:+:${MATHPATH}}"
-[[ ":$PATH:" =~ ":${HOME}/scripts:" ]] || PATH="${HOME}/scripts:$PATH"        # personal scripts
-[[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH"  # rustup
-
 # The base env bin is added to PATH and will always be implicitly activated
 # To activate/deactivate other environment, run the following commands
 # Activate environment:   conda activate <env>
