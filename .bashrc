@@ -130,7 +130,7 @@ test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iter
 test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
 
 # git status in prompt
-test -e "${HOME}/scripts/git-prompt.sh" && source "${HOME}/scripts/git-prompt.sh"
+test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
 
 # zoxide
 if command -v zoxide &> /dev/null; then
