@@ -173,8 +173,8 @@ keybinds clear-defaults=true {
         bind "Ctrl u" { HalfPageScrollUp; }
         bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
         bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
-        bind "n" { Search "down"; }
-        bind "p" "N" { Search "up"; }
+        bind "n" { Search "up"; }    // makes more sense since first highlighted result is always at the bottom
+        bind "p" "N" { Search "down"; }
         bind "c" { SearchToggleOption "CaseSensitivity"; }
         bind "w" { SearchToggleOption "Wrap"; }
         bind "o" { SearchToggleOption "WholeWord"; }
