@@ -16,8 +16,8 @@ CONDA_HOME=${HOME}/.conda
 . "${CONDA_HOME}/etc/profile.d/conda.sh"
 [[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
 export INFOPATH="${CONDA_HOME}/share/info"
+export PATH
 
-export PATH LD_LIBRARY_PATH MANPATH
 ########## pyenv ##########
 # Put this after Conda base - higher priority than base env but lower priority than manually activated env 
 if [ -d "$HOME/.pyenv" ]; then
@@ -27,6 +27,10 @@ if [ -d "$HOME/.pyenv" ]; then
 fi
 
 ########## Completion ##########
+# zellij doesn't automatically source /etc/profile in new panes
+# so manually source the system-wide completion scripts
+source /etc/profile.d/bash_completion.sh
+
 if [[ -r "${CONDA_HOME}/etc/profile.d/bash_completion.sh" ]]; then
     source "${CONDA_HOME}/etc/profile.d/bash_completion.sh"
 else
