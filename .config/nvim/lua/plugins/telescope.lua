@@ -117,7 +117,7 @@ return {
 			end,
 			desc = "Find Files (Buf Dir)",
 		},
-		{ "<leader>bb", "<cmd>Telepcope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
+		{ "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
 		-- { "<leader>gs", false }, -- git_status; use lazygit
 		{ "<leader>gc", "<cmd>Telescope commits<CR>", desc = "Search Commit History" }, -- this may be occasionally useful as we can search the commit message
 
