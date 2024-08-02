@@ -16,5 +16,17 @@ return {
 	{ "nvim-neo-tree/neo-tree.nvim", enabled = false }, -- use nvim-tree instead
 	{ "folke/persistence.nvim", enabled = false }, -- use auto-session instead
 	{ "echasnovski/mini.pairs", enabled = false },
+	{
+		"https://git.sr.ht/~swaits/zellij-nav.nvim",
+		lazy = true,
+		event = "VeryLazy",
+		keys = {
+			{ "<c-h>", "<cmd>ZellijNavigateLeft<cr>", { silent = true, desc = "Navigate Left" } },
+			{ "<c-j>", "<cmd>ZellijNavigateDown<cr>", { silent = true, desc = "Navigate Down" } },
+			{ "<c-k>", "<cmd>ZellijNavigateUp<cr>", { silent = true, desc = "Navigate Up" } },
+			{ "<c-l>", "<cmd>ZellijNavigateRight<cr>", { silent = true, desc = "Navigate Right" } },
+		},
+		opts = {},
+	},
 	-- { "folke/noice.nvim", enabled = false },
 }
