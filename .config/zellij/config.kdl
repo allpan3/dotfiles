@@ -151,8 +151,8 @@ keybinds clear-defaults=true {
         bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
     }
     session {
-        bind "d" { Detach; }
-        bind "q" { Quit; }
+        bind "q" { Detach; }
+        bind "d" { Quit; }    // basically "delete session"
         bind "w" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
