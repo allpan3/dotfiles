@@ -119,6 +119,7 @@ export LESS_TERMCAP_mh=$(tput dim)
 [[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH="${HOME}/.local/share/man${MANPATH:+:${MATHPATH}}"
 [[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH" # rustup
 [[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
+export PATH LD_LIBRARY_PATH MANPATH
 
 # Set up function for completion for aliases
 source ${HOME}/.scripts/complete-alias.sh
@@ -201,7 +202,7 @@ if command -v bat &>/dev/null; then
 fi
 
 if command -v nvim &>/dev/null; then
-  alias vi='nvim' && complete -F _complete_alias vi
+  alias vi='nvim'
   export EDITOR='nvim'
 fi
 
