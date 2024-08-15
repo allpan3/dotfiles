@@ -17,7 +17,7 @@ return {
 	{ "folke/persistence.nvim", enabled = false }, -- use auto-session instead
 	{ "echasnovski/mini.pairs", enabled = false },
 	{
-		"https://git.sr.ht/~swaits/zellij-nav.nvim",
+    "allpan3/zellij-nav.nvim",
 		lazy = true,
 		event = "VeryLazy",
 		keys = {
