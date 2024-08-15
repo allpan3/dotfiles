@@ -30,8 +30,8 @@ map("n", "<S-Enter>", "o<Esc>")
 
 -- Tab management
 -- LazyVim default uses <tab> as secondary key. I prefer to use t
--- Nvim doesn't have native support for showing only the buffers opened in each tab.
--- but each tab maintains a window layout
+-- Nvim doesn't have native support for showing only the buffers opened in each tab, but each tab maintains a window layout
+-- I still almost never uses the native tabs in nvim
 vim.keymap.del("n", "<leader><tab>l")
 vim.keymap.del("n", "<leader><tab>f")
 vim.keymap.del("n", "<leader><tab>o")
@@ -83,9 +83,9 @@ vim.keymap.set({ "n", "x", "s" }, "<leader>fS", ":w ", { desc = "Save as" })
 vim.keymap.del({ "i", "n" }, "<esc>")
 
 -- Navigation
-map("n", "<M-f>", "e") -- word forward, match terminal
-map("n", "gh", "0", { desc = "Goto Beginning of Line" })
-map("n", "gl", "$", { desc = "Goto End of Line" })
+map("n", "<M-f>", "e") -- word forward, match terminal; <M-b> is word backward by default
+map({ "n", "v", "x" }, "gh", "^", { desc = "Goto Beginning of Indented Line" })
+map({ "n", "v", "x" }, "gl", "$", { desc = "Goto End of Line" })
 
 -- Move lines
 -- Remap to shift-alt-j/k because escape is registered as startin escape sequence (meta) when typing fast, always causing issue
@@ -132,3 +132,9 @@ map("n", "<leader>pf", "<cmd>let @+ = expand('%:p')<cr>", { desc = "Copy File Pa
 vim.keymap.del("n", "<leader>l")
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })
+
+-- diagnostic
+vim.keymap.set("n", "<leader>xf", vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
+
+-- LazyVim default to save
+vim.keymap.del({ "i", "n", "x", "c" }, "<C-s>")
