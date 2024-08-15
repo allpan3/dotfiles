@@ -276,7 +276,11 @@ _zellij_update_tab_name() {
     tab_name=''
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
       tab_name+=$(basename "$(git rev-parse --show-toplevel)")/
-      tab_name+=$(git rev-parse --show-prefix)
+      # dir wrt git root
+      path=$(git rev-parse --show-prefix)
+      if [[ -n $path ]]; then
+        tab_name+=$(basename $path)
+      fi
       tab_name=${tab_name%/}
     else
       tab_name=$PWD
