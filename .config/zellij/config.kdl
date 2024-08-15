@@ -203,6 +203,12 @@ keybinds clear-defaults=true {
     }
 }
 
+layout {
+    pane {
+        plugin location="file:~/.config/zellij/plugins/zjstatus-0.17.0.wasm"
+    }
+}
+
 plugins {
     tab-bar location="zellij:tab-bar"
     status-bar location="zellij:status-bar"
@@ -311,12 +317,12 @@ themes {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "dracula"
+// theme "dracula"
 
 // The name of the default layout to load on startup
 // Default: "default"
 //
-default_layout "compact"
+default_layout "zjstatus"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
@@ -378,7 +384,7 @@ scroll_buffer_size 2000
 
 // The folder in which Zellij will look for layouts
 //
-// layout_dir "/path/to/my/layout_dir"
+// layout_dir ""
 
 // The folder in which Zellij will look for themes
 //
