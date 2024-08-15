@@ -32,7 +32,7 @@ alias ssh="source ${HOME}/.scripts/ssh-find-agent.sh && source ${HOME}/.scripts/
 if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
     . "/opt/conda/etc/profile.d/conda.sh"
 else
-    export PATH="/opt/conda/bin:$PATH"
+    export PATH="/opt/conda/condabin:$PATH"
 fi
 
 ########## Completion ##########
