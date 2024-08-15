@@ -12,8 +12,12 @@ keybinds clear-defaults=true {
         bind "q" { SwitchToMode "Session"; }
         
         // panes
-        // bind "|" { NewPane "Down"; SwitchToMode "Normal"; }
-        // bind "\\" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "|" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "\\" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "h" { MoveFocusOrTab "Left"; SwitchToMode "Normal"; }
+        bind "l" { MoveFocusOrTab "Right"; SwitchToMode "Normal"; }
+        bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
+        bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
         bind "n" { NewPane; SwitchToMode "Normal"; }
         bind "p" { TogglePaneFrames; SwitchToMode "Normal"; }
         bind "m" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // maximize
@@ -25,8 +29,15 @@ keybinds clear-defaults=true {
 
         // tabs
         bind "Tab" { ToggleTab; SwitchToMode "Normal";}
-        bind "h" { GoToPreviousTab; SwitchToMode "Normal"; }
-        bind "l" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "1" { GoToTab 1; SwitchToMode "Normal"; }
+        bind "2" { GoToTab 2; SwitchToMode "Normal"; }
+        bind "3" { GoToTab 3; SwitchToMode "Normal"; }
+        bind "4" { GoToTab 4; SwitchToMode "Normal"; }
+        bind "5" { GoToTab 5; SwitchToMode "Normal"; }
+        bind "6" { GoToTab 6; SwitchToMode "Normal"; }
+        bind "7" { GoToTab 7; SwitchToMode "Normal"; }
+        bind "8" { GoToTab 8; SwitchToMode "Normal"; }
+        bind "9" { GoToTab 9; SwitchToMode "Normal"; }
 
         // search
         bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
@@ -34,7 +45,6 @@ keybinds clear-defaults=true {
     }
     // Directly accessible without leader key
     shared_except "locked" {
-        bind "Ctrl g" { SwitchToMode "Locked"; }
          bind "Ctrl h" {
             MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
                 name "move_focus_or_tab";  // doesn't work yet
@@ -76,25 +86,17 @@ keybinds clear-defaults=true {
             };
         }
 
-        // bind "Alt h" { MoveFocusOrTab "Left"; }
-        // bind "Alt l" { MoveFocusOrTab "Right"; }
-        // bind "Alt j" { MoveFocus "Down"; }
-        // bind "Alt k" { MoveFocus "Up"; }
+        // bind "Ctrl h" { MoveFocusOrTab "Left"; }
+        // bind "Ctrl l" { MoveFocusOrTab "Right"; }
+        // bind "Ctrl j" { MoveFocus "Down"; }
+        // bind "Ctrl k" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
-      bind "Alt c" { Clear; }
+        bind "Alt c" { Clear; }
     }
-    // Lock mode is an exact copy of tmux mode minus the pane movement keys - they are integrated with neovim through auto-lock
-    locked {
-        bind "Ctrl Space" { SwitchToMode "Tmux"; }
-        bind "Alt =" "Alt +" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
-      bind "Alt c" { Clear; }
-    }
+
     resize {
         bind "h" "Left" { Resize "Increase Left"; }
         bind "j" "Down" { Resize "Increase Down"; }
@@ -108,11 +110,11 @@ keybinds clear-defaults=true {
         bind "-" { Resize "Decrease"; }
     }
     pane {
-        bind "h" "Left" { MoveFocus "Left"; }
-        bind "l" "Right" { MoveFocus "Right"; }
+        bind "w" { NewPane; SwitchToMode "Normal"; }
+        bind "h" "Left" { MoveFocusOrTab "Left"; }
+        bind "l" "Right" { MoveFocusOrTab "Right"; }
         bind "j" "Down" { MoveFocus "Down"; }
         bind "k" "Up" { MoveFocus "Up"; }
-        bind "n" { NewPane; SwitchToMode "Normal"; }
         bind "s" { NewPane "Down"; SwitchToMode "Normal"; }
         bind "v" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "d" { CloseFocus; SwitchToMode "Normal"; }
@@ -132,10 +134,10 @@ keybinds clear-defaults=true {
         bind "l" "Right" { MovePane "Right"; }
     }
     tab {
+        bind "t" { NewTab; SwitchToMode "Normal"; }
         bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "h" "Left" "Up" "k" { GoToPreviousTab; }
         bind "l" "Right" "Down" "j" { GoToNextTab; }
-        bind "n" { NewTab; SwitchToMode "Normal"; }
         bind "d" { CloseTab; SwitchToMode "Normal"; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
         bind "b" { BreakPane; SwitchToMode "Normal"; }
@@ -143,15 +145,6 @@ keybinds clear-defaults=true {
         bind "[" { BreakPaneLeft; SwitchToMode "Normal"; }
         bind "Alt h" { MoveTab "Left"; }
         bind "Alt l" { MoveTab "Right"; }
-        bind "1" { GoToTab 1; SwitchToMode "Normal"; }
-        bind "2" { GoToTab 2; SwitchToMode "Normal"; }
-        bind "3" { GoToTab 3; SwitchToMode "Normal"; }
-        bind "4" { GoToTab 4; SwitchToMode "Normal"; }
-        bind "5" { GoToTab 5; SwitchToMode "Normal"; }
-        bind "6" { GoToTab 6; SwitchToMode "Normal"; }
-        bind "7" { GoToTab 7; SwitchToMode "Normal"; }
-        bind "8" { GoToTab 8; SwitchToMode "Normal"; }
-        bind "9" { GoToTab 9; SwitchToMode "Normal"; }
     }
     scroll {
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
@@ -318,7 +311,7 @@ themes {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "catpuccino-mocha"
+theme "dracula"
 
 // The name of the default layout to load on startup
 // Default: "default"
@@ -345,7 +338,7 @@ default_layout "compact"
 // Valid values: positive integers
 // Default value: 10000
 //
-// scroll_buffer_size 10000
+scroll_buffer_size 2000
 
 // Provide a command to execute when copying text. The text will be piped to
 // the stdin of the program to perform the copy. This can be used with
