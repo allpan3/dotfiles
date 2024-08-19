@@ -24,18 +24,19 @@ return {
 			"git_rebase",
 			"gitattributes",
 			"html",
-      "ini",
+			"ini",
 			"java",
 			"javascript",
 			"json",
 			"jsdoc",
- --         		"latex",
+			"kdl",
+			-- "latex",
 			"linkerscript",
 			"llvm",
 			"lua",
 			"luadoc",
 			"luap",
-			"make",
+      "make",
 			"markdown",
 			"markdown_inline",
 			"matlab",
@@ -58,18 +59,18 @@ return {
 			"yaml",
 		},
 		keys = {
-			{ "<C-CR>", desc = "Increment Selection" },
-			{ "<bs>", desc = "Decrement Selection", mode = "x" },
-		},
-		incremental_selection = {
-			enable = true,
-			-- Ctrl-Enter to incrementally select, backspace to incrementally deselect
-			keymaps = {
-				init_selection = "<C-CR>", -- set to `false` to disable one of the mappings
-				node_incremental = "<C-CR>",
-				scope_incremental = false,
-				node_decremental = "<bs>",
-			},
-		},
+		 	{ "<c-enter>", desc = "Increment Selection", mode = { "x", "n" }},
+		 	{ "<bs>", desc = "Decrement Selection", mode = "x" },
+		 },
+		 incremental_selection = {
+		 	enable = true,
+		 	-- Ctrl-Enter to incrementally select, backspace to incrementally deselect
+		 	keymaps = {
+		 		init_selection = "<c-enter>", -- set to `false` to disable one of the mappings
+		 		node_incremental = "<c-enter>",
+		 		scope_incremental = false,
+		 		node_decremental = "<bs>",
+		 	},
+		 },
 	},
 }
