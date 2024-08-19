@@ -23,10 +23,11 @@ end
 -- TODO: This function doesn't support icon, not sure which function I should use
 vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
 -- Edit
-map({ "n", "i", "v", "x" }, "<C-/>", "<cmd>undo<CR>") -- looks like not working in command mode (undo buffer instead of command)
-map({ "n", "i", "v", "x" }, "<C-?>", "<cmd>redo<CR>") -- looks like not working in command mode (undo buffer instead of command)
 -- shift-enter to insert new line below in normal mode
 map("n", "<S-Enter>", "o<Esc>")
+map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo"}) -- ctrl-_ is the same as ctrl-/
+map({ "n", "i", "v", "x" }, "<M-r>", "<cmd>redo<CR>", { desc = "Redo"}) -- ctrl-r is search history in shell; this is mainly for mapping cmd-shift-z
+map("n", "U", "<cmd>redo<CR>", { desc = "Redo"}) -- pair with u as undo
 
 -- Tab management
 -- LazyVim default uses <tab> as secondary key. I prefer to use t
