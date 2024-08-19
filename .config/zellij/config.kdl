@@ -140,11 +140,11 @@ keybinds clear-defaults=true {
         bind "l" "Right" "Down" "j" { GoToNextTab; }
         bind "d" { CloseTab; SwitchToMode "Normal"; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
-        bind "b" { BreakPane; SwitchToMode "Normal"; }
-        bind "]" { BreakPaneRight; SwitchToMode "Normal"; }
-        bind "[" { BreakPaneLeft; SwitchToMode "Normal"; }
-        bind "Alt h" { MoveTab "Left"; }
-        bind "Alt l" { MoveTab "Right"; }
+        bind "b" { BreakPane; SwitchToMode "Normal"; }  // convert a pane to a tab
+        bind "]" { BreakPaneRight;}  // move a pane to a different tab (if it's a tab, converted to a pane)
+        bind "[" { BreakPaneLeft;}
+        bind "<" { MoveTab "Left"; }
+        bind ">" { MoveTab "Right"; }
     }
     scroll {
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
@@ -252,7 +252,7 @@ plugins {
 //   - true (default)
 //   - false
 //
-// pane_frames true
+// pane_frames false
 
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
@@ -284,40 +284,11 @@ plugins {
 // For more examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
 // Once these themes are defined, one of them should to be selected in the "theme" section of this file
 //
-themes {
-     dracula {
-         fg 248 248 242
-         bg 40 42 54
-         red 255 85 85
-         green 80 250 123
-         yellow 241 250 140
-         blue 98 114 164
-         magenta 255 121 198
-         orange 255 184 108
-         cyan 139 233 253
-         black 0 0 0
-         white 255 255 255
-     }
-
-    catppuccin-mocha {
-        fg 205 214 244
-        bg 88 91 112
-        black 24 24 37
-        red 243 139 168
-        green 166 227 161
-        yellow 249 226 175
-        blue 137 180 250
-        magenta 245 194 231
-        cyan 137 220 235
-        white 205 214 244
-        orange 250 179 135
-    }
- }
 
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-// theme "dracula"
+theme "catppuccin-mocha"
 
 // The name of the default layout to load on startup
 // Default: "default"
