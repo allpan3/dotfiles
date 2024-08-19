@@ -67,8 +67,8 @@ bindings.keys = {
 	{ key = "LeftArrow", mods = "SUPER", action = act.SendString("\x1b[H") }, -- HOME
 	-- { key = "RightArrow", mods = "SUPER", action = act.SendKey {key = "e", mods = "CTRL"} },
 	{ key = "RightArrow", mods = "SUPER", action = act.SendString("\x1b[F") }, -- END
-	{ key = "z", mods = "SUPER", action = act.SendKey({ key = "_", mods = "CTRL" }) },
-	{ key = "z", mods = "SHIFT|SUPER", action = act.SendKey({ key = "r", mods = "CTRL" }) }, -- for neovim
+	{ key = "z", mods = "SUPER", action = act.SendKey({ key = "/", mods = "CTRL" }) }, -- undo
+	{ key = "z", mods = "SHIFT|SUPER", action = act.SendKey({ key = "r", mods = "ALT" }) }, -- redo
 }
 
 return bindings
