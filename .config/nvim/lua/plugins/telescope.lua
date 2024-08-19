@@ -120,11 +120,5 @@ return {
 		{ "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
 		-- { "<leader>gs", false }, -- git_status; use lazygit
 		{ "<leader>gc", "<cmd>Telescope commits<CR>", desc = "Search Commit History" }, -- this may be occasionally useful as we can search the commit message
-
-		{
-			"<leader>uc",
-			LazyVim.pick("colorscheme", { enable_preview = true }),
-			desc = "Colorscheme with Preview",
-		},
 	},
 }

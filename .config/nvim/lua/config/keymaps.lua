@@ -22,10 +22,10 @@ end
 
 -- TODO: This function doesn't support icon, not sure which function I should use
 vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
-
 -- Edit
-map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>") -- looks like not working in command mode (undo buffer instead of command)
--- redo: map S-C-z to C-r
+map({ "n", "i", "v", "x" }, "<C-/>", "<cmd>undo<CR>") -- looks like not working in command mode (undo buffer instead of command)
+map({ "n", "i", "v", "x" }, "<C-?>", "<cmd>redo<CR>") -- looks like not working in command mode (undo buffer instead of command)
+-- shift-enter to insert new line below in normal mode
 map("n", "<S-Enter>", "o<Esc>")
 
 -- Tab management
@@ -84,8 +84,8 @@ vim.keymap.del({ "i", "n" }, "<esc>")
 
 -- Navigation
 map("n", "<M-f>", "e") -- word forward, match terminal; <M-b> is word backward by default
-map({ "n", "v", "x" }, "gh", "^", { desc = "Goto Beginning of Indented Line" })
-map({ "n", "v", "x" }, "gl", "$", { desc = "Goto End of Line" })
+map({ "n", "v", "x", "o" }, "gh", "^", { desc = "Goto Beginning of Indented Line" })
+map({ "n", "v", "x", "o" }, "gl", "$", { desc = "Goto End of Line" })
 
 -- Move lines
 -- Remap to shift-alt-j/k because escape is registered as startin escape sequence (meta) when typing fast, always causing issue
@@ -107,23 +107,23 @@ LazyVim.toggle.map(
 	LazyVim.toggle("conceallevel", { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } })
 )
 
+-- Colorscheme picker
+map("n", "<leader>uc", LazyVim.pick("colorscheme", { enable_preview = true }), { desc = "Colorscheme" })
+require("which-key").add({"<leader>uc", icon = {icon = "", color = "blue"}, desc = "Colorscheme"})
+
 -- By default, pasting in visual mode puts the replaced text in register. This keeps the old text
 map("v", "p", '"_dP')
 
 -- Floating terminal
-local lazyterm = function()
-	LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")
--- map("n", "<leader>t/", lazyterm, { desc = "Terminal (Root Dir)" })
--- map("n", "<leader>t?", function()
+-- local lazyterm = function()
+-- 	LazyVim.terminal(nil, { cwd = LazyVim.root() })
+-- end
+-- map("n", "<C-/>", lazyterm, { desc = "Terminal (Root Dir)" })
+-- map("n", "<C-?>", function()
 -- 	LazyVim.terminal()
 -- end, { desc = "Terminal (cwd)" })
-map("n", "<C-/>", lazyterm, { desc = "Terminal (Root Dir)" })
-map("n", "<C-?>", function()
-	LazyVim.terminal()
-end, { desc = "Terminal (cwd)" })
 
 -- Copy current file path
 map("n", "<leader>pf", "<cmd>let @+ = expand('%:p')<cr>", { desc = "Copy File Path" })
