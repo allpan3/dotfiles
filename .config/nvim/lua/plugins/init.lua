@@ -13,9 +13,8 @@ require("lazyvim.config").init()
 return {
 	{ "folke/lazy.nvim", version = "*" },
 	{ "LazyVim/LazyVim", priority = 10000, lazy = false, config = true, cond = true, version = "*" },
-	{ "nvim-neo-tree/neo-tree.nvim", enabled = false }, -- use nvim-tree instead
+	{ "nvim-neo-tree/neo-tree.nvim", enabled = false }, -- use nvim-tree instead, more lightweight
 	{ "folke/persistence.nvim", enabled = false }, -- use auto-session instead
-	{ "echasnovski/mini.pairs", enabled = false },
 	{
     "allpan3/zellij-nav.nvim",
 		lazy = true,
