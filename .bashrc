@@ -175,14 +175,14 @@ if command -v direnv &>/dev/null; then
   eval "$(direnv hook bash)"
 fi
 
-# ls - use exa if available
-if command -v exa &>/dev/null; then
-  alias ls='exa -F' && complete -F _complete_alias ls
+# ls - use eza if available
+if command -v eza &>/dev/null; then
+  alias ls='eza -F' && complete -F _complete_alias ls
   alias la='ls -a' && complete -F _complete_alias la
-  alias ll='la -lhg --git' && complete -F _complete_alias ll
+  alias ll='la -lhg' && complete -F _complete_alias ll
   alias lt="la -s=oldest" && complete -F _complete_alias lt
   alias llt="ll -s=oldest" && complete -F _complete_alias llt
-  alias ltree="exa --tree" && complete -F _complete_alias ltree
+  alias ltree="eza --tree" && complete -F _complete_alias ltree
 else
   alias ls='ls -F --color=auto' && complete -F _complete_alias ls
   alias la='ls -A' && complete -F _complete_alias la
