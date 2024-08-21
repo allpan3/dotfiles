@@ -23,7 +23,8 @@ end
 -- TODO: This function doesn't support icon, not sure which function I should use
 vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
 -- Edit
-map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo"}) -- ctrl-_ is the same as ctrl-/
+vim.keymap.del({"n", "t"}, "<C-_>") -- neovim default is terminal
+map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo"}) -- same as terminal
 map({ "n", "i", "v", "x" }, "<M-r>", "<cmd>redo<CR>", { desc = "Redo"}) -- ctrl-r is search history in shell; this is mainly for mapping cmd-shift-z
 map("n", "U", "<cmd>redo<CR>", { desc = "Redo"}) -- pair with u as undo
 map("n", "<S-Enter>", "o<Esc>") -- shift-enter to insert new line below in normal mode
@@ -120,13 +121,6 @@ map("v", "p", '"_dP')
 -- Floating terminal
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")
--- local lazyterm = function()
--- 	LazyVim.terminal(nil, { cwd = LazyVim.root() })
--- end
--- map("n", "<C-/>", lazyterm, { desc = "Terminal (Root Dir)" })
--- map("n", "<C-?>", function()
--- 	LazyVim.terminal()
--- end, { desc = "Terminal (cwd)" })
 
 -- Copy current file path
 map("n", "<leader>pf", "<cmd>let @+ = expand('%:p')<cr>", { desc = "Copy File Path" })
