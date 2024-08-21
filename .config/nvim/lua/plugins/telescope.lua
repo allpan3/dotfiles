@@ -109,7 +109,8 @@ return {
 
 	keys = {
 		{ "<leader><space>", false },
-		{ "<leader>fF", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" }, -- cwd is the directory we open vim. Can navigate inside vim using :cd
+		{ "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" }, -- cwd is the directory we open vim. Can navigate inside vim using :cd
+		{ "<leader>fF", LazyVim.pick("files"), desc = "Find Files (root)" }, -- cwd is the directory we open vim. Can navigate inside vim using :cd
 		{
 			"<leader>fb",
 			function()
@@ -117,8 +118,18 @@ return {
 			end,
 			desc = "Find Files (Buf Dir)",
 		},
+    { "<leader>fg", function()
+      require("telescope.builtin").git_files()
+    end, desc = "Git Files" },
 		{ "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
-		-- { "<leader>gs", false }, -- git_status; use lazygit
+		{ "<leader>gs", false }, -- git_status; use lazygit
 		{ "<leader>gc", "<cmd>Telescope commits<CR>", desc = "Search Commit History" }, -- this may be occasionally useful as we can search the commit message
+		{ "<leader>/", LazyVim.pick("live_grep", { root = false }), desc = "Grep (root)" },
+		{ "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
+		{ "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (root)" },
+		{ "<leader>sw", LazyVim.pick("grep_string", { root = false, word_match = "-w" }), desc = "Word (cwd)" },
+		{ "<leader>sW", LazyVim.pick("grep_string", { word_match = "-w" }), desc = "Word (root)" },
+		{ "<leader>sw", LazyVim.pick("grep_string", { root = false }), mode = "v", desc = "Selection (cwd)" },
+		{ "<leader>sW", LazyVim.pick("grep_string"), mode = "v", desc = "Selection (root)" },
 	},
 }
