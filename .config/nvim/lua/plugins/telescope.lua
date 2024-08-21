@@ -131,5 +131,6 @@ return {
 		{ "<leader>sW", LazyVim.pick("grep_string", { word_match = "-w" }), desc = "Word (root)" },
 		{ "<leader>sw", LazyVim.pick("grep_string", { root = false }), mode = "v", desc = "Selection (cwd)" },
 		{ "<leader>sW", LazyVim.pick("grep_string"), mode = "v", desc = "Selection (root)" },
+    { "<leader>uC", false } -- remapping colorscheme to <leader>uc
 	},
 }
