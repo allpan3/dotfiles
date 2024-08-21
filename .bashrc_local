@@ -8,6 +8,7 @@ RESTORE='\[\e[0m\]'
 export PS1="\[\e[0;38;5;43m\][\[\e[1;38;5;43m\]\u\[\e[0;38;5;6m\]@\[\e[1;38;5;43m\]\h\[\e[0;38;5;43m\]]\[\e[1;38;5;6m\]\w\[\e[0;38;5;43m\]\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;43m\] $ ${RESTORE}"
 
 ########## Environment ##########
+## Conda
 # The base env bin is added to PATH and will always be implicitly activated
 # To activate/deactivate other environment, run the following commands
 # Activate environment:   conda activate <env>
@@ -15,6 +16,9 @@ export PS1="\[\e[0;38;5;43m\][\[\e[1;38;5;43m\]\u\[\e[0;38;5;6m\]@\[\e[1;38;5;43
 CONDA_HOME=${HOME}/.conda
 . "${CONDA_HOME}/etc/profile.d/conda.sh"
 [[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
+## Coursier
+[[ ":$PATH:" =~ ":${HOME}/.local/share/coursier/bin:" ]] || PATH="${HOME}/.local/share/coursier/bin:$PATH"
+
 export INFOPATH="${CONDA_HOME}/share/info"
 export PATH
 
