@@ -237,13 +237,10 @@ alias eg="emacs.sh -s gui_server" # open the file in gui emacs
 alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
 
 # git
-# git dot alias
-git config --global alias.dot '!git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
 
 # lazygit
 alias lg=lazygit && complete -F _complete_alias lg
-alias lgd="lazygit --git-dir=$HOME/.dotfiles.git --work-tree=$HOME" && complete -F _complete_alias lgd
 
 # accidental action prevention
 if [ "$(uname -s)" == "Darwin" ]; then
