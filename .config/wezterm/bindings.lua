@@ -4,8 +4,8 @@ local act = wezterm.action
 local bindings = {}
 
 bindings.keys = {
-	{ key = "Enter", mods = "SHIFT|SUPER", action = act.ToggleFullScreen },
-	{ key = "Enter", mods = "SUPER", action = act.TogglePaneZoomState },
+	{ key = "Enter", mods = "SUPER", action = act.ToggleFullScreen },
+	{ key = "Enter", mods = "SHIFT|SUPER", action = act.TogglePaneZoomState },
 	{ key = "|", mods = "SUPER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{ key = "\\", mods = "SUPER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "-", mods = "SUPER", action = act.DecreaseFontSize },
@@ -56,11 +56,11 @@ bindings.keys = {
 	{ key = "UpArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Up", 1 }) },
 	{ key = "DownArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Down", 1 }) },
 	-- Map SUPER to shell actions - ideally, use common keys/escape sequences shared by all shells
-  -- (or at least set it up in shells). Configure the same in neovim
-	{ key = "Backspace", mods = "SUPER", action = act.SendKey({ key = "u", mods = "CTRL" }) },
-	{ key = "Backspace", mods = "ALT", action = act.SendKey({ key = "w", mods = "CTRL" }) },
-	{ key = "Delete", mods = "SUPER", action = act.SendKey({ key = "b", mods = "CTRL" }) },
-	{ key = "Delete", mods = "ALT", action = act.SendString("\x1bd") },
+  -- (or customize them in shells). Configure the same in neovim
+	{ key = "Backspace", mods = "SUPER", action = act.SendKey({ key = "u", mods = "CTRL" }) }, -- backward delete line
+	{ key = "Backspace", mods = "ALT", action = act.SendKey({ key = "w", mods = "CTRL" }) }, -- backward delete word
+	{ key = "Delete", mods = "SUPER", action = act.SendKey({ key = "e", mods = "ALT" }) }, -- forward delete line
+	{ key = "Delete", mods = "ALT", action = act.SendString("\x1bd") }, -- forward delete word
 	{ key = "LeftArrow", mods = "ALT", action = act.SendString("\x1bb") },
 	{ key = "RightArrow", mods = "ALT", action = act.SendString("\x1bf") },
 	-- { key = "LeftArrow", mods = "SUPER", action = act.SendKey {key = "a", mods = "CTRL"} },
