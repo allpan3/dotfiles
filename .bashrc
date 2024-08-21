@@ -61,10 +61,10 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 # Seems like key binding is causing issue with dumb termimal, temporarily working around by skipping
 if [ "$TERM" != "dumb" ]; then
   stty werase undef
-  bind "\C-w":backward-kill-word # default both bash and neovim.
-  bind "\M-d":kill-word          # default in bash.
-  bind "\C-b":kill-line          # forward delete line, originally ctrl-k. ctrl-b not used in neovim default, so can make it match
-  bind "\C-u":backward-kill-line # default both bash and neovim
+  bind '"\C-w":backward-kill-word' # default both bash and neovim
+  bind '"\ed":kill-word'           # default in bash
+  bind '"\ee":kill-line'           # forward delete line, originally ctrl-k. Map the same in neovim
+  bind '"\C-u":backward-kill-line' # default both bash and neovim
 fi
 
 ###############################
@@ -157,6 +157,11 @@ if command -v zoxide &>/dev/null; then
   eval "$(zoxide init bash --cmd cd)"
 fi
 
+# starship
+# if command -v starship &>/dev/null; then
+#   eval "$(starship init bash)"
+# fi
+
 # Setting the default source for fzf (respects .ignore)
 if type fd &>/dev/null; then
   export FZF_DEFAULT_COMMAND='fd --hidden --type f --strip-cwd-prefix'
@@ -240,14 +245,31 @@ alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1
 alias lg=lazygit && complete -F _complete_alias lg
 alias lgd="lazygit --git-dir=$HOME/.dotfiles.git --work-tree=$HOME" && complete -F _complete_alias lgd
 
-if [[ "$USER" == "root" ]]; then
+# accidental action prevention
+if [ "$(uname -s)" == "Darwin" ]; then
+  trash() {
+    if [ "$#" -eq 0 ]; then
+      echo "rm: missing operand"
+      return 1
+    fi
+    for file in "$@"; do
+      if [ -e "$file" ]; then
+        # Move the file to the trash directory with a timestamp to avoid collisions
+        mv "$file" "$HOME/.Trash/$(date +%Y%m%d%H%M%S)_$(basename "$file")"
+      else
+        echo "rm: cannot remove '$file': No such file or directory"
+      fi
+    done
+  } 
+  alias rm='trash'
+elif [[ "$USER" == "root" ]]; then
   alias rm='rm -i' && complete -F _complete_alias rm
   alias cp='cp -i' && complete -F _complete_alias cp
   alias mv='mv -i' && complete -F _complete_alias mv
 fi
 
 ###############################
-# Functions
+# Change directory hook
 ###############################
 _chpwd_hook() {
   shopt -s nullglob
