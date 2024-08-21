@@ -1,226 +1,230 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 keybinds clear-defaults=true {
-    normal {
+  normal {
+  }
+
+  locked {
+  }
+
+  tmux {
+    bind "Ctrl Space" { Write 2; SwitchToMode "Normal"; }
+    bind "s" { SwitchToMode "Scroll"; }
+    bind "w" { SwitchToMode "Pane"; }
+    bind "t" { SwitchToMode "Tab"; }
+    bind "r" { SwitchToMode "Resize"; }
+    bind "q" { SwitchToMode "Session"; }
+
+    // panes
+    bind "|" { NewPane "Down"; SwitchToMode "Normal"; }
+    bind "\\" { NewPane "Right"; SwitchToMode "Normal"; }
+    bind "h" { MoveFocusOrTab "Left"; SwitchToMode "Normal"; }
+    bind "l" { MoveFocusOrTab "Right"; SwitchToMode "Normal"; }
+    bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
+    bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
+    bind "n" { NewPane; SwitchToMode "Normal"; }
+    bind "p" { TogglePaneFrames; SwitchToMode "Normal"; }
+    bind "m" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // maximize
+    bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+    bind "d" { CloseFocus; SwitchToMode "Normal"; }
+    bind "c" { Clear; SwitchToMode "Normal";}
+    bind "]" { NextSwapLayout; }
+    bind "[" { PreviousSwapLayout; }
+
+    // tabs
+    bind "Tab" { ToggleTab; SwitchToMode "Normal";}
+    bind "1" { GoToTab 1; SwitchToMode "Normal"; }
+    bind "2" { GoToTab 2; SwitchToMode "Normal"; }
+    bind "3" { GoToTab 3; SwitchToMode "Normal"; }
+    bind "4" { GoToTab 4; SwitchToMode "Normal"; }
+    bind "5" { GoToTab 5; SwitchToMode "Normal"; }
+    bind "6" { GoToTab 6; SwitchToMode "Normal"; }
+    bind "7" { GoToTab 7; SwitchToMode "Normal"; }
+    bind "8" { GoToTab 8; SwitchToMode "Normal"; }
+    bind "9" { GoToTab 9; SwitchToMode "Normal"; }
+
+    // search
+    bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+
+  }
+
+  // Directly accessible without leader key
+  shared_except "locked" {
+    bind "Ctrl h" {
+      MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+        name "move_focus_or_tab";  // doesn't work yet
+        payload "left";
+
+        // Plugin Configuration
+        // move_mod "ctrl"; // Optional, should be added on every command if you want to use it
+        // resize_mod "alt"; // Optional, should be added on every command if you want to use it
+      };
     }
 
-    tmux {
-        bind "Ctrl Space" { Write 2; SwitchToMode "Normal"; }
-        bind "s" { SwitchToMode "Scroll"; }
-        bind "w" { SwitchToMode "Pane"; }
-        bind "t" { SwitchToMode "Tab"; }
-        bind "r" { SwitchToMode "Resize"; }
-        bind "q" { SwitchToMode "Session"; }
-        
-        // panes
-        bind "|" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "\\" { NewPane "Right"; SwitchToMode "Normal"; }
-        bind "h" { MoveFocusOrTab "Left"; SwitchToMode "Normal"; }
-        bind "l" { MoveFocusOrTab "Right"; SwitchToMode "Normal"; }
-        bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
-        bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "n" { NewPane; SwitchToMode "Normal"; }
-        bind "p" { TogglePaneFrames; SwitchToMode "Normal"; }
-        bind "m" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // maximize
-        bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        bind "d" { CloseFocus; SwitchToMode "Normal"; }
-        bind "c" { Clear; SwitchToMode "Normal";}
-        bind "]" { NextSwapLayout; }
-        bind "[" { PreviousSwapLayout; }
+    bind "Ctrl j" {
+      MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+        name "move_focus";
+        payload "down";
 
-        // tabs
-        bind "Tab" { ToggleTab; SwitchToMode "Normal";}
-        bind "1" { GoToTab 1; SwitchToMode "Normal"; }
-        bind "2" { GoToTab 2; SwitchToMode "Normal"; }
-        bind "3" { GoToTab 3; SwitchToMode "Normal"; }
-        bind "4" { GoToTab 4; SwitchToMode "Normal"; }
-        bind "5" { GoToTab 5; SwitchToMode "Normal"; }
-        bind "6" { GoToTab 6; SwitchToMode "Normal"; }
-        bind "7" { GoToTab 7; SwitchToMode "Normal"; }
-        bind "8" { GoToTab 8; SwitchToMode "Normal"; }
-        bind "9" { GoToTab 9; SwitchToMode "Normal"; }
-
-        // search
-        bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
- 
-    }
-    // Directly accessible without leader key
-    shared_except "locked" {
-         bind "Ctrl h" {
-            MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
-                name "move_focus_or_tab";  // doesn't work yet
-                payload "left";
-
-                // Plugin Configuration
-                // move_mod "ctrl"; // Optional, should be added on every command if you want to use it
-                // resize_mod "alt"; // Optional, should be added on every command if you want to use it
-            };
-        }
-
-        bind "Ctrl j" {
-            MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
-                name "move_focus";
-                payload "down";
-
-                // move_mod "ctrl";
-                // resize_mod "alt";
-            };
-        }
-
-        bind "Ctrl k" {
-            MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
-                name "move_focus";
-                payload "up";
-
-                // move_mod "ctrl";
-                // resize_mod "alt";
-            };
-        }
-
-        bind "Ctrl l" {
-            MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
-                name "move_focus_or_tab"  // doesn't work yet
-                payload "right";
-
-                // move_mod "ctrl";
-                // resize_mod "alt";
-            };
-        }
-
-        // bind "Ctrl h" { MoveFocusOrTab "Left"; }
-        // bind "Ctrl l" { MoveFocusOrTab "Right"; }
-        // bind "Ctrl j" { MoveFocus "Down"; }
-        // bind "Ctrl k" { MoveFocus "Up"; }
-        bind "Alt =" "Alt +" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
-        bind "Alt c" { Clear; }
+        // move_mod "ctrl";
+        // resize_mod "alt";
+      };
     }
 
-    resize {
-        bind "h" "Left" { Resize "Increase Left"; }
-        bind "j" "Down" { Resize "Increase Down"; }
-        bind "k" "Up" { Resize "Increase Up"; }
-        bind "l" "Right" { Resize "Increase Right"; }
-        bind "H" { Resize "Decrease Left"; }
-        bind "J" { Resize "Decrease Down"; }
-        bind "K" { Resize "Decrease Up"; }
-        bind "L" { Resize "Decrease Right"; }
-        bind "=" "+" { Resize "Increase"; }
-        bind "-" { Resize "Decrease"; }
+    bind "Ctrl k" {
+      MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+        name "move_focus";
+        payload "up";
+
+        // move_mod "ctrl";
+        // resize_mod "alt";
+      };
     }
-    pane {
-        bind "w" { NewPane; SwitchToMode "Normal"; }
-        bind "h" "Left" { MoveFocusOrTab "Left"; }
-        bind "l" "Right" { MoveFocusOrTab "Right"; }
-        bind "j" "Down" { MoveFocus "Down"; }
-        bind "k" "Up" { MoveFocus "Up"; }
-        bind "s" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "v" { NewPane "Right"; SwitchToMode "Normal"; }
-        bind "d" { CloseFocus; SwitchToMode "Normal"; }
-        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
-        bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
-        bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0;}
-        // move pane
-        bind "m" { SwitchToMode "Move"; }
+
+    bind "Ctrl l" {
+      MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+        name "move_focus_or_tab"  // doesn't work yet
+        payload "right";
+
+        // move_mod "ctrl";
+        // resize_mod "alt";
+      };
     }
-    move {
-        bind "n" "Tab" { MovePane; }
-        bind "p" { MovePaneBackwards; }
-        bind "h" "Left" { MovePane "Left"; }
-        bind "j" "Down" { MovePane "Down"; }
-        bind "k" "Up" { MovePane "Up"; }
-        bind "l" "Right" { MovePane "Right"; }
+
+    // bind "Ctrl h" { MoveFocusOrTab "Left"; }
+    // bind "Ctrl l" { MoveFocusOrTab "Right"; }
+    // bind "Ctrl j" { MoveFocus "Down"; }
+    // bind "Ctrl k" { MoveFocus "Up"; }
+    bind "Alt =" "Alt +" { Resize "Increase"; }
+    bind "Alt -" { Resize "Decrease"; }
+    bind "Alt [" { PreviousSwapLayout; }
+    bind "Alt ]" { NextSwapLayout; }
+    bind "Alt c" { Clear; }
+  }
+
+  resize {
+    bind "h" "Left" { Resize "Increase Left"; }
+    bind "j" "Down" { Resize "Increase Down"; }
+    bind "k" "Up" { Resize "Increase Up"; }
+    bind "l" "Right" { Resize "Increase Right"; }
+    bind "H" { Resize "Decrease Left"; }
+    bind "J" { Resize "Decrease Down"; }
+    bind "K" { Resize "Decrease Up"; }
+    bind "L" { Resize "Decrease Right"; }
+    bind "=" "+" { Resize "Increase"; }
+    bind "-" { Resize "Decrease"; }
+  }
+  pane {
+    bind "w" { NewPane; SwitchToMode "Normal"; }
+    bind "h" "Left" { MoveFocusOrTab "Left"; }
+    bind "l" "Right" { MoveFocusOrTab "Right"; }
+    bind "j" "Down" { MoveFocus "Down"; }
+    bind "k" "Up" { MoveFocus "Up"; }
+    bind "s" { NewPane "Down"; SwitchToMode "Normal"; }
+    bind "v" { NewPane "Right"; SwitchToMode "Normal"; }
+    bind "d" { CloseFocus; SwitchToMode "Normal"; }
+    bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+    bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+    bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
+    bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+    // move pane
+    bind "m" { SwitchToMode "Move"; }
+  }
+  move {
+    bind "n" "Tab" { MovePane; }
+    bind "p" { MovePaneBackwards; }
+    bind "h" "Left" { MovePane "Left"; }
+    bind "j" "Down" { MovePane "Down"; }
+    bind "k" "Up" { MovePane "Up"; }
+    bind "l" "Right" { MovePane "Right"; }
+  }
+  tab {
+    bind "t" { NewTab; SwitchToMode "Normal"; }
+    bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+    bind "h" "Left" "Up" "k" { GoToPreviousTab; }
+    bind "l" "Right" "Down" "j" { GoToNextTab; }
+    bind "d" { CloseTab; SwitchToMode "Normal"; }
+    bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
+    bind "b" { BreakPane; SwitchToMode "Normal"; }  // convert a pane to a tab
+    bind "]" { BreakPaneRight;}  // move a pane to a different tab (if it's a tab, converted to a pane)
+    bind "[" { BreakPaneLeft;}
+    bind "<" { MoveTab "Left"; }
+    bind ">" { MoveTab "Right"; }
+  }
+  scroll {
+    bind "e" { EditScrollback; SwitchToMode "Normal"; }
+    bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    bind "j" "Down" { ScrollDown; }
+    bind "k" "Up" { ScrollUp; }
+    bind "Ctrl d" { HalfPageScrollDown; }
+    bind "Ctrl u" { HalfPageScrollUp; }
+    bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
+    bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
+    bind "g" { ScrollToTop; }
+    bind "G" { ScrollToBottom; }
+  }
+  search {
+    bind "G" { ScrollToBottom; SwitchToMode "Normal"; }
+    bind "j" "Down" { ScrollDown; }
+    bind "k" "Up" { ScrollUp; }
+    bind "Ctrl d" { HalfPageScrollDown; }
+    bind "Ctrl u" { HalfPageScrollUp; }
+    bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
+    bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
+    bind "n" { Search "up"; }    // makes more sense since first highlighted result is always at the bottom
+    bind "p" "N" { Search "down"; }
+    bind "c" { SearchToggleOption "CaseSensitivity"; }
+    bind "w" { SearchToggleOption "Wrap"; }
+    bind "o" { SearchToggleOption "WholeWord"; }
+  }
+  entersearch {
+    bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
+    bind "Enter" { SwitchToMode "Search"; }
+  }
+  renametab {
+    bind "Ctrl c" { SwitchToMode "Normal"; }
+    bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
+  }
+  renamepane {
+    bind "Ctrl c" { SwitchToMode "Normal"; }
+    bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+  }
+  session {
+    bind "q" { Detach; }
+    bind "d" { Quit; }    // basically "delete session"
+    bind "w" {
+      LaunchOrFocusPlugin "session-manager" {
+        floating true
+        move_to_focused_tab true
+      };
+      SwitchToMode "Normal"
     }
-    tab {
-        bind "t" { NewTab; SwitchToMode "Normal"; }
-        bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
-        bind "h" "Left" "Up" "k" { GoToPreviousTab; }
-        bind "l" "Right" "Down" "j" { GoToNextTab; }
-        bind "d" { CloseTab; SwitchToMode "Normal"; }
-        bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
-        bind "b" { BreakPane; SwitchToMode "Normal"; }  // convert a pane to a tab
-        bind "]" { BreakPaneRight;}  // move a pane to a different tab (if it's a tab, converted to a pane)
-        bind "[" { BreakPaneLeft;}
-        bind "<" { MoveTab "Left"; }
-        bind ">" { MoveTab "Right"; }
-    }
-    scroll {
-        bind "e" { EditScrollback; SwitchToMode "Normal"; }
-        bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
-        bind "j" "Down" { ScrollDown; }
-        bind "k" "Up" { ScrollUp; }
-        bind "Ctrl d" { HalfPageScrollDown; }
-        bind "Ctrl u" { HalfPageScrollUp; }
-        bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
-        bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
-        bind "g" { ScrollToTop; }
-        bind "G" { ScrollToBottom; }
-    }
-    search {
-        bind "G" { ScrollToBottom; SwitchToMode "Normal"; }
-        bind "j" "Down" { ScrollDown; }
-        bind "k" "Up" { ScrollUp; }
-        bind "Ctrl d" { HalfPageScrollDown; }
-        bind "Ctrl u" { HalfPageScrollUp; }
-        bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
-        bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
-        bind "n" { Search "up"; }    // makes more sense since first highlighted result is always at the bottom
-        bind "p" "N" { Search "down"; }
-        bind "c" { SearchToggleOption "CaseSensitivity"; }
-        bind "w" { SearchToggleOption "Wrap"; }
-        bind "o" { SearchToggleOption "WholeWord"; }
-    }
-    entersearch {
-        bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
-        bind "Enter" { SwitchToMode "Search"; }
-    }
-    renametab {
-        bind "Ctrl c" { SwitchToMode "Normal"; }
-        bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
-    }
-    renamepane {
-        bind "Ctrl c" { SwitchToMode "Normal"; }
-        bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
-    }
-    session {
-        bind "q" { Detach; }
-        bind "d" { Quit; }    // basically "delete session"
-        bind "w" {
-            LaunchOrFocusPlugin "session-manager" {
-                floating true
-                move_to_focused_tab true
-            };
-            SwitchToMode "Normal"
-        }
-    }
-    shared_except "normal" "locked" {
-        bind "Enter" "Esc" { SwitchToMode "Normal"; }
-    }
-    shared_except "tmux" "locked" {
-        bind "Ctrl Space" { SwitchToMode "Tmux"; }
-    }
+  }
+  shared_except "normal" "locked" {
+    bind "Enter" "Esc" { SwitchToMode "Normal"; }
+  }
+  shared_except "tmux" "locked" {
+    bind "Ctrl Space" { SwitchToMode "Tmux"; }
+  }
 }
 
 layout {
-    pane {
-        plugin location="file:~/.config/zellij/plugins/zjstatus-0.17.0.wasm"
-    }
+  pane {
+    plugin location="file:~/.config/zellij/plugins/zjstatus-0.17.0.wasm"
+  }
 }
 
 plugins {
-    tab-bar location="zellij:tab-bar"
-    status-bar location="zellij:status-bar"
-    strider location="zellij:strider"
-    compact-bar location="zellij:compact-bar"
-    session-manager location="zellij:session-manager"
-    welcome-screen location="zellij:session-manager" {
-        welcome_screen true
-    }
-    filepicker location="zellij:strider" {
-        cwd "/"
-    }
+  tab-bar location="zellij:tab-bar"
+  status-bar location="zellij:status-bar"
+  strider location="zellij:strider"
+  compact-bar location="zellij:compact-bar"
+  session-manager location="zellij:session-manager"
+  welcome-screen location="zellij:session-manager" {
+    welcome_screen true
+  }
+  filepicker location="zellij:strider" {
+    cwd "/"
+  }
 }
 
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
