@@ -23,11 +23,11 @@ end
 -- TODO: This function doesn't support icon, not sure which function I should use
 vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
 -- Edit
--- shift-enter to insert new line below in normal mode
-map("n", "<S-Enter>", "o<Esc>")
 map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo"}) -- ctrl-_ is the same as ctrl-/
 map({ "n", "i", "v", "x" }, "<M-r>", "<cmd>redo<CR>", { desc = "Redo"}) -- ctrl-r is search history in shell; this is mainly for mapping cmd-shift-z
 map("n", "U", "<cmd>redo<CR>", { desc = "Redo"}) -- pair with u as undo
+map("n", "<S-Enter>", "o<Esc>") -- shift-enter to insert new line below in normal mode
+map("i", "<M-e>", "<C-o>d$") -- delete to end of line, match shell (customized)
 
 -- Tab management
 -- LazyVim default uses <tab> as secondary key. I prefer to use t
@@ -87,6 +87,8 @@ vim.keymap.del({ "i", "n" }, "<esc>")
 map("n", "<M-f>", "e") -- word forward, match terminal; <M-b> is word backward by default
 map({ "n", "v", "x", "o" }, "gh", "^", { desc = "Goto Beginning of Indented Line" })
 map({ "n", "v", "x", "o" }, "gl", "$", { desc = "Goto End of Line" })
+map("i", "<M-b>", "<S-left>") -- word backward, match shell (shift-left is neovim default)
+map("i", "<M-f>", "<S-right>") -- word forward, match shell (shift-right is neovim default)
 
 -- Move lines
 -- Remap to shift-alt-j/k because escape is registered as startin escape sequence (meta) when typing fast, always causing issue
