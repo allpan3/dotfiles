@@ -177,33 +177,40 @@ fi
 
 # ls - use eza if available
 if command -v eza &>/dev/null; then
-  alias ls='eza -F' && complete -F _complete_alias ls
-  alias la='ls -a' && complete -F _complete_alias la
-  alias ll='la -lhg' && complete -F _complete_alias ll
-  alias lt="la -s=oldest" && complete -F _complete_alias lt
-  alias llt="ll -s=oldest" && complete -F _complete_alias llt
-  alias ltree="eza --tree" && complete -F _complete_alias ltree
+  alias ls='eza -F --icons=auto --hyperlink'
+  alias la='ls -a'
+  alias ll='ls -lhg'
+  alias lla='la -lhg'
+  alias lt="ls -s=oldest" # oldest first
+  alias lta="la -s=oldest"
+  alias llt="ll -s=newest" # oldest at bottom, easier to see
+  alias llta="lla -s=newest"
+  alias ltree="eza --tree"
+  alias lld='ll -d'
 else
-  alias ls='ls -F --color=auto' && complete -F _complete_alias ls
-  alias la='ls -A' && complete -F _complete_alias la
-  alias lt="la -t" && complete -F _complete_alias lt
-  alias ll='la -lh' && complete -F _complete_alias ll
-  alias llt="ll -t" && complete -F _complete_alias llt
-  # List info of directories instead of showing their contents
-  # Usually following wildcards; compare this to ll followed a directory name
-  alias lld='ll -d' && complete -F _complete_alias lld
+  alias ls='ls -F --color=auto'
+  alias la='ls -A'
+  alias lt="ls -t" # oldest first
+  alias lta="la -t"
+  alias ll='ls -lh'
+  alias lla='la -lh'
+  alias llt="ll -tr" # oldest at bottom
+  alias llta="lla -tr"
+  # List info of directories instead of showing their contents, usually followed by directory name or with wildcards
+  # e.g. lld foo*. This is similar to `ll | grep foo`, but useful if wildcard is more than basic
+  alias lld='ll -d'
 fi
 
 # grep
-alias grep='grep --color=auto' && complete -F _complete_alias grep
-alias zgrep='zgrep --color=auto' && complete -F _complete_alias zgrep
-alias fgrep='fgrep --color=auto' && complete -F _complete_alias fgrep
-alias egrep='egrep --color=auto' && complete -F _complete_alias egrep
+alias grep='grep --color=auto'
+alias zgrep='zgrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 alias his="history | grep"
 
 if command -v bat &>/dev/null; then
-  alias cat='bat' & complete -F _complete_alias cat
+  alias cat='bat'
 fi
 
 if command -v nvim &>/dev/null; then
@@ -213,11 +220,11 @@ fi
 
 if command -v zellij --version &>/dev/null; then
   [ -f ${HOME}/.config/zellij/zellij-completion.sh ] && source ${HOME}/.config/zellij/zellij-completion.sh
-  alias zj='zellij' && complete -F _complete_alias zj
+  alias zj='zellij'
 fi
 
 if type fd &>/dev/null; then
-  alias fd="fd --hidden" && complete -F _complete_alias fd
+  alias fd="fd --hidden"
 fi
 
 # tar helper fuctions
@@ -240,7 +247,7 @@ alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
 alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
 
 # lazygit
-alias lg=lazygit && complete -F _complete_alias lg
+alias lg=lazygit
 
 # accidental action prevention
 if [ "$(uname -s)" == "Darwin" ]; then
@@ -257,13 +264,16 @@ if [ "$(uname -s)" == "Darwin" ]; then
         echo "rm: cannot remove '$file': No such file or directory"
       fi
     done
-  } 
+  }
   alias rm='trash'
 elif [[ "$USER" == "root" ]]; then
-  alias rm='rm -i' && complete -F _complete_alias rm
-  alias cp='cp -i' && complete -F _complete_alias cp
-  alias mv='mv -i' && complete -F _complete_alias mv
+  alias rm='rm -i'
+  alias cp='cp -i'
+  alias mv='mv -i'
 fi
+
+# Make completion work for aliases
+complete -F _complete_alias "${!BASH_ALIASES[@]}"
 
 ###############################
 # Change directory hook
