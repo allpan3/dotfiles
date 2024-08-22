@@ -17,10 +17,10 @@ keybinds clear-defaults=true {
     // panes
     bind "|" { NewPane "Down"; SwitchToMode "Normal"; }
     bind "\\" { NewPane "Right"; SwitchToMode "Normal"; }
-    bind "h" { MoveFocusOrTab "Left"; SwitchToMode "Normal"; }
-    bind "l" { MoveFocusOrTab "Right"; SwitchToMode "Normal"; }
-    bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
-    bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
+    // bind "h" { MoveFocusOrTab "Left"; SwitchToMode "Normal"; }
+    // bind "l" { MoveFocusOrTab "Right"; SwitchToMode "Normal"; }
+    // bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
+    // bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
     bind "n" { NewPane; SwitchToMode "Normal"; }
     bind "p" { TogglePaneFrames; SwitchToMode "Normal"; }
     bind "m" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // maximize
@@ -32,6 +32,8 @@ keybinds clear-defaults=true {
 
     // tabs
     bind "Tab" { ToggleTab; SwitchToMode "Normal";}
+    bind "h" { GoToPreviousTab; }
+    bind "l" { GoToNextTab; }
     bind "1" { GoToTab 1; SwitchToMode "Normal"; }
     bind "2" { GoToTab 2; SwitchToMode "Normal"; }
     bind "3" { GoToTab 3; SwitchToMode "Normal"; }
@@ -136,6 +138,8 @@ keybinds clear-defaults=true {
     bind "j" "Down" { MovePane "Down"; }
     bind "k" "Up" { MovePane "Up"; }
     bind "l" "Right" { MovePane "Right"; }
+    bind "]" { BreakPaneRight;}  // move a pane to a different tab (if it's a tab, converted to a pane)
+    bind "[" { BreakPaneLeft;}
   }
   tab {
     bind "t" { NewTab; SwitchToMode "Normal"; }
@@ -145,8 +149,6 @@ keybinds clear-defaults=true {
     bind "d" { CloseTab; SwitchToMode "Normal"; }
     bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
     bind "b" { BreakPane; SwitchToMode "Normal"; }  // convert a pane to a tab
-    bind "]" { BreakPaneRight;}  // move a pane to a different tab (if it's a tab, converted to a pane)
-    bind "[" { BreakPaneLeft;}
     bind "<" { MoveTab "Left"; }
     bind ">" { MoveTab "Right"; }
   }
