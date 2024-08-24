@@ -35,7 +35,26 @@ return {
 			end
 		end
 
-		-- TODO: would like to wipe out the default mappings
+		-- TODO: labels get laid out from top to bottom, which often misses the actual filtered entries, making this unsuable
+		-- local function flash(prompt_bufnr)
+		--      require("flash").jump({
+		--        pattern = "^",
+		--        label = { after = { 0, 0 } },
+		--        search = {
+		--          mode = "search",
+		--          exclude = {
+		--            function(win)
+		--              return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
+		--            end,
+		--          },
+		--        },
+		--        action = function(match)
+		--          local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+		--          picker:set_selection(match.pos[1] - 1)
+		--        end,
+		--      })
+		--  end
+
 		return {
 			defaults = {
 				prompt_prefix = " ",
@@ -57,6 +76,7 @@ return {
 				layout_strategy = "horizontal", -- how the telescope is drawn
 				-- layout_config = { -- extra settings for fine-tuning how your layout looks
 				-- horizontal = {
+				-- results get reduced to the bottom, so top prompt feels awkward
 				-- 	prompt_position = "top",
 				-- 	preview_width = 0.55,
 				-- },
@@ -82,6 +102,7 @@ return {
 						["<C-h>"] = actions.results_scrolling_left,
 						["<C-s>"] = actions.select_horizontal, -- open selection in horizontal split
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- use <tab> to select lines, then send to quick fix list
+						-- ["<C-s>"] = flash, TODO: need to resolve this key conflict
 					},
 					n = {
 						["q"] = actions.close,
@@ -95,6 +116,7 @@ return {
 						["<C-l>"] = actions.results_scrolling_right,
 						["<C-h>"] = actions.results_scrolling_left,
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- use <tab> to select lines, then send to quick fix list
+						-- ["s"] = flash,
 					},
 				},
 			},
