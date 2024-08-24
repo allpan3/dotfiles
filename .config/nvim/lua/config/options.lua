@@ -5,28 +5,27 @@
 local opt = vim.opt -- for conciseness
 
 -- appearance
--- opt.background = "dark" -- colorschemes that can be light or dark will be made dark
-opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
+vim.opt.background = "dark" -- colorschemes that can be light or dark will be made dark
+vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 
 -- line numbers
-opt.relativenumber = true -- show relative line numbers by default
-opt.numberwidth = 2 -- minimal number of columns to use for the line number {default 4}
+vim.opt.relativenumber = true -- show relative line numbers by default
+vim.opt.numberwidth = 2 -- minimal number of columns to use for the line number {default 4}
 
 -- tabs & indentation
-opt.tabstop = 2 -- number of space inserted for a tab
-opt.shiftwidth = 2 -- number of spaces inserted for each indentation
-opt.autoindent = true -- copy indent from current line when starting a new one
+vim.opt.shiftwidth = 3 -- number of spaces inserted for each indentation
+vim.opt.autoindent = true -- copy indent from current line when starting a new one
 
 -- display
-opt.pumblend = 10 -- popup menu opacity
+vim.opt.pumblend = 10 -- popup menu opacity
 -- opt.cmdheight = 2 -- more space in the neovim command line for displaying messages
 
 -- editing
-opt.conceallevel = 0 -- so that `` is visible in markdown files
-opt.swapfile = false -- creates a swapfile
+vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
+vim.opt.swapfile = false -- creates a swapfile
 
 -- mouse event
-opt.mousemoveevent = true
+vim.opt.mousemoveevent = true
 
 -- run vimscript in lua file
 vim.cmd("set whichwrap+=<,>,[,],h,l")
