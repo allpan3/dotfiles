@@ -25,7 +25,6 @@ keybinds clear-defaults=true {
     bind "p" { TogglePaneFrames; SwitchToMode "Normal"; }
     bind "m" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // maximize
     bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-    bind "d" { CloseFocus; SwitchToMode "Normal"; }
     bind "c" { Clear; SwitchToMode "Normal";}
     bind "]" { NextSwapLayout; }
     bind "[" { PreviousSwapLayout; }
