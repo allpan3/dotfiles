@@ -1,19 +1,17 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
-
 -- :help options
-local opt = vim.opt -- for conciseness
 
 -- appearance
 vim.opt.background = "dark" -- colorschemes that can be light or dark will be made dark
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 
 -- line numbers
-vim.opt.relativenumber = true -- show relative line numbers by default
+vim.opt.relativenumber = false -- show relative line numbers
 vim.opt.numberwidth = 2 -- minimal number of columns to use for the line number {default 4}
 
 -- tabs & indentation
-vim.opt.shiftwidth = 3 -- number of spaces inserted for each indentation
+vim.opt.shiftwidth = 2 -- number of spaces inserted for each indentation
 vim.opt.autoindent = true -- copy indent from current line when starting a new one
 
 -- display
