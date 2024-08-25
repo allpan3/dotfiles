@@ -140,9 +140,13 @@ return {
 			end,
 			desc = "Find Files (Buf Dir)",
 		},
-    { "<leader>fg", function()
-      require("telescope.builtin").git_files()
-    end, desc = "Git Files" },
+		{
+			"<leader>fg",
+			function()
+				require("telescope.builtin").git_files()
+			end,
+			desc = "Git Files",
+		},
 		{ "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
 		{ "<leader>gs", false }, -- git_status; use lazygit
 		{ "<leader>gc", "<cmd>Telescope commits<CR>", desc = "Search Commit History" }, -- this may be occasionally useful as we can search the commit message
@@ -153,6 +157,6 @@ return {
 		{ "<leader>sW", LazyVim.pick("grep_string", { word_match = "-w" }), desc = "Word (root)" },
 		{ "<leader>sw", LazyVim.pick("grep_string", { root = false }), mode = "v", desc = "Selection (cwd)" },
 		{ "<leader>sW", LazyVim.pick("grep_string"), mode = "v", desc = "Selection (root)" },
-    { "<leader>uC", false } -- remapping colorscheme to <leader>uc
+		{ "<leader>uC", false }, -- remapping colorscheme to <leader>uc
 	},
 }
