@@ -21,7 +21,6 @@ require("lazy").setup({
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
 		-- import any extras modules here
 		{ import = "lazyvim.plugins.extras.coding.mini-surround" },
-		{ import = "lazyvim.plugins.extras.coding.yanky" },
 		{ import = "lazyvim.plugins.extras.editor.illuminate" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
 		-- { import = "lazyvim.plugins.extras.editor.mini-diff" }, -- conflicts with gitsigns
