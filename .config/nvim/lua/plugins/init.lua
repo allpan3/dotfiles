@@ -15,8 +15,9 @@ return {
 	{ "LazyVim/LazyVim", priority = 10000, lazy = false, config = true, cond = true, version = "*" },
 	{ "nvim-neo-tree/neo-tree.nvim", enabled = false }, -- use nvim-tree instead, more lightweight
 	{ "folke/persistence.nvim", enabled = false }, -- use auto-session instead
+	{ "RRethy/vim-illuminate", opts = { under_cursor = false } },
 	{
-    "allpan3/zellij-nav.nvim",
+		"allpan3/zellij-nav.nvim",
 		lazy = true,
 		event = "VeryLazy",
 		keys = {
