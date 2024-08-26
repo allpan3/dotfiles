@@ -99,7 +99,6 @@ keybinds clear-defaults=true {
     bind "Alt -" { Resize "Decrease"; }
     bind "Alt [" { PreviousSwapLayout; }
     bind "Alt ]" { NextSwapLayout; }
-    bind "Alt c" { Clear; }
   }
 
   resize {
