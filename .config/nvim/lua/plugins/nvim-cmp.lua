@@ -13,11 +13,11 @@ return {
 			return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 		end
 
-    opts.auto_select = false
-    opts.completion = {
-      completeopt = "menu,menuone,noinsert,noselect"
-    }
-		opts.preselect = cmp.PreselectMode.None
+    opts.auto_select = true
+		--   opts.completion = {
+		--     completeopt = "menu,menuone,noinsert,noselect"
+		--   }
+		-- opts.preselect = cmp.PreselectMode.None
 		opts.window = {
 			-- Make the completion menu bordered.
 			completion = cmp.config.window.bordered(),
@@ -37,11 +37,16 @@ return {
           cmp.mapping.complete()
 				end
 			end, { "i", "s" }),
+      ["<CR>"] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      }),
 			["<Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() and cmp.get_active_entry() then
-					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }) 
-          -- select = true accepts the current selected item, otherwise have to press down to select the first item
-        elseif require("copilot.suggestion").is_visible() and not beginning_of_line() then
+        -- if cmp.visible() and cmp.get_active_entry() then
+				-- 	cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+				--       -- select = true accepts the current selected item, otherwise have to press down to select the first item
+        -- When at beginning of the line, prefer to use <tab> for indentation
+        if require("copilot.suggestion").is_visible() and not beginning_of_line() then
 					require("copilot.suggestion").accept_line()
 				-- elseif luasnip.expandable() then
 				--   luasnip.expand()
@@ -49,20 +54,13 @@ return {
 					vim.schedule(function()
 						vim.snippet.jump(1)
 					end)
+        -- use tab to invoke completion menu
 				elseif has_words_before() then
 					cmp.mapping.complete()
 				else
 					fallback()
 				end
 			end, { "i", "s" }),
-			-- 		["<S-CR>"] = cmp.confirm({
-			-- 			behavior = cmp.ConfirmBehavior.Replace,
-			-- 			select = false,
-			-- 		}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-			-- 		["<C-CR>"] = function(fallback)
-			-- 			cmp.abort()
-			-- 			fallback()
-			-- 		end,
 		})
 
 		-- TODO: still don't know how to configure both insert and cmdline mapping
