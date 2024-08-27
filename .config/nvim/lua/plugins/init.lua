@@ -21,12 +21,23 @@ return {
 		lazy = true,
 		event = "VeryLazy",
 		keys = {
-			{ "<c-h>", "<cmd>ZellijNavigateLeft<cr>", { silent = true, desc = "Navigate Left" } },
+			{
+				"<c-h>",
+				function()
+					require("zellij-nav").left("move-focus-or-tab")
+				end,
+				{ silent = true, desc = "Navigate Left" },
+			},
 			{ "<c-j>", "<cmd>ZellijNavigateDown<cr>", { silent = true, desc = "Navigate Down" } },
 			{ "<c-k>", "<cmd>ZellijNavigateUp<cr>", { silent = true, desc = "Navigate Up" } },
-			{ "<c-l>", "<cmd>ZellijNavigateRight<cr>", { silent = true, desc = "Navigate Right" } },
+			{
+				"<c-l>",
+				function()
+					require("zellij-nav").right("move-focus-or-tab")
+				end,
+				{ silent = true, desc = "Navigate Right" },
+			},
 		},
-		opts = {},
 	},
 	-- { "folke/noice.nvim", enabled = false },
 }
