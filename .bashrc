@@ -110,6 +110,11 @@ export LESS_TERMCAP_mh=$(tput dim)
 ###############################
 # Set up cmdline environment
 ###############################
+## Set up config home for macOS
+if [ "$(uname -s)" == "Darwin" ]; then
+  export XDG_CONFIG_HOME=${HOME}/.config
+fi
+
 ## Set up homebrew paths if exists
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 

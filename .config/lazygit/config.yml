@@ -1,0 +1,9 @@
+keybinding:
+  commits:
+    # ctrl-h/j/k/l are reserved for zellij
+    # ctrl-shift is not supported, alt is not supported
+    # will change these when one of the above is supported
+    moveDownCommit: <c-n>
+    moveUpCommit: <c-p>
+  universal:
+    createPatchOptionsMenu: <c-g> # default is <c-p>
