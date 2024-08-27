@@ -13,6 +13,7 @@ keybinds clear-defaults=true {
     bind "t" { SwitchToMode "Tab"; }
     bind "r" { SwitchToMode "Resize"; }
     bind "q" { SwitchToMode "Session"; }
+    bind "v" { SwitchToMode "Move"; }
 
     // panes
     bind "|" { NewPane "Down"; SwitchToMode "Normal"; }
@@ -23,7 +24,7 @@ keybinds clear-defaults=true {
     // bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
     bind "n" { NewPane; SwitchToMode "Normal"; }
     bind "p" { TogglePaneFrames; SwitchToMode "Normal"; }
-    bind "m" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // maximize
+    bind "m" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // zoom
     bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
     bind "c" { Clear; SwitchToMode "Normal";}
     bind "]" { NextSwapLayout; }
@@ -126,11 +127,9 @@ keybinds clear-defaults=true {
     bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
     bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
     bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0;}
-    // move pane
-    bind "m" { SwitchToMode "Move"; }
   }
   move {
-    bind "n" "Tab" { MovePane; }
+    bind "n" { MovePane; }
     bind "p" { MovePaneBackwards; }
     bind "h" "Left" { MovePane "Left"; }
     bind "j" "Down" { MovePane "Down"; }
@@ -138,6 +137,9 @@ keybinds clear-defaults=true {
     bind "l" "Right" { MovePane "Right"; }
     bind "]" { BreakPaneRight;}  // move a pane to a different tab (if it's a tab, converted to a pane)
     bind "[" { BreakPaneLeft;}
+    bind "b" { BreakPane; SwitchToMode "Normal"; }  // convert a pane to a tab
+    bind "{" { MoveTab "Left"; }
+    bind "}" { MoveTab "Right"; }
   }
   tab {
     bind "t" { NewTab; SwitchToMode "Normal"; }
@@ -146,9 +148,6 @@ keybinds clear-defaults=true {
     bind "l" "Right" "Down" "j" { GoToNextTab; }
     bind "d" { CloseTab; SwitchToMode "Normal"; }
     bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
-    bind "b" { BreakPane; SwitchToMode "Normal"; }  // convert a pane to a tab
-    bind "<" { MoveTab "Left"; }
-    bind ">" { MoveTab "Right"; }
   }
   scroll {
     bind "e" { EditScrollback; SwitchToMode "Normal"; }
@@ -177,7 +176,8 @@ keybinds clear-defaults=true {
     bind "o" { SearchToggleOption "WholeWord"; }
   }
   entersearch {
-    bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
+    bind "Ctrl c" { SwitchToMode "Normal"; }
+    bind "Esc"    { SwitchToMode "Scroll"; }
     bind "Enter" { SwitchToMode "Search"; }
   }
   renametab {
