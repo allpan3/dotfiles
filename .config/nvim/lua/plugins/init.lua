@@ -28,8 +28,20 @@ return {
 				end,
 				{ silent = true, desc = "Navigate Left" },
 			},
-			{ "<c-j>", "<cmd>ZellijNavigateDown<cr>", { silent = true, desc = "Navigate Down" } },
-			{ "<c-k>", "<cmd>ZellijNavigateUp<cr>", { silent = true, desc = "Navigate Up" } },
+			{
+				"<c-j>",
+				function()
+					require("zellij-nav").down("move-focus")
+				end,
+				{ silent = true, desc = "Navigate Down" },
+			},
+			{
+				"<c-k>",
+				function()
+					require("zellij-nav").up("move-focus")
+				end,
+				{ silent = true, desc = "Navigate Up" },
+			},
 			{
 				"<c-l>",
 				function()
