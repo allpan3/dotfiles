@@ -148,11 +148,14 @@ fi
 # Not sure if this will cause any side effect yet
 
 # iTerm2 shell integration
-export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
-test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && source "${HOME}/.iterm2/iterm2_shell_integration.bash"
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+  test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && . "${HOME}/.iterm2/iterm2_shell_integration.bash"
+fi
 
 # wezterm shell integration
-test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
+if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+  test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
+fi
 
 # git status in prompt
 test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
