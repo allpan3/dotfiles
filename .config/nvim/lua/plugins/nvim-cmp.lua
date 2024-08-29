@@ -25,16 +25,24 @@ return {
 		}
 		opts.mapping = cmp.mapping.preset.insert({
 			["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      -- this sometimes doesn't work for the first time; signature help took precedence over this, but it works the second menu is opened
+			-- this sometimes doesn't work for the first time; signature help took precedence over this, but it works the second menu is opened
 			["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
-      -- toggle menu
+			-- toggle menu
 			["<C-s>"] = cmp.mapping(function()
 				if cmp.visible() then
 					cmp.close()
 				else
-          cmp.mapping.complete()
+					cmp.complete()
+				end
+			end, { "i", "s" }),
+			-- shift-space works in iTerm2, but still dones't work in wezterm even with CSI-u turned on
+			["<S-space>"] = cmp.mapping(function()
+				if cmp.visible() then
+					cmp.close()
+				else
+					cmp.complete()
 				end
 			end, { "i", "s" }),
 			["<Tab>"] = cmp.mapping(function(fallback)
