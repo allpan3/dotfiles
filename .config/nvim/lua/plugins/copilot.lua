@@ -16,7 +16,7 @@ return {
 				keymap = {
 					accept = "<C-i>",
 					accept_word = "<C-m>",
-					accept_line = false,
+					accept_line = false, -- <tab> completes line, configured in nvim-cmp
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-]>",

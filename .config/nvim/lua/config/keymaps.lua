@@ -35,10 +35,12 @@ map("n", "U", "<C-r>", { desc = "Redo" }) -- pair with u as undo; using ctrl-r i
 map("n", "<S-enter>", "o<Esc>") -- shift-enter to insert new line below in normal mode
 map("i", "<M-e>", "<C-o>d$") -- delete to end of line, match shell (customized)
 -- Indentation
+-- This mapping to itself is needed to seprate ctrl-i from tab even when CSI-u is enabled. Don't know why
+map({ "n", "v", "x" }, "<c-i>", "<c-i>")
 map("n", "<tab>", ">>", { desc = "Indent" })
 map("n", "<S-tab>", "<<", { desc = "Unindent" })
-map("v", "<tab>", ">", { desc = "Indent" })
-map("v", "<S-tab>", "<", { desc = "Unindent" })
+map({ "v", "x" }, "<tab>", ">", { desc = "Indent" })
+map({ "v", "x" }, "<S-tab>", "<", { desc = "Unindent" })
 
 -- Tab management
 -- LazyVim default uses <tab> as secondary key. I prefer to use t
