@@ -25,28 +25,31 @@ config = utils.merge_tables(config, appearance)
 -- end
 
 local function get_cwd_basename(tab)
-	local current_dir = tab.active_pane and tab.active_pane.current_working_dir or { file_path = "" }
-
-  local basename = string.match(current_dir.file_path, "([^/]+)/$")
-	local HOME_DIR = os.getenv("HOME") .. "/"
-
+	local current_dir = tab.active_pane.current_working_dir
+	local basename = string.match(current_dir.file_path, "([^/]+)$")
+	local HOME_DIR = os.getenv("HOME")
 	return current_dir.file_path == HOME_DIR and "~" or basename
 end
 
 local function get_process(tab)
-  -- TODO: I want to get the process name, but it's not working. Workaround by getting it from the default title
-  local process = tab.active_pane.title
-  return process
+	-- TODO: I want to get the process name, but it's not working. Workaround by getting it from the default title
+	local process = tab.active_pane.title
+	return process
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local title = tab.tab_title
 
-	-- if the tab title is explicitly set, take that
 	if title and #title > 0 then
-
+	-- if the tab title is explicitly set, take that
 	else
-		title = (get_process(tab) or "") .. "[" .. (get_cwd_basename(tab) or "") .. "]"
+		local cwd_basename = get_cwd_basename(tab)
+		print(cwd_basename)
+		if cwd_basename ~= "" then
+			cwd_basename = "[" .. cwd_basename .. "]"
+		end
+
+		title = (get_process(tab) or "") .. cwd_basename
 	end
 
 	local color = "#b7bdf8"
@@ -70,34 +73,15 @@ wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
 		zoomed = "[Z] "
 	end
 
-  local path = ""
-  if pane.current_working_dir then
-    path = "[" .. pane.current_working_dir.file_path .. "]"
-  end
+	local path = ""
+	if pane.current_working_dir then
+		path = "[" .. pane.current_working_dir.file_path .. "]"
+	end
 
-  local title = (get_process(tab) or "") .. path
+	local title = (get_process(tab) or "") .. path
 
-	return zoomed ..  title
+	return zoomed .. title
 end)
-
--- wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
---   return pane.foreground_process_name .. ":" .. pane.current_working_dir.file_path
--- end)
-
-
--- wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
---   local zoomed = ''
---   if tab.active_pane.is_zoomed then
---     zoomed = '[Z] '
---   end
---
---   local index = ''
---   if #tabs > 1 then
---     index = string.format('[%d/%d] ', tab.tab_index + 1, #tabs)
---   end
---
---   return zoomed .. index .. tab.active_pane.title
--- end)
 
 -- Bindings
 local bindings = require("bindings")
