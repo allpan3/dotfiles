@@ -2,6 +2,10 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local utils = require("utils")
 
+-- General
+config.enable_csi_u_key_encoding = true
+config.allow_win32_input_mode = false
+
 -- Appearance
 local appearance = require("appearance")
 config = utils.merge_tables(config, appearance)
@@ -42,7 +46,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	if title and #title > 0 then
 
 	else
-		title = get_process(tab) .. "[" .. get_cwd_basename(tab) .. "]"
+		title = (get_process(tab) or "") .. "[" .. (get_cwd_basename(tab) or "") .. "]"
 	end
 
 	local color = "#b7bdf8"
@@ -60,42 +64,40 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	end
 end)
 
-
 wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
 	local zoomed = ""
 	if tab.active_pane.is_zoomed then
 		zoomed = "[Z] "
 	end
 
-
-	local index = ""
-	if #tabs > 1 then
-		index = string.format("[%d/%d] ", tab.tab_index + 1, #tabs)
-	end
-
-  local title = get_process(tab) .. "[" .. pane.current_working_dir.file_path .. "]"
-
-	return zoomed .. index .. title
-end)
-
-wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
-  return pane.foreground_process_name .. ":" .. pane.current_working_dir.file_path
-end)
-
-
-wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
-  local zoomed = ''
-  if tab.active_pane.is_zoomed then
-    zoomed = '[Z] '
+  local path = ""
+  if pane.current_working_dir then
+    path = "[" .. pane.current_working_dir.file_path .. "]"
   end
 
-  local index = ''
-  if #tabs > 1 then
-    index = string.format('[%d/%d] ', tab.tab_index + 1, #tabs)
-  end
+  local title = (get_process(tab) or "") .. path
 
-  return zoomed .. index .. tab.active_pane.title
+	return zoomed ..  title
 end)
+
+-- wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
+--   return pane.foreground_process_name .. ":" .. pane.current_working_dir.file_path
+-- end)
+
+
+-- wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
+--   local zoomed = ''
+--   if tab.active_pane.is_zoomed then
+--     zoomed = '[Z] '
+--   end
+--
+--   local index = ''
+--   if #tabs > 1 then
+--     index = string.format('[%d/%d] ', tab.tab_index + 1, #tabs)
+--   end
+--
+--   return zoomed .. index .. tab.active_pane.title
+-- end)
 
 -- Bindings
 local bindings = require("bindings")
