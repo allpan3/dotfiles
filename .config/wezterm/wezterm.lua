@@ -26,9 +26,14 @@ config = utils.merge_tables(config, appearance)
 
 local function get_cwd_basename(tab)
 	local current_dir = tab.active_pane.current_working_dir
-	local basename = string.match(current_dir.file_path, "([^/]+)$")
-	local HOME_DIR = os.getenv("HOME")
-	return current_dir.file_path == HOME_DIR and "~" or basename
+  local basename = ""
+  -- Sometimes current_dir is nil or empty string. Not sure why
+  if current_dir and current_dir ~= "" then
+	  basename = string.match(current_dir.file_path, "([^/]+)$")
+    local HOME_DIR = os.getenv("HOME") .. "/"
+    basename = current_dir.file_path == HOME_DIR and "~" or basename
+  end
+  return basename
 end
 
 local function get_process(tab)
@@ -43,8 +48,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	if title and #title > 0 then
 	-- if the tab title is explicitly set, take that
 	else
-		local cwd_basename = get_cwd_basename(tab)
-		print(cwd_basename)
+		local cwd_basename = get_cwd_basename(tab) or ""
 		if cwd_basename ~= "" then
 			cwd_basename = "[" .. cwd_basename .. "]"
 		end
