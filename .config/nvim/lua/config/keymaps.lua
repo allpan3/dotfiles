@@ -2,8 +2,9 @@
 -- LazyVim default keymaps are automatically loaded: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 ---------- Keys free to map -------------
--- key - mode - description
--- M - n - not useful
+-- key     mode      description
+-- M        n         not useful
+-- <C-r>    n         use U for redo
 -----------------------------------------
 
 -- remap: recursively map the keys when the rhs contains lhs
@@ -32,8 +33,9 @@ vim.keymap.del({ "n", "t" }, "<C-_>") -- neovim default is terminal
 map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo" }) -- same as terminal
 map({ "n", "i", "v", "x" }, "<M-r>", "<cmd>redo<CR>", { desc = "Redo" }) -- ctrl-r is search history in shell; this is mainly for mapping cmd-shift-z
 map("n", "U", "<C-r>", { desc = "Redo" }) -- pair with u as undo; using ctrl-r instead of :redo allows count
-map("n", "<S-enter>", "o<Esc>") -- shift-enter to insert new line below in normal mode
+map("n", "<S-enter>", "o<c-u><esc>") -- shift-enter to insert new line below in normal mode
 map("i", "<M-e>", "<C-o>d$") -- delete to end of line, match shell (customized)
+
 -- Indentation
 -- This mapping to itself is needed to seprate ctrl-i from tab even when CSI-u is enabled. Don't know why
 map({ "n", "v", "x" }, "<c-i>", "<c-i>")
@@ -93,9 +95,9 @@ map({ "n", "x", "s" }, "<leader>fs", "<cmd>w<CR>", { desc = "Save File" })
 vim.keymap.set({ "n", "x", "s" }, "<leader>fS", ":w ", { desc = "Save as" })
 
 -- Clear Highlight
--- LazyVim confiugres <esc> to clear highlight in both insert and normal mode.
+-- LazyVim configures <esc> to clear highlight in both insert and normal mode.
 -- I prefer to keep it when I exit from insert to normal, but only clear when press <esc> in normal mode
-vim.keymap.del({ "n" }, "<esc>")
+vim.keymap.del({ "i" }, "<esc>")
 
 -- Navigation
 map("n", "<M-f>", "e") -- word forward, match terminal; <M-b> is word backward by default
@@ -105,17 +107,6 @@ map({ "n", "v", "x", "o" }, "gh", "^", { desc = "Goto Beginning of Indented Line
 map({ "n", "v", "x", "o" }, "gl", "g_", { desc = "Goto End of Line" })
 map("i", "<M-b>", "<S-left>") -- word backward, match shell (shift-left is neovim default)
 map("i", "<M-f>", "<S-right>") -- word forward, match shell (shift-right is neovim default)
-
--- Move lines
--- Remap to shift-alt-j/k because escape is registered as startin escape sequence (meta) when typing fast, always causing issue
-vim.keymap.del({ "n", "i", "v" }, "<A-j>")
-vim.keymap.del({ "n", "i", "v" }, "<A-k>")
-map("n", "<S-A-j>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
-map("n", "<S-A-k>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
-map("i", "<S-A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-map("i", "<S-A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-map("v", "<S-A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
-map("v", "<S-A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
 -- Save and quite
 map("n", "<leader>qw", "<cmd>wq<cr>", { desc = "Save and Quit" })
@@ -132,7 +123,7 @@ require("which-key").add({ "<leader>uc", icon = { icon = "", color = "blue" }
 
 -- By default, pasting in visual mode puts the replaced text in default register. This writes to blackhole register instead
 -- both p and P work
-map({ "v", "x" }, "p", '"_dP')
+map({ "v", "x" }, "p", '"_dP', { desc = "Replace with Paste" })
 
 -- Floating terminal
 vim.keymap.del("n", "<leader>ft")
@@ -147,7 +138,7 @@ vim.keymap.del("n", "<leader>l")
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })
 
--- diagnostic
+-- Diagnostic
 vim.keymap.set("n", "<leader>xf", vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
 
 -- LazyVim default to save

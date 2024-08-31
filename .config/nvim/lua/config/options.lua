@@ -77,4 +77,7 @@ end
 -- vim.cmd('autocmd BufEnter * set formatoptions-=cro')
 -- vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
 
+-- Turn off key code timeout since we never type escape sequences manually
+-- This fixes the ESC delay issue
+vim.cmd("set nottimeout")
 
