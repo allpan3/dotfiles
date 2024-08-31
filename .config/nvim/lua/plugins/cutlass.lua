@@ -4,7 +4,7 @@ return {
 	opts = {
 		cut_key = "x",
 		override_del = true,  -- <del> puts in blackhole register
-		exclude = {"s"},
+		exclude = {"ns", "nS"},
     -- Putting daleted/changed text in a named register will cause " register to still be written. When we
     -- set clipboard to + register by default, we won't use " so things are fine (+ isn't affected by named register).
     -- However, There's some issue with OSC 52 that forced us to paste from the " register instead of the + register in the remote machine.
