@@ -29,6 +29,8 @@ require("lazy").setup({
 		-- { import = "lazyvim.plugins.extras.ui.mini-animate" },
 		{ import = "lazyvim.plugins.extras.dap.core" },
 		-- { import = "lazyvim.plugins.extras.coding.copilot" },
+    -- languages
+    { import = "lazyvim.plugins.extras.lang.git" },
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},

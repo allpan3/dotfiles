@@ -152,3 +152,13 @@ vim.keymap.set("n", "<leader>xf", vim.diagnostic.open_float, { desc = "Open Diag
 
 -- LazyVim default to save
 vim.keymap.del({ "i", "n", "x", "c" }, "<C-s>")
+
+-- Lazygit
+-- This shows all history of the line
+-- This has a bug. Seems like -L doesn't see the uncommitted lines. For example:
+-- `git -C /Users/aifusenno1 log -n 3 -u -L 82,+1:/Users/aifusenno1/.config/nvim/lua/plugins/gitsigns.lua`
+-- fatal: file /Users/aifusenno1/.config/nvim/lua/plugins/gitsigns.lua has only 40 lines
+map("n", "<leader>gB", LazyVim.lazygit.blame_line, { desc = "Blame Line History" })
+-- Open git remote repo
+map("n", "<leader>gH", LazyVim.lazygit.browse, { desc = "Git Remote Repo" })
+
