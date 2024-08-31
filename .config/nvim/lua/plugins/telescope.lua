@@ -148,8 +148,10 @@ return {
 			desc = "Git Files",
 		},
 		{ "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
-		{ "<leader>gs", false }, -- git_status; use lazygit
-		{ "<leader>gc", "<cmd>Telescope commits<CR>", desc = "Search Commit History" }, -- this may be occasionally useful as we can search the commit message
+		{ "<leader>gh", require("telescope.builtin").git_branches, desc = "List Branches" },
+		{ "<leader>gs", require("telescope.builtin").git_stash, desc = "List Stash" },
+    { "<leader>gc", require("telescope.builtin").git_bcommits, desc = "File Commit History" },
+		{ "<leader>gC", require("telescope.builtin").git_commits, desc = "Repo Commit History" }, -- this may be occasionally useful as we can search the commit message
 		{ "<leader>/", LazyVim.pick("live_grep", { root = false }), desc = "Grep (root)" },
 		{ "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
 		{ "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (root)" },
