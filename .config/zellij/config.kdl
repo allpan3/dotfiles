@@ -31,9 +31,9 @@ keybinds clear-defaults=true {
     bind "[" { PreviousSwapLayout; }
 
     // tabs
-    bind "Tab" { ToggleTab; SwitchToMode "Normal";}
-    bind "h" { GoToPreviousTab; }
-    bind "l" { GoToNextTab; }
+    bind "Tab" { ToggleTab; SwitchToMode "Normal"; }
+    bind "h" { GoToPreviousTab; SwitchToMode "Normal"; }
+    bind "l" { GoToNextTab; SwitchToMode "Normal"; }
     bind "1" { GoToTab 1; SwitchToMode "Normal"; }
     bind "2" { GoToTab 2; SwitchToMode "Normal"; }
     bind "3" { GoToTab 3; SwitchToMode "Normal"; }
