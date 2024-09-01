@@ -81,3 +81,5 @@ end
 -- This fixes the ESC delay issue
 vim.cmd("set nottimeout")
 
+-- Remove - from iskeyword, so that they are skipped by w/b/e
+vim.cmd("set iskeyword-=-")

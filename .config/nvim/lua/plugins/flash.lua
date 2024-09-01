@@ -30,7 +30,7 @@ return {
 			"s",
 			mode = { "n" },
 			function()
-        -- jump to the beginning of the match makes more sense
+				-- jump to the beginning of the match makes more sense
 				require("flash").jump()
 			end,
 			desc = "Flash",
@@ -154,9 +154,9 @@ return {
 	},
 	opts = {
 		jump = {
-      -- this breaks f somehow - once goes forward cannot go backward properly. Removing it and overriding in each keymap
+			-- this breaks f somehow - once goes forward cannot go backward properly. Removing it and overriding in each keymap
 			-- pos = "end",
-      -- jump doesn't support next/prev action. Would be nice to have
+			-- jump doesn't support next/prev action. Would be nice to have
 		},
 		modes = {
 			-- search mode label disappears after pressing <enter>, which makes it useless for me
@@ -170,7 +170,9 @@ return {
 				-- With label on we don't see this bug.
 				jump_labels = true,
 				-- don't think having both f and t is necessary. When need finer control, use f in v mode then fine tune with h/l, followed by desired x/d/c/y action
-				keys = { "f", "F" },
+				keys = { "f", "F"},
+        -- `;` and `,` uses the char under curoor as the target, which is not useful for me
+        -- keys = { "f", "F", ";", "," },
 			},
 			treesitter_search = {
 				remote_op = { restore = true }, -- restore is not working
