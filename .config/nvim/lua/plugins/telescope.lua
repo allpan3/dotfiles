@@ -67,7 +67,6 @@ return {
 					"--no-heading",
 					"--with-filename",
 					"--line-number",
-					"--column",
 					"--smart-case",
 					"--ignore",
 				},
@@ -90,8 +89,8 @@ return {
 				mappings = {
 					i = {
 						["<C-t>"] = open_with_trouble, -- default is select_tab, I don't use nvim native tabs
-						["<C-i>"] = find_files_no_ignore,
-						["<C-x>"] = find_files_no_hidden,
+						["<A-i>"] = find_files_no_ignore,
+						["<A-h>"] = find_files_no_hidden,
 						["<C-j>"] = actions.move_selection_next, -- this overrides default keymap
 						["<C-k>"] = actions.move_selection_previous, -- this overrides default keymap
 						["<C-n>"] = actions.cycle_history_next,
@@ -106,8 +105,8 @@ return {
 					},
 					n = {
 						["q"] = actions.close,
-						["<C-i>"] = find_files_no_ignore,
-						["<C-x>"] = find_files_no_hidden,
+						["<A-i>"] = find_files_no_ignore,
+						["<A-h>"] = find_files_no_hidden,
 						["<C-s>"] = actions.select_horizontal, -- open selection in horizontal split
 						["<C-n>"] = actions.cycle_history_next,
 						["<C-p>"] = actions.cycle_history_prev,
@@ -150,7 +149,7 @@ return {
 		{ "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
 		{ "<leader>gh", require("telescope.builtin").git_branches, desc = "List Branches" },
 		{ "<leader>gs", require("telescope.builtin").git_stash, desc = "List Stash" },
-    { "<leader>gc", require("telescope.builtin").git_bcommits, desc = "File Commit History" },
+		{ "<leader>gc", require("telescope.builtin").git_bcommits, desc = "File Commit History" },
 		{ "<leader>gC", require("telescope.builtin").git_commits, desc = "Repo Commit History" }, -- this may be occasionally useful as we can search the commit message
 		{ "<leader>/", LazyVim.pick("live_grep", { root = false }), desc = "Grep (root)" },
 		{ "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
