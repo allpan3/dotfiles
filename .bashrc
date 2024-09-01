@@ -311,7 +311,7 @@ if type fzf &>/dev/null; then
       INITIAL_QUERY="${@: -1}"
       RG_OPTS=${@:1:$#-1}
       fzf --ansi --disabled --prompt 'rg> ' --query "$INITIAL_QUERY" \
-        --bind "start:reload:$RG_PREFIX $RG_OPTS {q}" \
+        --bind "start:reload:$RG_PREFIX $RG_OPTS {q} || true" \
         --bind "change:reload:sleep 0.1; $RG_PREFIX $RG_OPTS {q} || true" \
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2}' \
