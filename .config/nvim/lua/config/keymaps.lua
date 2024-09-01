@@ -153,3 +153,6 @@ map("n", "<leader>gB", LazyVim.lazygit.blame_line, { desc = "Blame Line History"
 -- Open git remote repo
 map("n", "<leader>gH", LazyVim.lazygit.browse, { desc = "Git Remote Repo" })
 
+-- TODO:: would like to achieve everything in cutlass in custom keymaps
+-- Fix cutless bug: X in visual mode should cut instead of delete
+map("x", "X", "D")
