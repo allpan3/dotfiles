@@ -5,6 +5,7 @@ local utils = require("utils")
 -- General
 config.enable_csi_u_key_encoding = true
 config.allow_win32_input_mode = false
+-- config.debug_key_events = true
 
 -- Appearance
 local appearance = require("appearance")
@@ -104,5 +105,30 @@ config.unix_domains = {
 -- domain on startup.
 -- If you prefer to connect manually, leave out this line.
 config.default_gui_startup_args = { "connect", "unix" }
+
+
+-- neovim zen-mode integration, allow it to change font size
+wezterm.on('user-var-changed', function(window, pane, name, value)
+    local overrides = window:get_config_overrides() or {}
+    if name == "ZEN_MODE" then
+        local incremental = value:find("+")
+        local number_value = tonumber(value)
+        if incremental ~= nil then
+            while (number_value > 0) do
+                window:perform_action(wezterm.action.IncreaseFontSize, pane)
+                number_value = number_value - 1
+            end
+            overrides.enable_tab_bar = false
+        elseif number_value < 0 then
+            window:perform_action(wezterm.action.ResetFontSize, pane)
+            overrides.font_size = nil
+            overrides.enable_tab_bar = true
+        else
+            overrides.font_size = number_value
+            overrides.enable_tab_bar = false
+        end
+    end
+    window:set_config_overrides(overrides)
+end)
 
 return config
