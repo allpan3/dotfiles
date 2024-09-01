@@ -63,11 +63,16 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 # run the following command to disable it
 # Seems like key binding is causing issue with dumb termimal, temporarily working around by skipping
 if [ "$TERM" != "dumb" ]; then
-  stty werase undef
-  bind '"\C-w":backward-kill-word' # default both bash and neovim
-  bind '"\ed":kill-word'           # default in bash
-  bind '"\ee":kill-line'           # forward delete line, originally ctrl-k. Map the same in neovim
-  bind '"\C-u":backward-kill-line' # default both bash and neovim
+  # stty: set terminal type, used to change and print terminal line settings
+  # Run stty -a to see all settings
+  # stty werase undef # needed to unbind Ctrl-W
+  stty discard undef # needed to unbined Ctrl-O
+  stty stop undef    # needed to unbined Ctrl-S
+  # note I put some default keymaps here just for reference
+  bind -m emacs '"\C-w":backward-kill-word' # default both bash and neovim
+  bind -m emacs '"\ed":kill-word'           # default in bash
+  bind -m emacs '"\ee":kill-line'           # forward delete line, originally ctrl-k. Map the same in neovim
+  bind -m emacs '"\C-u":backward-kill-line' # default both bash and neovim
 fi
 
 ###############################
@@ -137,16 +142,6 @@ if [ -f "$HOME/.bashrc_local" ]; then
   . "$HOME/.bashrc_local"
 fi
 
-## Not sure if this is still needed
-# # unset PROMPT_COMMAND
-# # Fix prompt for emacs tramp
-# # DO this after sourcing local rc since prompt is set in local rc
-# case "$TERM" in
-#     "dumb")
-#         PS1="> "
-#         ;;
-# esac
-
 # INFO: put source and alias after .bashrc_local because some executables are set up there
 # Not sure if this will cause any side effect yet
 
@@ -173,13 +168,162 @@ fi
 #   eval "$(starship init bash)"
 # fi
 
-# Setting the default source for fzf (respects .ignore)
-if type fd &>/dev/null; then
-  export FZF_DEFAULT_COMMAND='fd --hidden --type f --strip-cwd-prefix'
+# atuin
+# command -v atuin &>/dev/null && eval "$(atuin init bash)"
+
+# fzf
+if type fzf &>/dev/null; then
+  # I tried the best to make fzf use fd, rg, bat and other better utilities when available, but some in-process keybindinds may still not work without them
+  # fzf shell intergration
+  eval "$(fzf --bash)"
+
+  FZF_DEFAULT_OPTS="--color header:italic --info=inline --border none --no-separator"
+  FD_DEFAULT_OPTS="--hidden --follow --no-ignore --ignore-file $HOME/.ignore --exclude .git --strip-cwd-prefix"
+  # FZF FILE WIDGET
+  # Make it full screen since exiting from bat preview would clear the screen (I think it's cuz fzf process clears the lines that it uses)
+  # Only way to keep the view consistent is to make it full screen
+  # Ctrl-v: open file in neovim (`become` somehow doesn't work for me, execute+abort achieves the same thing)
+  FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target \
+                   --height ~100% --layout default \
+                   --header 'Enter to paste, <C-v> to open in nvim, <C-d> to show files only, <M-i> to hide ignored, <C-o> to peek in bat, <C-/> to toggle preview' \
+                   --bind 'ctrl-v:execute(nvim {})+abort'"
+  if type bat &>/dev/null && type fd &>/dev/null; then
+    # ctrl-o: view file in bat, useful to quick peek and exit
+    FZF_CTRL_T_OPTS+=" --preview 'bat --color=always --style=plain {}' \
+                       --preview-window border-thinblock --preview-label='Preview'\
+                       --bind 'ctrl-d:reload(eval \"fd $FD_DEFUALT_OPTS --type f --ignore\")' \
+                       --bind 'alt-i:reload(eval \"fd $FD_DEFUALT_OPTS --ignore\")' \
+                       --bind 'ctrl-/:change-preview-window(down|hidden|),ctrl-o:execute(bat --style=full --paging always {})'"
+  fi
+
+  # FZF CD WIDGET
+  # Seems like --walker doesn't work once I use custom command.
+  FZF_ALT_C_OPTS="--walker-skip .git,node_modules,target"
+  if type tree &>/dev/null && type fd &>/dev/null; then
+    FZF_ALT_C_OPTS+=" --preview 'tree -C {} | head -200' \
+                      --header '<M-i> to hide ignored' \
+                      --bind 'alt-i:reload(eval \"fd $FD_DEFUALT_OPTS --type d --ignore\")'"
+  fi
+  bind -r "\ec" # unbind default keybinding for __fzf_cd__
+  bind -m emacs '"\C-s":" \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+  bind -m vi-command '"\C-s": "\C-z\C-s\C-z"'
+  bind -m vi-insert '"\C-s": "\C-z\C-s\C-z"'
+
+  # FZF HISTORY WIDGET
+  FZF_CTRL_R_OPTS="--header '<C-y> to copy, <C-/> to toggle preview, <M-/> to toggle line wrap' \
+                   --preview 'echo {}' \
+                   --preview-window down:3:hidden:wrap \
+                   --bind 'ctrl-/:toggle-preview'"
+  # ctrl-y to copy the command into clipboard using pbcopy
+  if type pbcopy &>/dev/null; then
+    FZF_CTRL_R_OPTS+=" --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+  fi
+
+  export FZF_CTRL_T_OPTS FZF_CTRL_R_OPTS FZF_ALT_C_OPTS
+  # extra commands to enable completion for fzf
+  _fzf_setup_completion path rg ls
+  _fzf_setup_completion dir tree
+
+  if type fd &>/dev/null; then
+    # Setting the default source for fzf
+    # export FZF_DEFAULT_COMMAND="fd --hidden --follow --strip-cwd-prefix --type f"
+    export FZF_DEFAULT_COMMAND="fd --strip-cwd-prefix"
+    # shell integration doesnn't use FZF_DEFAULT_COMMAND, must set separately
+    # show all ignored, hidden, link directories, except the ones excluded by ~/.ignore (making fzf in home dir faster)
+    export FZF_CTRL_T_COMMAND="fd $FD_DEFAULT_OPTS"
+    export FZF_ALT_C_COMMAND="fd $FD_DEFAULT_OPTS --type d"
+
+    # Use fd for listing path candidates.
+    # - The first argument to the function ($1) is the base path to start traversal
+    _fzf_compgen_path() {
+      fd $FD_DEFAULT_OPTS "$1"
+    }
+
+    # Use fd to generate the list for directory completion
+    _fzf_compgen_dir() {
+      fd --type d $FD_DEFAULT_OPTS "$1"
+    }
+
+    # Advanced customization of fzf options via _fzf_comprun function
+    # - The first argument to the function is the name of the command.
+    # - You should make sure to pass the rest of the arguments to fzf.
+    # ideally we should check if all these utilities are available, but cannot do it cleanly here
+    _fzf_comprun() {
+      local command=$1
+      shift
+
+      case "$command" in
+      cd) fzf --preview 'tree -C {} | head -200' "$@" ;;
+      export | unset) fzf --preview "eval 'echo \$'{}" "$@" ;;
+      ssh) fzf --preview 'dig {}' "$@" ;;
+      *) fzf --preview 'bat -n --color=always {}' "$@" ;;
+      esac
+    }
+    
+    # Custom widget to nagivate anywhere in git repo
+    fzf_cd_repo_widget() {
+      local dir
+
+      # Find the root of the repo. If submodule, find the root of the parent repo
+      local parent_repo=$(git rev-parse --show-superproject-working-tree 2>/dev/null)
+      local current_repo=$(git rev-parse --show-toplevel 2>/dev/null)
+      local repo_root=${parent_repo:-$current_repo}
+      if [[ -z $repo_root ]]; then
+        return 0
+      fi
+
+      # Command to search for directories within the current git repo, including the root
+      # . means the root of repo (since it's relative to the root)
+      FZF_CD_REPO_COMMAND="{ echo '.'; fd $FD_DEFAULT_OPTS --type d --base-directory ${repo_root} .; }"
+
+      FZF_CD_REPO_OPTS=$(
+        __fzf_defaults "--reverse --scheme=path \
+                        --preview 'tree -C {} | head -200' \
+                        --header '<M-i> to hide ignored' \
+                        --bind 'alt-i:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory ${repo_root} . \")' \
+                        +m"
+      )
+
+      # prepend the repo root
+      dir=${repo_root}/$(
+        FZF_DEFAULT_COMMAND=$FZF_CD_REPO_COMMAND \
+          FZF_DEFAULT_OPTS=$FZF_CD_REPO_OPTS \
+          FZF_DEFAULT_OPTS_FILE='' $(__fzfcmd)
+      ) && printf 'builtin cd -- %q' "$(builtin unset CDPATH && builtin cd -- "$dir" && builtin pwd)"
+    }
+    # map to ctrl-o
+    bind -m emacs '"\C-o": " \C-b\C-k \C-u`fzf_cd_repo_widget`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+    bind -m vi-command '"\C-o": "\C-z\C-q\C-z"'
+    bind -m vi-insert '"\C-o": "\C-z\C-q\C-z"'
+  else
+    # fallback if fd is not available
+    echo "[Warning] Installing fd is strongly recommended for fzf."
+  fi
+
+  if type rg &>/dev/null && type bat &>/dev/null; then
+    # Interactive grep with preview
+    # Initially using rg for exact match, Ctrl-f to switch to use fzf as secondary fuzzy filter
+    # Query automatically reloads as you type
+    # Extra rg options can be passed as arguments, but must proceed the query
+    # Ctrl-i to show ignored files, but it's not persistent across reloads
+    rgi() {
+      RG_PREFIX="rg --line-number --no-heading --color=always --smart-case "
+      INITIAL_QUERY="${@: -1}"
+      RG_OPTS=${@:1:$#-1}
+      fzf --ansi --disabled --prompt 'rg> ' --query "$INITIAL_QUERY" \
+        --bind "start:reload:$RG_PREFIX $RG_OPTS {q}" \
+        --bind "change:reload:sleep 0.1; $RG_PREFIX $RG_OPTS {q} || true" \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --header "<Enter> to open in nvim, <C-i> to show ignored, <C-f> to switch to fuzzy find" \
+        --bind "ctrl-i:reload($RG_PREFIX $RG_OPTS --no-ignore {q} || true)" \
+        --bind "ctrl-f:unbind(change,ctrl-f)+change-prompt(fzf> )+enable-search+clear-query" \
+        --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --bind 'enter:become(nvim {1} +{2})'
+    }
+  fi
 fi
-# if type rg &> /dev/null; then
-#   export FZF_DEFAULT_COMMAND='rg --files --hidden'
-# fi
 
 # direnv
 if command -v direnv &>/dev/null; then
@@ -190,6 +334,8 @@ fi
 if command -v eza &>/dev/null; then
   alias ls='eza -F --icons=auto --hyperlink'
   alias la='ls -a'
+  alias ld='ls -d'
+  alias lda='la -d'
   alias ll='ls -lhg'
   alias lla='la -lhg'
   alias lt="ls -s=oldest" # oldest first
@@ -201,6 +347,8 @@ if command -v eza &>/dev/null; then
 else
   alias ls='ls -F --color=auto'
   alias la='ls -A'
+  alias ld='ls -d'
+  alias lda='la -d'
   alias lt="ls -t" # oldest first
   alias lta="la -t"
   alias ll='ls -lh'
@@ -217,8 +365,9 @@ alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-
-alias his="history | grep"
+if type rg &>/dev/null; then
+  alias rg='rg --smart-case --hidden'
+fi
 
 if command -v bat &>/dev/null; then
   alias cat='bat'
