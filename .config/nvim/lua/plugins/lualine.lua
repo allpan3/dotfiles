@@ -154,8 +154,7 @@ return {
 			}
 
 			opts.sections.lualine_y = {
-				{ "progress", separator = "", padding = { left = 1, right = 1 } },
-				{ "location", separator = "", padding = { left = 0, right = 0 } },
+				{ "progress", separator = "/", padding = { left = 1, right = 0 } },
 				-- show line count and size, total and selection count
 				-- disable showcmd since it also shows selection info
 				{
@@ -176,6 +175,7 @@ return {
 							return count .. "L/" .. bytes
 						end
 					end,
+					padding = { left = 0, right = 1 },
 				},
 			}
 
