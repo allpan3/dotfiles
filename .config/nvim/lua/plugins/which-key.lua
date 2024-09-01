@@ -5,7 +5,8 @@ return {
 			{ "<leader>t", group = "tabs" },
 			{ "<leader><tab>", desc = "Switch to Other Buffer" }, -- Overrides LazyVim default
 			{ "<leader>l", group = "lazy" },
-			{ "<leader><space>", icon = "" }, 
+			{ "<leader><space>", icon = "" },
+			{ "<leader>z", icon = { icon = "󱅻", color = "cyan" }, desc = "Zen" },
 		},
 	},
 }
