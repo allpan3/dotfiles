@@ -71,4 +71,31 @@ bindings.keys = {
 	{ key = "z", mods = "SHIFT|SUPER", action = act.SendKey({ key = "r", mods = "ALT" }) }, -- redo
 }
 
+bindings.mouse_bindings = {
+	-- Plain click doesn't open link
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "NONE",
+		action = act.CompleteSelection("ClipboardAndPrimarySelection"),
+	},
+	-- Shift do not open link
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "SHIFT",
+		action = act.CompleteSelection("ClipboardAndPrimarySelection"),
+	},
+	-- Bind 'Up' event of Command-Click to open hyperlinks
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "SUPER",
+		action = act.OpenLinkAtMouseCursor,
+	},
+	-- Disable the 'Down' event of Command-Click to avoid weird program behaviors
+	{
+		event = { Down = { streak = 1, button = "Left" } },
+		mods = "SUPER",
+		action = act.Nop,
+	},
+}
+
 return bindings
