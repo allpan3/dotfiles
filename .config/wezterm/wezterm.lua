@@ -92,6 +92,7 @@ end)
 local bindings = require("bindings")
 config.disable_default_key_bindings = true
 config.keys = bindings.keys
+config.mouse_bindings = bindings.mouse_bindings
 
 -- Multiplexing
 config.unix_domains = {
