@@ -273,21 +273,24 @@ if type fzf &>/dev/null; then
       if [[ -z $repo_root ]]; then
         return 0
       fi
-
+      
+      # Get the relative path of the current repo to the parent repo
+      cur_rel_path=$(realpath --relative-to=$repo_root $current_repo)
       # Command to search for directories within the current git repo, including the root
-      # . means the root of repo (since it's relative to the root)
-      FZF_CD_REPO_COMMAND="{ echo '.'; fd $FD_DEFAULT_OPTS --type d --base-directory ${repo_root} .; }"
+      # . means the root of repo (since it's relative to the root, and fd only returns the child directories, not itself)
+      FZF_CD_REPO_COMMAND="{ echo '.'; fd $FD_DEFAULT_OPTS --type d --base-directory $repo_root .; }"
 
       FZF_CD_REPO_OPTS=$(
         __fzf_defaults "--reverse --scheme=path \
-                        --preview 'tree -C {} | head -200' \
-                        --header '<M-i> to hide ignored' \
-                        --bind 'alt-i:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory ${repo_root} . \")' \
+                        --preview 'tree -C $repo_root/{} | head -200' \
+                        --header 'Root is $(basename $repo_root). <M-p> to search in $(basename $current_repo), <M-i> to hide ignored' \
+                        --bind 'alt-i:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory $repo_root . \")' \
+                        --bind 'alt-p:reload(echo $cur_rel_path ;eval \"fd $FD_DEFUALT_OPTS --type d --base-directory $repo_root --search-path $cur_rel_path . \")' \
                         +m"
       )
 
       # prepend the repo root
-      dir=${repo_root}/$(
+      dir=$repo_root/$(
         FZF_DEFAULT_COMMAND=$FZF_CD_REPO_COMMAND \
           FZF_DEFAULT_OPTS=$FZF_CD_REPO_OPTS \
           FZF_DEFAULT_OPTS_FILE='' $(__fzfcmd)
