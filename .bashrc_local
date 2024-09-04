@@ -43,12 +43,6 @@ else
     done
 fi
 
-########## fzf ##########
-# Auto-completion
-source ${CONDA_HOME}/share/fzf/shell/completion.bash 2> /dev/null
-# Key bindings
-source ${CONDA_HOME}/share/fzf/shell/key-bindings.bash 2> /dev/null
-
 ########## wezterm ##########
 # set alias if installed through flatpak
 if ! command -v wezterm &> /dev/null && command -v flatpak run org.wezfurlong.wezterm &> /dev/null; then
