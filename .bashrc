@@ -65,11 +65,11 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 if [ "$TERM" != "dumb" ]; then
   # stty: set terminal type, used to change and print terminal line settings
   # Run stty -a to see all settings
-  # stty werase undef # needed to unbind Ctrl-W
+  stty werase undef # needed to unbind Ctrl-W
   stty discard undef # needed to unbined Ctrl-O
   stty stop undef    # needed to unbined Ctrl-S
   # note I put some default keymaps here just for reference
-  bind -m emacs '"\C-w":backward-kill-word' # default both bash and neovim
+  bind -m emacs '"\C-w":backward-kill-word' # this doesn't treat slashes as part of word, more robust. Map the same in neovim
   bind -m emacs '"\ed":kill-word'           # default in bash
   bind -m emacs '"\ee":kill-line'           # forward delete line, originally ctrl-k. Map the same in neovim
   bind -m emacs '"\C-u":backward-kill-line' # default both bash and neovim
@@ -124,7 +124,9 @@ if [ "$(uname -s)" == "Darwin" ]; then
 fi
 
 ## Set up homebrew paths if exists
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -f /opt/homebrew/bin/brew ] \
+  && eval "$(/opt/homebrew/bin/brew shellenv)" \
+  && [[ ":$PATH:" =~ ":/opt/homebrew/opt/coreutils/libexec/gnubin:" ]] || PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH" # installed from source
 
 ## Local executable paths
 [[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH" # installed from source
