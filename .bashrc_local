@@ -24,7 +24,8 @@ export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s
 
 ########## Alias ##########
 alias typora="open -a typora"
-alias ssh="source ${HOME}/.scripts/ssh-find-agent.sh && source ${HOME}/.scripts/ssh-agent-setup.sh && ssh"
+# alias ssh="source ${HOME}/.scripts/ssh-find-agent.sh && source ${HOME}/.scripts/ssh-agent-setup.sh && ssh"
+alias ssh="source ${HOME}/.scripts/ssh-agent-setup.sh && ssh"
 
 ########## Miniconda ##########
 # Activate environment:   conda activate <env>
