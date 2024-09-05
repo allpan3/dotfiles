@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 ### Description
-# This script must be sourced
+# This script aims to use the same ssh-agent for all shell sessions.
+# Source this source before ssh-ing to a remote server.
 # Options
-# -d: do not create ssh-agent or add key if agent/key is not found
+# -d: dry run. Do not create ssh-agent or add key if agent/key is not found
 # return code
-#    0 - key is found
-#    1 - key is not found, and added the first time
-#    2 - key is not found, but not added due to -d
-#    3 - ssh key is not set up
+#    0 - suffessful. Agent chosen/created and key added
+#    1 - ssh key is not set up due to missing ssh key.
+#    2 - key is not found, but not added due to -d (dry run) option
 # This script is inspired by http://blog.joncairns.com/2013/12/understanding-ssh-agent-and-ssh-add and https://github.com/wwalker/ssh-find-agent
 # First, set up ssh key following instruction in http://rabexc.org/posts/using-ssh-agent
 
@@ -32,19 +32,21 @@ if [ -f "$HOME/.ssh/id_rsa" ]; then
         eval `ssh-agent` > /dev/null
         # then add key
         ssh-add
-        return 1
+        return 0
     else
-        # if key not added, add key
+        # agent found, but key was not added (likely a new shell opened)
+        # find and add key
         ssh-add -l 2> /dev/null
         if [[ $? -ne 0 ]]; then
             if [[ $add_key -eq 1 ]]; then
                 ssh-add
-                return 1
+                return 0
             else
                 return 2
             fi
         fi
     fi
+    # key is already added (likely previously ssh'd in this shell)
     return 0
 fi
-return 3
+return 1
