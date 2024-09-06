@@ -22,14 +22,6 @@ CONDA_HOME=${HOME}/.conda
 export INFOPATH="${CONDA_HOME}/share/info"
 export PATH
 
-########## pyenv ##########
-# Put this after Conda base - higher priority than base env but lower priority than manually activated env 
-if [ -d "$HOME/.pyenv" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
-
 ########## Completion ##########
 # zellij doesn't automatically source /etc/profile in new panes
 # so manually source the system-wide completion scripts
