@@ -111,16 +111,6 @@ map("i", "<M-f>", "<S-right>") -- word forward, match shell (shift-right is neov
 -- Save and quite
 map("n", "<leader>qw", "<cmd>wq<cr>", { desc = "Save and Quit" })
 
--- Conceal level
-LazyVim.toggle.map(
-	"<leader>uC",
-	LazyVim.toggle("conceallevel", { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } })
-)
-
--- Colorscheme picker
-map("n", "<leader>uc", LazyVim.pick("colorscheme", { enable_preview = true }), { desc = "Colorscheme" })
-require("which-key").add({ "<leader>uc", icon = { icon = "", color = "blue" }, desc = "Colorscheme" })
-
 -- By default, pasting in visual mode puts the replaced text in default register. This writes to blackhole register instead
 -- both p and P work
 map({ "v", "x" }, "p", '"_dP', { desc = "Replace with Paste" })

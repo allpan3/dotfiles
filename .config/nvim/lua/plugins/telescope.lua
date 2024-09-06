@@ -68,6 +68,7 @@ return {
 					"--with-filename",
 					"--line-number",
 					"--smart-case",
+					"--column",
 					"--ignore",
 				},
 				winblend = 0, -- how transparent is the telescope window should be
@@ -151,13 +152,12 @@ return {
 		{ "<leader>gs", require("telescope.builtin").git_stash, desc = "List Stash" },
 		{ "<leader>gc", require("telescope.builtin").git_bcommits, desc = "File Commit History" },
 		{ "<leader>gC", require("telescope.builtin").git_commits, desc = "Repo Commit History" }, -- this may be occasionally useful as we can search the commit message
-		{ "<leader>/", LazyVim.pick("live_grep", { root = false }), desc = "Grep (root)" },
+		{ "<leader>/",  LazyVim.pick("live_grep", { root = false }), desc = "Grep (root)" },
 		{ "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
 		{ "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (root)" },
 		{ "<leader>sw", LazyVim.pick("grep_string", { root = false, word_match = "-w" }), desc = "Word (cwd)" },
 		{ "<leader>sW", LazyVim.pick("grep_string", { word_match = "-w" }), desc = "Word (root)" },
 		{ "<leader>sw", LazyVim.pick("grep_string", { root = false }), mode = "v", desc = "Selection (cwd)" },
 		{ "<leader>sW", LazyVim.pick("grep_string"), mode = "v", desc = "Selection (root)" },
-		{ "<leader>uC", false }, -- remapping colorscheme to <leader>uc
 	},
 }
