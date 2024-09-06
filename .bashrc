@@ -124,9 +124,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 fi
 
 ## Set up homebrew paths if exists
-[ -f /opt/homebrew/bin/brew ] \
-  && eval "$(/opt/homebrew/bin/brew shellenv)" \
-  && [[ ":$PATH:" =~ ":/opt/homebrew/opt/coreutils/libexec/gnubin:" ]] || PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH" # installed from source
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## Local executable paths
 [[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH" # installed from source
