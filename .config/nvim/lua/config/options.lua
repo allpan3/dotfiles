@@ -19,7 +19,7 @@ vim.opt.pumblend = 10 -- popup menu opacity
 -- opt.cmdheight = 2 -- more space in the neovim command line for displaying messages
 
 -- editing
-vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
+vim.opt.conceallevel = 2 -- so that `` is visible in markdown files
 vim.opt.swapfile = false -- creates a swapfile
 
 -- mouse event
