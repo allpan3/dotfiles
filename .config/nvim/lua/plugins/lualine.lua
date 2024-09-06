@@ -48,8 +48,8 @@ return {
 					},
 				},
 				LazyVim.lualine.root_dir({ cwd = true }),
-				{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-				{ LazyVim.lualine.pretty_path(), padding = { left = 0, right = 1 } },
+				-- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+				{ LazyVim.lualine.pretty_path(), padding = { left = 1, right = 1 } },
 			}
 
 			-- do not add trouble symbols if aerial is enabled
@@ -74,39 +74,43 @@ return {
 
 			opts.sections.lualine_x = {
 				-- Show formatter
-				{
-					function()
-						-- Check if 'conform' is available
-						local status, conform = pcall(require, "conform")
-						if not status then
-							return "Conform not installed"
-						end
-
-						local lsp_format = require("conform.lsp_format")
-
-						-- Get formatters for the current buffer
-						local formatters = conform.list_formatters_for_buffer()
-						if formatters and #formatters > 0 then
-							local formatterNames = {}
-
-							for _, formatter in ipairs(formatters) do
-								table.insert(formatterNames, formatter)
-							end
-
-							return "󰷈 " .. table.concat(formatterNames, " ")
-						end
-
-						-- Check if there's an LSP formatter
-						local bufnr = vim.api.nvim_get_current_buf()
-						local lsp_clients = lsp_format.get_format_clients({ bufnr = bufnr })
-
-						if not vim.tbl_isempty(lsp_clients) then
-							return "󰷈 LSP Formatter"
-						end
-
-						return ""
-					end,
-				},
+				-- {
+				-- 	function()
+				-- 		-- Check if 'conform' is available
+				-- 		local status, conform = pcall(require, "conform")
+				-- 		if not status then
+				-- 			return "Conform not installed"
+				-- 		end
+				--
+				-- 		local lsp_format = require("conform.lsp_format")
+				--
+				-- 		-- Get formatters for the current buffer
+				-- 		local formatters = conform.list_formatters_for_buffer()
+				-- 		if formatters and #formatters > 0 then
+				-- 			local formatterNames = {}
+				--
+				-- 			for _, formatter in ipairs(formatters) do
+				-- 				table.insert(formatterNames, formatter)
+				-- 			end
+				--
+				-- 			return "󰷈 " .. table.concat(formatterNames, " ")
+				-- 		end
+				--
+				-- 		-- Check if there's an LSP formatter
+				-- 		local bufnr = vim.api.nvim_get_current_buf()
+				-- 		local lsp_clients = lsp_format.get_format_clients({ bufnr = bufnr })
+				--
+				-- 		if not vim.tbl_isempty(lsp_clients) then
+				-- 			return "󰷈 LSP Formatter"
+				-- 		end
+				--
+				-- 		return ""
+				-- 	end,
+				-- },
+        {
+          "filetype",
+          colored = true,
+        },
         -- stylua: ignore
 				{
 					"searchcount",
@@ -170,8 +174,10 @@ return {
 							return count .. "L/" .. bytes
 						else
 							local count = vim.fn.line("$")
-							local bytes = wc["bytes"] > 1024 and string.format("%.1f", wc["bytes"] / 1024) .. "k"
-								or wc["bytes"]
+							local bytes =
+                wc["bytes"] > 1048576 and string.format("%.1f", wc["bytes"] / 1048576) .. "M"
+                or wc["bytes"] > 1024 and string.format("%.1f", wc["bytes"] / 1024) .. "K"
+								or wc["bytes"] .. "B"
 							return count .. "L/" .. bytes
 						end
 					end,
