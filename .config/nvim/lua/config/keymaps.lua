@@ -33,7 +33,7 @@ vim.keymap.del({ "n", "t" }, "<C-_>") -- neovim default is terminal
 map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo" }) -- same as terminal
 map({ "n", "i", "v", "x" }, "<M-r>", "<cmd>redo<CR>", { desc = "Redo" }) -- ctrl-r is search history in shell; this is mainly for mapping cmd-shift-z
 map("n", "U", "<C-r>", { desc = "Redo" }) -- pair with u as undo; using ctrl-r instead of :redo allows count
-map("n", "<S-enter>", "o<c-u><esc>") -- shift-enter to insert new line below in normal mode
+map("n", "<S-enter>", "<cmd>put _<cr>") -- shift-enter to insert new line below in normal mode
 map("i", "<M-e>", "<C-o>d$") -- delete to end of line, match shell (customized)
 
 -- Indentation
