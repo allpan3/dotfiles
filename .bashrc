@@ -134,9 +134,6 @@ fi
 [[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
 export PATH LD_LIBRARY_PATH MANPATH
 
-# Set up function for completion for aliases
-source ${HOME}/.scripts/complete-alias.sh
-
 # Source .bashrc_local if it exists
 if [ -f "$HOME/.bashrc_local" ]; then
   . "$HOME/.bashrc_local"
@@ -338,6 +335,12 @@ fi
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook bash)"
 fi
+
+# Set up function for completion for aliases
+# Place this after all command and default complete are sourced
+# Use auto unmask to record the default completion
+export COMPAL_AUTO_UNMASK=1
+source ${HOME}/.scripts/complete-alias.sh
 
 # ls - use eza if available
 if command -v eza &>/dev/null; then
