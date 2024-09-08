@@ -23,7 +23,7 @@
                         ]
                     },
                     {
-                        "description": "CAPS_LOCK+hjkl to arrow keys (w/ modifiers) in some apps. Must also enable the main CAPS_LOCK setting.",
+                        "description": "CAPS_LOCK+hjkl to arrow keys (w/ some modifiers) in some apps. Must also enable the main CAPS_LOCK setting.",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -44,7 +44,7 @@
                                     "key_code": "j",
                                     "modifiers": {
                                         "mandatory": ["left_control"],
-                                        "optional": ["left_shift", "left_option", "left_command", "fn"]
+                                        "optional": ["left_shift", "left_option", "fn"]
                                     }
                                 },
                                 "to": [{ "key_code": "down_arrow" }],
@@ -69,7 +69,7 @@
                                     "key_code": "k",
                                     "modifiers": {
                                         "mandatory": ["left_control"],
-                                        "optional": ["left_shift", "left_option", "left_command", "fn"]
+                                        "optional": ["left_shift", "left_option", "fn"]
                                     }
                                 },
                                 "to": [{ "key_code": "up_arrow" }],
@@ -94,7 +94,7 @@
                                     "key_code": "h",
                                     "modifiers": {
                                         "mandatory": ["left_control"],
-                                        "optional": ["left_shift", "left_option", "left_command", "fn"]
+                                        "optional": ["left_shift", "left_option", "fn"]
                                     }
                                 },
                                 "to": [{ "key_code": "left_arrow" }],
@@ -119,7 +119,7 @@
                                     "key_code": "l",
                                     "modifiers": {
                                         "mandatory": ["left_control"],
-                                        "optional": ["left_shift", "left_option", "left_command", "fn"]
+                                        "optional": ["left_shift", "left_option", "fn"]
                                     }
                                 },
                                 "to": [{ "key_code": "right_arrow" }],
