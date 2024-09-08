@@ -7,3 +7,8 @@ keybinding:
     moveUpCommit: <c-p>
   universal:
     createPatchOptionsMenu: <c-g> # default is <c-p>
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --paging=never
