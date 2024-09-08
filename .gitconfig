@@ -1,0 +1,94 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Allen Pan
+	email = aifusenno1@gmail.com
+[core]
+  excludesfile = $HOME/.gitignore_global
+  pager = delta
+[pager]
+  # Custom delta theme for actions
+  # delta will automatically bypass if the 
+  diff = delta --features delta-diff
+  blame = delta --features delta-blame
+  log = delta --features delta-log
+[alias]
+  mt = mergetool 
+  logp = log -p
+[delta]
+  features = delta-general
+[delta "delta-general"]
+  # General appearance
+  dark = true
+  # Nord is the most non-intrusive, good for diff
+  syntax-theme = Nord
+  # Functionality
+  navigate = true
+  hyperlinks = true
+  # File line
+  file-added-label = [+]
+  file-copied-label = [==]
+  file-modified-label = [*]
+  file-removed-label = [-]
+  file-renamed-label = [->]
+  file-style = blue bold
+  file-decoration-style = blue box
+  # Commit
+  commit-decoration-style = yellow bold ol
+  # Hunk header
+  ; hunk-header-style = file line-number syntax bold italic 
+  hunk-header-style = omit
+  hunk-header-decoration-style = bright-yellow
+  hunk-header-file-style = yellow
+  hunk-header-line-number-style = bright-yellow
+  # Diff
+  zero-style = syntax normal
+  plus-style = syntax "#172b20"
+  minus-style = syntax "#311d26" 
+  plus-emph-style = black "#25be6a"
+  minus-emph-style = black "#ee5396"
+  keep-plus-minus-markers = false
+  # Line numbers
+  line-numbers = true
+  line-numbers-minus-style = brightred
+  line-numbers-plus-style = brightgreen
+  line-numbers-left-style = "#5e81ac"
+  line-numbers-right-style = "#5e81ac"
+  line-numbers-zero-style = "#4C566A"
+  line-numbers-left-format = "{nm:>4}⋮"
+  line-numbers-right-format = "{np:>4}│"
+  # Color moved
+  map-styles = \
+    bold purple => syntax "#171531", \
+    bold blue => syntax "#271344", \
+    bold cyan => syntax "#0d3531", \
+    bold yellow => syntax "#222f14"
+[delta "delta-diff"]
+  features = delta-general
+  side-by-side = true
+  line-numbers-left-format = "│{nm:>4}│"
+  line-numbers-right-format = "│{np:>4}│"
+[delta "delta-blame"]
+  syntax-theme = Dracula
+  blame-code-style = syntax
+  blame-format = "{author:<18} ({commit:>7})    {timestamp:<13}"
+  blame-palette = "#2E3440" "#3B4252" "#434C5E" "#4C566A"
+[delta "delta-log"]
+  features = delta-general 
+  side-by-side = true
+  line-numbers-left-format = "{nm:>4}│"
+  line-numbers-right-format = "{np:>4}│"
+  # the idea is to overload the pager used by delta when using git log
+  # using ov section feature brings a better experience
+  ; pager=ov -F --section-delimiter '^commit' --section-header-num 4 --section-start -1
+[diff]
+  colorMoved = default
+[merge]
+  tool = diffview
+  conflictstyle = diff3
+[mergetool]
+  prompt = false
+  keepBackup = false
+[mergetool "diffview"]
+  cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+; [https]
+; 	proxy = socks5://127.0.0.1:1080
