@@ -22,13 +22,15 @@ bindings.keys = {
 	{ key = "9", mods = "SUPER", action = act.ActivateTab(-1) },
 	{ key = "c", mods = "SUPER", action = act.CopyTo("Clipboard") },
 	{ key = "c", mods = "SHIFT|SUPER", action = act.ActivateCopyMode },
+	{ key = "d", mods = "SUPER", action = act.ShowDebugOverlay },
 	{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
 	{ key = "f", mods = "SUPER", action = act.Search({ CaseInSensitiveString = "" }) }, -- default is case-sensitive
 	{ key = "h", mods = "SUPER", action = act.HideApplication },
+  { key = "h", mods = "SHIFT|SUPER", action = act.ActivateTabRelative(-1) },
 	{ key = "k", mods = "SUPER", action = act.ClearScrollback("ScrollbackAndViewport") },
 	{ key = "k", mods = "SHIFT|SUPER", action = act.ClearScrollback("ScrollbackOnly") },
 	{ key = "l", mods = "SUPER", action = act.ShowLauncher },
-	{ key = "l", mods = "SHIFT|SUPER", action = act.ShowDebugOverlay },
+  { key = "l", mods = "SHIFT|SUPER", action = act.ActivateTabRelative(1) },
 	{ key = "m", mods = "SUPER", action = act.Hide },
 	{ key = "n", mods = "SUPER", action = act.SpawnWindow },
 	{ key = "p", mods = "SUPER", action = act.ActivateCommandPalette },
@@ -41,12 +43,12 @@ bindings.keys = {
 	{ key = "w", mods = "SUPER", action = act.CloseCurrentPane({ confirm = true }) }, -- closes the tab if last pane
 	{ key = "x", mods = "SHIFT|SUPER", action = act.QuickSelect },
 	{ key = "y", mods = "SUPER", action = act.SwitchWorkspaceRelative(1) },
-	{ key = "[", mods = "SHIFT|SUPER", action = act.ActivateTabRelative(-1) },
-	{ key = "]", mods = "SHIFT|SUPER", action = act.ActivateTabRelative(1) },
-	{ key = "[", mods = "SHIFT|ALT|SUPER", action = act.MoveTabRelative(-1) },
-	{ key = "]", mods = "SHIFT|ALT|SUPER", action = act.MoveTabRelative(1) },
-	{ key = "[", mods = "SUPER", action = act.ActivatePaneDirection("Prev") },
-	{ key = "]", mods = "SUPER", action = act.ActivatePaneDirection("Next") },
+	{ key = "[", mods = "SUPER", action = act.ActivateTabRelative(-1) },
+	{ key = "]", mods = "SUPER", action = act.ActivateTabRelative(1) },
+  { key = "[", mods = "SHIFT|ALT|SUPER", action = act.MoveTabRelative(-1) },
+  { key = "]", mods = "SHIFT|ALT|SUPER", action = act.MoveTabRelative(1) },
+	{ key = "{", mods = "SHIFT|SUPER", action = act.ActivatePaneDirection("Prev") }, -- somehow must be { instead of [
+	{ key = "}", mods = "SHIFT|SUPER", action = act.ActivatePaneDirection("Next") },
 	{ key = "PageUp", mods = "SUPER", action = act.ScrollByPage(-1) },
 	{ key = "PageDown", mods = "SUPER", action = act.ScrollByPage(1) },
 	{ key = "Copy", mods = "NONE", action = act.CopyTo("Clipboard") },
@@ -56,7 +58,7 @@ bindings.keys = {
 	{ key = "UpArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Up", 1 }) },
 	{ key = "DownArrow", mods = "CTRL|SUPER", action = act.AdjustPaneSize({ "Down", 1 }) },
 	-- Map SUPER to shell actions - ideally, use common keys/escape sequences shared by all shells
-  -- (or customize them in shells). Configure the same in neovim
+	-- (or customize them in shells). Configure the same in neovim
 	{ key = "Backspace", mods = "SUPER", action = act.SendKey({ key = "u", mods = "CTRL" }) }, -- backward delete line
 	{ key = "Backspace", mods = "ALT", action = act.SendKey({ key = "w", mods = "CTRL" }) }, -- backward delete word
 	{ key = "Delete", mods = "SUPER", action = act.SendKey({ key = "e", mods = "ALT" }) }, -- forward delete line
