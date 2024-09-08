@@ -4,8 +4,41 @@ local scheme = wezterm.get_builtin_color_schemes()["carbonfox"]
 ----------------
 -- Appearance --
 ----------------
+
+-- Customize carbon fox color scheme
+scheme.ansi = {
+	"#282828",
+	"#ee5396",
+	"#25be6a",
+	"#e5e575",
+	"#78a9ff",
+	"#be95ff",
+	"#33b1ff",
+	"#dfdfe0",
+}
+
+scheme.brights = {
+	"#484848",
+	"#f16da6",
+	"#46c880",
+	"#fffa44",
+	"#8cb6ff",
+	"#c8a5ff",
+	"#52bdff",
+	"#e4e4e5",
+}
+
+scheme.tab_bar = {
+	inactive_tab = { bg_color = scheme.background, fg_color = "#b6b8bb" },
+	-- The color of the inactive tab bar edge/divider
+	inactive_tab_edge = "#808080",
+}
+
+-- TODO: hide tab close button should be available in the next release
+
 return {
-	color_scheme = "carbonfox",
+	-- color_scheme = "carbonfox",
+	colors = scheme,
 	-- font = wezterm.font("MesloLGS Nerd Font Mono"),
 	font = wezterm.font("JetBrainsMono Nerd Font"),
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
@@ -35,14 +68,6 @@ return {
 		inactive_titlebar_bg = "#1e1e1e",
 	},
 
-	colors = {
-		tab_bar = {
-			inactive_tab = { bg_color = scheme.background, fg_color = "#808080" },
-			-- The color of the inactive tab bar edge/divider
-			inactive_tab_edge = "#808080",
-		},
-	},
-
 	-- Hide window bar
 	window_decorations = "RESIZE",
 
@@ -54,7 +79,7 @@ return {
 		right = 0,
 	},
 
-  -- Inactive pane dimming
+	-- Inactive pane dimming
 	inactive_pane_hsb = {
 		saturation = 0.9,
 		brightness = 0.9,
