@@ -53,17 +53,18 @@ end
 if vim.env.SSH_TTY then
 	vim.g.clipboard = {
 		name = "OSC 52",
-		copy = { ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		copy = {
+			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
 			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
 		},
-    -- In iTerm2, OSC52 works fine both ways.
-    -- In wezterm, OSC52 isn't implemented for paste. see https://github.com/wez/wezterm/discussions/5231#discussioncomment-10066374
-    -- Zellij doesn't support OSC52 for paste. see https://github.com/zellij-org/zellij/issues/2637
-    -- So overall, have to use unnamed register for paste to work around the OSC52 issue, and use cmd-v for pasting anything from outside of vim.
-    -- see https://github.com/neovim/neovim/discussions/28010
-    -- (I would expect that I can just manually read the "+ register to get the content for paste, but somehow it's always empty.
-    -- I have to read from unnamed register for paste instead. Still not clear about osc52 copy behavior. Seems like it's passing
-    -- the value to system clipboard *outside* the ssh, but not writing to the "+ register in the remote.)
+		-- In iTerm2, OSC52 works fine both ways.
+		-- In wezterm, OSC52 isn't implemented for paste. see https://github.com/wez/wezterm/discussions/5231#discussioncomment-10066374
+		-- Zellij doesn't support OSC52 for paste. see https://github.com/zellij-org/zellij/issues/2637
+		-- So overall, have to use unnamed register for paste to work around the OSC52 issue, and use cmd-v for pasting anything from outside of vim.
+		-- see https://github.com/neovim/neovim/discussions/28010
+		-- (I would expect that I can just manually read the "+ register to get the content for paste, but somehow it's always empty.
+		-- I have to read from unnamed register for paste instead. Still not clear about osc52 copy behavior. Seems like it's passing
+		-- the value to system clipboard *outside* the ssh, but not writing to the "+ register in the remote.)
 		paste = {
 			-- ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
 			-- ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
