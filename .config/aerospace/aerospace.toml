@@ -161,8 +161,8 @@ aerospace move-node-to-workspace $id && aerospace workspace $id
 # A way to work around this is to preserve the last two windows for secondary monitors and foce assign them. So far I don't know if I need this.
 
 # Move node to monitor and focus follows
-cmd-ctrl-rightSquareBracket = ['move-node-to-monitor --wrap-around next', 'focus-monitor next']
-cmd-ctrl-leftSquareBracket = ['move-node-to-monitor --wrap-around prev', 'focus-monitor prev']
+cmd-ctrl-rightSquareBracket = ['move-node-to-monitor --wrap-around next', 'focus-monitor --wrap-around next']
+cmd-ctrl-leftSquareBracket = ['move-node-to-monitor --wrap-around prev', 'focus-monitor --wrap-around prev']
 # Since by default all workspaces are tied to the main monitor, we will have to move a workspace into a secondary monitor, otherwise only one will be available
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 cmd-ctrl-backslash = 'move-workspace-to-monitor --wrap-around next'
