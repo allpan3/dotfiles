@@ -27,7 +27,7 @@ vim.opt.mousemoveevent = true
 
 -- run vimscript in lua file
 vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.cmd([[set iskeyword+=-]]) -- treat - as part of a word
+-- vim.cmd([[set iskeyword+=-]]) -- treat - as part of a word
 
 -- Explorer
 vim.cmd("let g:netrw_liststyle = 3") -- set Explorer to tree style
@@ -82,5 +82,3 @@ end
 -- This fixes the ESC delay issue
 vim.cmd("set nottimeout")
 
--- Remove - from iskeyword, so that they are skipped by w/b/e
-vim.cmd("set iskeyword-=-")
