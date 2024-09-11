@@ -5,7 +5,7 @@
 ########## Prompt ##########
 export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
 RESTORE='\[\e[0m\]'
-export PS1="\[\e[0;38;5;43m\][\[\e[1;38;5;43m\]\u\[\e[0;38;5;6m\]@\[\e[1;38;5;43m\]\h\[\e[0;38;5;43m\]]\[\e[1;38;5;6m\]\w\[\e[0;38;5;43m\]\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;43m\] $ ${RESTORE}"
+export PS1="\[\e[0;44;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;4m\] ⨕ ${RESTORE}"
 
 ########## Environment ##########
 ## Conda
