@@ -42,8 +42,8 @@
   hunk-header-line-number-style = bright-yellow
   # Diff
   zero-style = syntax normal
-  plus-style = syntax "#172b20"
-  minus-style = syntax "#311d26" 
+  plus-style = syntax "#033a16"
+  minus-style = syntax "#67060c"
   plus-emph-style = black "#25be6a"
   minus-emph-style = black "#ee5396"
   keep-plus-minus-markers = false
