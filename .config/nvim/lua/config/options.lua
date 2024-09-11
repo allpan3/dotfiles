@@ -79,6 +79,8 @@ end
 -- vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
 
 -- Turn off key code timeout since we never type escape sequences manually
--- This fixes the ESC delay issue
-vim.cmd("set nottimeout")
-
+-- This fixes the ESC delay issue. This may also affect some other default key codes,
+-- but I haven't used any of those so far.
+-- Note: do not turn off ttimeout altogether. Some escape sequences are being typed at
+-- neovim startup by some plugins, which is also affectd by ttimeout. But setting len to 0 works so far.
+vim.cmd("set ttimeoutlen=0")
