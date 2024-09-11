@@ -76,8 +76,11 @@ if [ "$TERM" != "dumb" ]; then
 fi
 
 ###############################
-# less and man Page Colors
+# Colors
 ###############################
+# Enable true colors in terminal
+export COLORTERM=truecolor
+
 # Source: http://unix.stackexchange.com/a/147
 # More info: http://unix.stackexchange.com/a/108840
 # Man Page: https://linux.die.net/man/5/termcap
