@@ -16,11 +16,12 @@ export PS1="\[\e[0;44;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\
 CONDA_HOME=${HOME}/.conda
 . "${CONDA_HOME}/etc/profile.d/conda.sh"
 [[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
+[[ ":$MANPATH:" =~ ":${CONDA_HOME}/share/man:" ]] || MANPATH=":${CONDA_HOME}/share/man${MANPATH:+${MANPATH}}"
 ## Coursier
 [[ ":$PATH:" =~ ":${HOME}/.local/share/coursier/bin:" ]] || PATH="${HOME}/.local/share/coursier/bin:$PATH"
 
 export INFOPATH="${CONDA_HOME}/share/info"
-export PATH
+export PATH MANPATH
 
 ########## Completion ##########
 # zellij doesn't automatically source /etc/profile in new panes
@@ -40,5 +41,3 @@ fi
 if ! command -v wezterm &> /dev/null && command -v flatpak run org.wezfurlong.wezterm &> /dev/null; then
   alias wezterm='flatpak run org.wezfurlong.wezterm'
 fi
-
-
