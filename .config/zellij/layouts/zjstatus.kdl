@@ -125,7 +125,7 @@ layout {
         color_bg     "#1e1e1e"
 
         format_left   "{mode}#[bg=$bg]{tabs}"
-        format_center "{command_git_branch}"
+        // format_center "{command_git_branch}"
         format_right "#[bg=$blue,fg=$bg,bold] {datetime}  {command_user}@{command_host}  {session} "
         // format_right "#[bg=$blue,fg=$bg,bold] {command_cwd}  {session} "
         format_space  "#[bg=$bg]"
@@ -172,10 +172,13 @@ layout {
         tab_truncate_start_format "#[fg=red] < +{count} ..."
         tab_truncate_end_format   "#[fg=red] ... +{count} >"
 
-        command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
-        command_git_branch_format      "#[fg=$text]{stdout}"
-        command_git_branch_interval    "10"
-        command_git_branch_rendermode  "static"
+
+        // NOTE: Commands are beging run in the shell that invokes zellij, so the path never updates. These commands are kinda useless
+
+        // command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
+        // command_git_branch_format      "#[fg=$text]{stdout}"
+        // command_git_branch_interval    "10"
+        // command_git_branch_rendermode  "static"
 
         command_host_command    "uname -n"
         command_host_format     "{stdout}"
@@ -187,11 +190,10 @@ layout {
         command_user_interval   "10"
         command_user_rendermode "static"
 
-        // FIXME: doesn't update
-        command_cwd_command    "bash -c \"pwd\""
-        command_cwd_format     "{stdout}"
-        command_cwd_interval   "1"
-        command_cwd_rendermode "static"
+        // command_cwd_command    "bash -c \"pwd\""
+        // command_cwd_format     "{stdout}"
+        // command_cwd_interval   "1"
+        // command_cwd_rendermode "static"
 
         datetime          "{format}"
         datetime_format   "%Y-%m-%d 󰅐 %H:%M"
