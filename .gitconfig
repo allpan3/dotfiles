@@ -92,3 +92,6 @@
   cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 ; [https]
 ; 	proxy = socks5://127.0.0.1:1080
+[submodule]
+  # Automatically update submodules in pull
+	recurse = true
