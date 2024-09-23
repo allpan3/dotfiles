@@ -142,8 +142,8 @@ layout {
         hide_frame_for_single_pane "false"   
 
         mode_normal        "#[bg=$green,fg=$surface0,bold]  #[bg=$bg,fg=$green]"
-        mode_tmux          "#[bg=$red,fg=$surface0,bold] 󱁐 #[bg=$bg,fg=$red]"
-        //mode_locked        "#[bg=$red,fg=$surface0,bold]  #[bg=$bg,fg=$red]"
+        mode_tmux          "#[bg=$yellow,fg=$surface0,bold] 󱁐 #[bg=$bg,fg=$yellow]"
+        mode_locked        "#[bg=$red,fg=$surface0,bold]  #[bg=$bg,fg=$red]"
         mode_pane          "#[bg=$sky,fg=$surface0,bold] 󱁐 #[bg=$bg,fg=$sky]"
         mode_enter_search  "#[bg=$flamingo,fg=$surface0,bold]  #[bg=$bg,fg=$flamingo]"
         mode_search        "#[bg=$flamingo,fg=$surface0,bold]  #[bg=$bg,fg=$flamingo]"
