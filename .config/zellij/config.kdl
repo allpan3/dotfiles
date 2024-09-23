@@ -87,10 +87,10 @@ keybinds clear-defaults=true {
         name "move_focus_or_tab"  // doesn't work yet
         payload "right";
 
-        // move_mod "ctrl";
-        // resize_mod "alt";
-      };
-    }
+  // tmux and all action modes
+  shared_except "normal" "locked" {
+    bind "Esc" { SwitchToMode "Normal"; }
+  }
 
     // bind "Ctrl h" { MoveFocusOrTab "Left"; }
     // bind "Ctrl l" { MoveFocusOrTab "Right"; }
