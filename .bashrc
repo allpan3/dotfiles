@@ -290,9 +290,9 @@ if type fzf &>/dev/null; then
       FZF_CD_REPO_OPTS=$(
         __fzf_defaults "--reverse --scheme=path \
                         --preview 'tree -C $repo_root/{} | head -200' \
-                        --header 'Root is $(basename $repo_root). <M-p> to search in $(basename $current_repo), <M-i> to hide ignored' \
+                        --header 'Root is $(basename $repo_root). <C-o> to search in $(basename $current_repo), <M-i> to hide ignored' \
                         --bind 'alt-i:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory $repo_root . \")' \
-                        --bind 'alt-p:reload(echo $cur_rel_path ;eval \"fd $FD_DEFUALT_OPTS --type d --base-directory $repo_root --search-path $cur_rel_path . \")' \
+                        --bind 'ctrl-o:reload(echo $cur_rel_path ;eval \"fd $FD_DEFUALT_OPTS --type d --base-directory $repo_root --search-path $cur_rel_path . \")' \
                         +m"
       )
 
