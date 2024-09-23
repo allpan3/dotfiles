@@ -1,5 +1,5 @@
-### ~/.bashrc: executed by bash(1) for non-login shells.
-### This file is shared between systems. Put any localization features in .bashrc_local
+## ~/.bashrc: executed by bash(1) for non-login shells.
+### This file is shared between systems. Put any localized features in .bashrc_local
 
 # If not running interactively, don't do anything
 case $- in
@@ -132,7 +132,7 @@ fi
 ## Local executable paths
 [[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH" # installed from source
 [[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/.local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
-[[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH=":${HOME}/.local/share/man:${MANPATH:+:${MATHPATH}}"
+[[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH=":${HOME}/.local/share/man${MANPATH:+${MATHPATH}}"
 [[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH" # rustup
 [[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
 export PATH LD_LIBRARY_PATH MANPATH
@@ -184,7 +184,10 @@ if type fzf &>/dev/null; then
   eval "$(fzf --bash)"
 
   FZF_DEFAULT_OPTS="--color header:italic --info=inline --border none --no-separator"
-  FD_DEFAULT_OPTS="--hidden --follow --no-ignore --ignore-file $HOME/.ignore --exclude .git --strip-cwd-prefix"
+  FD_DEFAULT_OPTS="--hidden --follow --no-ignore --exclude .git --strip-cwd-prefix"
+  # If there's a global ignore file, use it
+  [[ -f $HOME/.ignore ]] && FD_DEFAULT_OPTS+=" --ignore-file $HOME/.ignore"
+
   # FZF FILE WIDGET
   # Make it full screen since exiting from bat preview would clear the screen (I think it's cuz fzf process clears the lines that it uses)
   # Only way to keep the view consistent is to make it full screen
