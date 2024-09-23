@@ -146,3 +146,10 @@ map("n", "<leader>gH", LazyVim.lazygit.browse, { desc = "Git Remote Repo" })
 -- Cutlass has multiple bugs
 map("x", "X", "D")
 map("x", "d", '"_d')
+
+-- zellij.vim - seamless navigation between nvim and zellij panes
+-- stylua: ignore
+map({"n"}, "<c-h>", "<cmd>ZellijNavigateLeft!<cr>", { desc = "Navigate Left" })
+map({"n"}, "<c-l>", "<cmd>ZellijNavigateRight!<cr>", { desc = "Navigate Right" })
+map({"n"}, "<c-j>", "<cmd>ZellijNavigateDown<cr>", { desc = "Navigate Down" })
+map({"n"}, "<c-k>", "<cmd>ZellijNavigateUp<cr>", { desc = "Navigate Up" })

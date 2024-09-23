@@ -17,39 +17,9 @@ return {
 	{ "folke/persistence.nvim", enabled = false }, -- use auto-session instead
 	{ "RRethy/vim-illuminate", opts = { under_cursor = false } },
 	{
-		"allpan3/zellij-nav.nvim",
-		lazy = true,
-		event = "VeryLazy",
-		keys = {
-			{
-				"<c-h>",
-				function()
-					require("zellij-nav").left("move-focus-or-tab")
-				end,
-				{ silent = true, desc = "Navigate Left" },
-			},
-			{
-				"<c-j>",
-				function()
-					require("zellij-nav").down("move-focus")
-				end,
-				{ silent = true, desc = "Navigate Down" },
-			},
-			{
-				"<c-k>",
-				function()
-					require("zellij-nav").up("move-focus")
-				end,
-				{ silent = true, desc = "Navigate Up" },
-			},
-			{
-				"<c-l>",
-				function()
-					require("zellij-nav").right("move-focus-or-tab")
-				end,
-				{ silent = true, desc = "Navigate Right" },
-			},
-		},
+		"fresh2dev/zellij.vim",
+    lazy = false,
+    -- keys need to be set in the global keymaps to take precedence
 	},
 	-- { "folke/noice.nvim", enabled = false },
 }
