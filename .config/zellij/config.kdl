@@ -72,7 +72,7 @@ keybinds clear-defaults=true {
   }
 
   shared_except "locked" {
-    // Pane movements are handled by the app itself in loccked mode
+    // Pane movements are handled by the app itself in locked mode
     bind "Ctrl h" { MoveFocusOrTab "Left"; }
     bind "Ctrl l" { MoveFocusOrTab "Right"; }
     bind "Ctrl j" { MoveFocus "Down"; }
