@@ -23,7 +23,7 @@
   syntax-theme = Nord
   # Functionality
   navigate = true
-  hyperlinks = true
+  hyperlinks = false
   # File line
   file-added-label = [+]
   file-copied-label = [==]
