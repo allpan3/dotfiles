@@ -14,7 +14,8 @@ export PS1="\[\e[0;44;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\
 # Activate environment:   conda activate <env>
 # Deactivate environment: cond deactivate
 CONDA_HOME=${HOME}/.conda
-. "${CONDA_HOME}/etc/profile.d/conda.sh"
+# This is effectively `conda init`
+[[ -e "${CONDA_HOME}" ]] && . "${CONDA_HOME}/etc/profile.d/conda.sh"
 [[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
 [[ ":$MANPATH:" =~ ":${CONDA_HOME}/share/man:" ]] || MANPATH=":${CONDA_HOME}/share/man${MANPATH:+${MANPATH}}"
 ## Coursier
