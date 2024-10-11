@@ -146,14 +146,10 @@ fi
 # Not sure if this will cause any side effect yet
 
 # iTerm2 shell integration
-if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-  test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && . "${HOME}/.iterm2/iterm2_shell_integration.bash"
-fi
+test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && . "${HOME}/.iterm2/iterm2_shell_integration.bash"
 
 # wezterm shell integration
-if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
-  test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
-fi
+# test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
 
 # pyenv
 # place this after other PATH setup so that pyenv takes precedence over say conda base env if it is actiated by default
@@ -506,8 +502,8 @@ _zellij_update_tab_name
 CHPWD_COMMAND=${CHPWD_COMMAND:+$CHPWD_COMMAND;}_zellij_update_tab_name
 
 # This needs to be placed at the end according to the documentation
-if [[ ${BLE_VERSION-} ]]; then
-  # ble/debug/profiler/start a
-  ble-attach
-  # ble/debug/profiler/stop
-fi
+# if [[ ${BLE_VERSION-} ]]; then
+#   # ble/debug/profiler/start a
+#   ble-attach
+#   # ble/debug/profiler/stop
+# fi
