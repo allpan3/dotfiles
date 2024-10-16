@@ -21,5 +21,4 @@ return {
     lazy = false,
     -- keys need to be set in the global keymaps to take precedence
 	},
-	-- { "folke/noice.nvim", enabled = false },
 }
