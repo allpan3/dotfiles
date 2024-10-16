@@ -151,13 +151,13 @@ layout {
 
         // formatting for inactive tabs
         tab_normal              "#[bg=$surface2,fg=$bg,bold] {index}  {name}{floating_indicator} #[bg=$bg,fg=$surface2,bold]"
-        tab_normal_fullscreen   "#[bg=$green,fg=$surface0,bold] {index}  {name}{fullscreen_indicator} #[bg=$bg,fg=$green,bold]"
-        tab_normal_sync         "#[bg=$green,fg=$surface0,bold] {index}  {name}{sync_indicator} #[bg=$bg,fg=$green,bold]"
+        tab_normal_fullscreen   "#[bg=$surface2,fg=$bg,bold] {index}  {name}{fullscreen_indicator} #[bg=$bg,fg=$surface2,bold]"
+        tab_normal_sync         "#[bg=$surface2,fg=$bg,bold] {index}  {name}{sync_indicator} #[bg=$bg,fg=$surface2,bold]"
 
         // formatting for the current active tab
-        tab_active              "#[bg=$green,fg=$bg,bold,itatic] {index}  {name}{floating_indicator} #[bg=$bg,fg=$green,bold]"
-        tab_active_fullscreen   "#[bg=$green,fg=$surface0,bold,italic] {index}  {name}{fullscreen_indicator} #[bg=$bg,fg=$green,bold]"
-        tab_active_sync         "#[bg=$green,fg=$surface0,bold,italic] {index}  {name}{sync_indicator} #[bg=$bg,fg=$green,bold]"
+        tab_active              "#[bg=$green,fg=$bg,bold] {index}  {name}{floating_indicator} #[bg=$bg,fg=$green,bold]"
+        tab_active_fullscreen   "#[bg=$green,fg=$bg,bold] {index}  {name}{fullscreen_indicator} #[bg=$bg,fg=$green,bold]"
+        tab_active_sync         "#[bg=$green,fg=$bg,bold] {index}  {name}{sync_indicator} #[bg=$bg,fg=$green,bold]"
 
         // separator between the tabs
         tab_separator           ""
