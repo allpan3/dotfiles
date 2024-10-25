@@ -158,12 +158,14 @@ keybinds clear-defaults=true {
     bind "Enter" { SwitchToMode "Search"; }
   }
   renametab {
-    bind "Ctrl c" { SwitchToMode "Normal"; }
+    bind "Ctrl c" { UndoRenameTab; SwitchToMode "Normal"; }
     bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
+    bind "Enter" { SwitchToMode "Normal"; }
   }
   renamepane {
-    bind "Ctrl c" { SwitchToMode "Normal"; }
+    bind "Ctrl c" { UndoRenamePane; SwitchToMode "Normal"; }
     bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+    bind "Enter" { SwitchToMode "Normal"; }
   }
   session {
     bind "q" { Detach; }
