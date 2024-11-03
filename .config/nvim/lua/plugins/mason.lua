@@ -5,11 +5,9 @@ return {
 			"stylua",
 			"shfmt",
 			"bash-language-server",
-			"clangd",
 			"html-lsp",
 			"json-lsp",
 			"lua-language-server",
-			"pyright",
 			"verible",
 		},
 		ui = {
