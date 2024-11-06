@@ -4,6 +4,7 @@ return {
 	opts = {
 		lang = {
 			kdl = "// %s",
+			cuda = "// %s",
 		},
 	},
 }
