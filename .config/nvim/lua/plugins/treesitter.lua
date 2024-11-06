@@ -15,6 +15,7 @@ return {
 			"cmake",
 			"css",
 			"csv",
+      "cuda",
 			"diff",
 			"dot",
 			"dockerfile",
