@@ -153,3 +153,9 @@ map({"n"}, "<c-h>", "<cmd>ZellijNavigateLeft!<cr>", { desc = "Navigate Left" })
 map({"n"}, "<c-l>", "<cmd>ZellijNavigateRight!<cr>", { desc = "Navigate Right" })
 map({"n"}, "<c-j>", "<cmd>ZellijNavigateDown<cr>", { desc = "Navigate Down" })
 map({"n"}, "<c-k>", "<cmd>ZellijNavigateUp<cr>", { desc = "Navigate Up" })
+
+
+-- Toggle line numbers: swap LazyVim default mappings 
+LazyVim.toggle.map("<leader>ul", LazyVim.toggle("relativenumber", { name = "Relative Number" }))
+LazyVim.toggle.map("<leader>uL", LazyVim.toggle.number)
+
