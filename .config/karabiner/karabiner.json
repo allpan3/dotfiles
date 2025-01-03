@@ -68,7 +68,8 @@
                                     {
                                         "bundle_identifiers": [
                                             "com.googlecode.iterm2",
-                                            "com.github.wez.wezterm"
+                                            "com.github.wez.wezterm",
+                                            "com.mitchellh.ghostty"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -93,7 +94,8 @@
                                     {
                                         "bundle_identifiers": [
                                             "com.googlecode.iterm2",
-                                            "com.github.wez.wezterm"
+                                            "com.github.wez.wezterm",
+                                            "com.mitchellh.ghostty"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -118,7 +120,8 @@
                                     {
                                         "bundle_identifiers": [
                                             "com.googlecode.iterm2",
-                                            "com.github.wez.wezterm"
+                                            "com.github.wez.wezterm",
+                                            "com.mitchellh.ghostty"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -143,7 +146,8 @@
                                     {
                                         "bundle_identifiers": [
                                             "com.googlecode.iterm2",
-                                            "com.github.wez.wezterm"
+                                            "com.github.wez.wezterm",
+                                            "com.mitchellh.ghostty"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
