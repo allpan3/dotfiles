@@ -43,7 +43,7 @@ return {
 	font = wezterm.font("JetBrainsMono Nerd Font"),
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 	font_size = 14,
-	line_height = 0.85,
+	line_height = 0.95,
 	cell_width = 1.0,
 	adjust_window_size_when_changing_font_size = false,
 

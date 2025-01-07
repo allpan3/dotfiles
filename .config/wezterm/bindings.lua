@@ -6,8 +6,6 @@ local bindings = {}
 bindings.keys = {
 	{ key = "Enter", mods = "SUPER", action = act.ToggleFullScreen },
 	{ key = "Enter", mods = "SHIFT|SUPER", action = act.TogglePaneZoomState },
-	{ key = "|", mods = "SUPER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ key = "\\", mods = "SUPER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "-", mods = "SUPER", action = act.DecreaseFontSize },
 	{ key = "+", mods = "SUPER", action = act.IncreaseFontSize },
 	{ key = "0", mods = "SUPER", action = act.ResetFontSize },
@@ -22,7 +20,9 @@ bindings.keys = {
 	{ key = "9", mods = "SUPER", action = act.ActivateTab(-1) },
 	{ key = "c", mods = "SUPER", action = act.CopyTo("Clipboard") },
 	{ key = "c", mods = "SHIFT|SUPER", action = act.ActivateCopyMode },
-	{ key = "d", mods = "SUPER", action = act.ShowDebugOverlay },
+	{ key = "d", mods = "ALT|SUPER", action = act.ShowDebugOverlay },
+  { key = "d", mods = "SUPER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "d", mods = "SHIFT|SUPER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
 	{ key = "f", mods = "SUPER", action = act.Search({ CaseInSensitiveString = "" }) }, -- default is case-sensitive
 	{ key = "h", mods = "SUPER", action = act.HideApplication },
