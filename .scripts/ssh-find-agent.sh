@@ -24,211 +24,237 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-_LIVE_AGENT_LIST=""
-declare -a _LIVE_AGENT_SOCK_LIST
-_LIVE_AGENT_SOCK_LIST=()
+sfa_init() {
+  _ssh_agent_sockets=()
+  _live_agent_list=()
+  _live_agent_sock_list=()
+  _sorted_live_agent_list=()
+  _sfa_timeout=1.0
 
-# temp dir. Defaults to /tmp
-TMPDIR="${TMPDIR:-/tmp}"
+  # Set $sfa_path array to the dirs to search for ssh-agent sockets
+  sfa_set_path
 
-_debug_print() {
-	if [[ $_DEBUG -gt 0 ]]
-	then
-		printf "%s\n" "$1"
-	fi
+  if ! command -v 'timeout' &>/dev/null; then
+    printf "ssh-find-agent.sh: 'timeout' command could not be found.\n"
+    printf "  Please install 'coreutils' via your system's package manager.\n"
+  fi
 }
 
-find_all_ssh_agent_sockets() {
-	_SSH_AGENT_SOCKETS=$( find "$TMPDIR" -type s -name agent.\* 2> /dev/null | grep '/ssh-.*/agent.*' )
-	_debug_print "$_SSH_AGENT_SOCKETS"
+# Allow users to override the default path to search for ssh-agent sockets
+# The first of the variable found is used to set the path:
+#   SSH_FIND_AGENT_PATH (colon separated dir list)
+#   _TMPDIR_OVERRIDE for legacy compatibility
+#   TMPDIR (if set) (plus /tmp due to ssh bug)
+sfa_set_path() {
+  sfa_path=()
+  if [[ -n "$SSH_FIND_AGENT_PATH" ]]; then
+    IFS=':' read -r -a sfa_path <<<"$SSH_FIND_AGENT_PATH"
+  else
+    # Maintain backwards compatibility with the old _TMPDIR_OVERRIDE variable
+    if [[ -n "$_TMPDIR_OVERRIDE" ]]; then
+      sfa_path=("$_TMPDIR_OVERRIDE")
+    else
+      if [[ -n "$TMPDIR" ]]; then
+        sfa_path=("/tmp" "$TMPDIR")
+      else
+        sfa_path=("/tmp")
+      fi
+    fi
+  fi
 }
 
-find_all_gpg_agent_sockets() {
-	_GPG_AGENT_SOCKETS=$( find "$TMPDIR" -type s -name S.gpg-agent.ssh 2> /dev/null | grep '/gpg-.*/S.gpg-agent.ssh' )
-	_debug_print "$_GPG_AGENT_SOCKETS"
+sfa_err() {
+  # shellcheck disable=SC2059
+  printf "$@" 1>&2
 }
 
-find_all_gnome_keyring_agent_sockets() {
-	_GNOME_KEYRING_AGENT_SOCKETS=$( find "$TMPDIR" -type s -name ssh 2> /dev/null | grep '/keyring-.*/ssh$' )
-	_debug_print "$_GNOME_KEYRING_AGENT_SOCKETS"
+sfa_debug() {
+  if ((_DEBUG > 0)); then
+    sfa_err "$@" 1>&2
+  fi
 }
 
-find_all_osx_keychain_agent_sockets() {
-	_OSX_KEYCHAIN_AGENT_SOCKETS=$( find "$TMPDIR" -type s -regex '.*/ssh-.*/agent..*$' 2> /dev/null )
-	_debug_print "$_OSX_KEYCHAIN_AGENT_SOCKETS"
+sfa_find_all_agent_sockets() {
+  _ssh_agent_sockets=($(
+    find "${sfa_path[@]}" -maxdepth 2 -type s -name agent.\* \
+      -o -name S.gpg-agent.ssh -o -name ssh -o -regex '.*/ssh-.*/agent..*$' \
+      2>/dev/null | grep -E \
+      '/ssh-.*/agent.*|/gpg-  .*/S.gpg-agent.ssh|/keyring-.*/ssh$|.*/ssh-.*/agent..*$'
+  ))
+
+  sfa_debug "${_ssh_agent_sockets[@]}"
 }
 
-test_agent_socket() {
-	local SOCKET=$1
-	SSH_AUTH_SOCK=$SOCKET ssh-add -l 2> /dev/null > /dev/null
-	result=$?
+sfa_test_agent_socket() {
+  local socket=$1
+  local output
+  output=$(SSH_AUTH_SOCK=$socket timeout "$_sfa_timeout" ssh-add -l 2>&1)
+  result=$?
 
-	_debug_print $result
+  [[ "$output" == "error fetching identities: communication with agent failed" ]] && result=2
+  sfa_debug $result
 
-	if [[ $result -eq 0 ]]
-	then
-		# contactible and has keys loaded
-        _KEY_COUNT=$(SSH_AUTH_SOCK=$SOCKET ssh-add -l | wc -l | tr -d ' ')
-	fi
+  case $result in
+    0 | 1 | 141)
+      # contactible and has keys loaded
+      {
+        OIFS="$IFS"
+        IFS=$'\n'
+        # shellcheck disable=SC2207
+        _keys=($(SSH_AUTH_SOCK=$socket ssh-add -l 2>/dev/null))
+        IFS="$OIFS"
+      }
+      _live_agent_list+=("${#_keys[@]}:$socket")
+      return 0
+      ;;
+    2 | 124)
+      # socket is dead, delete it
+      sfa_err 'socket (%s) is dead, removing it.\n' "$socket"
+      sfa_debug "rm -rf ${socket%/*}"
+      rm -rf "${socket%/*}"
+      ;;
+    125 | 126 | 127)
+      sfa_err 'timeout returned <%s>\n' "$result" 1>&2
+      ;;
+    *)
+      sfa_err 'Unknown failure timeout returned <%s>\n' "$result" 1>&2
+      ;;
+  esac
 
-	if [[ $result -eq 1 ]]
-	then
-		# contactible butno keys loaded
-		_KEY_COUNT=0
-	fi
+  case $result in
+    0 | 1)
+      _live_agent_list+=("$_key_count:$socket")
+      return 0
+      ;;
+  esac
 
-	if [[ ( ( $result -eq 0 ) || ( $result -eq 1 ) ) ]]
-	then
-		if [[ -n "$_LIVE_AGENT_LIST" ]]
-		then
-			_LIVE_AGENT_LIST="${_LIVE_AGENT_LIST} ${SOCKET}:$_KEY_COUNT"
-		else
-			_LIVE_AGENT_LIST="${SOCKET}:$_KEY_COUNT"
-		fi
-		return 0
-	fi
-
-	return 1
+  return 1
 }
 
-find_live_gnome_keyring_agents() {
-	for i in $_GNOME_KEYRING_AGENT_SOCKETS
-	do
-		test_agent_socket "$i"
-	done
+sfa_verify_sockets() {
+  for i in "${_ssh_agent_sockets[@]}"; do
+    sfa_test_agent_socket "$i"
+  done
 }
 
-find_live_osx_keychain_agents() {
-	for i in $_OSX_KEYCHAIN_AGENT_SOCKETS
-	do
-		test_agent_socket "$i"
-	done
+sfa_fingerprints() {
+  local file="$1"
+  while read -r l; do
+    [[ -n "$l" && ${l##\#} = "$l" ]] && ssh-keygen -l -f /dev/stdin <<<"$l"
+  done <"$file"
 }
 
-find_live_gpg_agents() {
-	for i in $_GPG_AGENT_SOCKETS
-	do
-		test_agent_socket "$i"
-	done
+sfa_print_choose_menu() {
+  # find all the apparent socket files
+  # the sockets go into $_ssh_agent_sockets[]
+  sfa_find_all_agent_sockets
+
+  # verify each socket, discarding if dead
+  # the live sockets go into $_live_agent_list[]
+  sfa_verify_sockets
+  sfa_debug '<%s>\n' "${_live_agent_list[@]}"
+
+  # shellcheck disable=SC2207
+  IFS=$'\n' _sorted_live_agent_list=($(sort -u <<<"${_live_agent_list[*]}"))
+  unset IFS
+
+  sfa_debug "SORTED:\n"
+  sfa_debug '    <%s>\n' "${_sorted_live_agent_list[@]}"
+
+  local i=0
+  local sock
+
+  for agent in "${_sorted_live_agent_list[@]}"; do
+    i=$((i + 1))
+    sock=${agent/*:/}
+    if [[ "$1" = "-i" ]]; then
+      _live_agent_sock_list[i]=$sock
+
+      printf '#%i)\n' "$i"
+      printf '    export SSH_AUTH_SOCK=%s\n' "$sock"
+      # Get all the forwarded keys for this agent, parse them and print them
+      SSH_AUTH_SOCK=$sock ssh-add -l 2>&1 |
+        grep -v 'error fetching identities for protocol 1: agent refused operation' |
+        while IFS= read -r key; do
+          parts=("$key")
+          key_size="${parts[0]}"
+          fingerprint="${parts[1]}"
+          remote_name="${parts[2]}"
+          key_type="${parts[3]}"
+          printf '        %s %s\t%s\t%s\n' "$key_size" "$key_type" "$remote_name" "$fingerprint"
+        done
+    else
+      printf '%s\n' "$sock"
+    fi
+  done
 }
 
-find_live_ssh_agents() {
-	for i in $_SSH_AGENT_SOCKETS
-	do
-		test_agent_socket "$i"
-	done
+sfa_set_ssh_agent_socket() {
+  case $1 in
+    -c | --choose)
+      sfa_print_choose_menu -i
+
+      ((0 == ${#_live_agent_list[@]})) && {
+        sfa_err 'No agents found.\n'
+        return 1
+      }
+
+      read -p "Choose (1-${#_live_agent_sock_list[@]})? " -r choice
+      if [ "$choice" -eq "$choice" ]; then
+        [[ -z "${_live_agent_sock_list[$choice]}" ]] && {
+          sfa_err 'Invalid choice.\n'
+          return 1
+        }
+        printf 'Setting export SSH_AUTH_SOCK=%s\n' "${_live_agent_sock_list[$choice]}"
+        export SSH_AUTH_SOCK=${_live_agent_sock_list[$choice]}
+      fi
+      ;;
+    -a | --auto)
+      # Choose the last one, as they are sorted numerically by how many keys they have
+      sock=$(sfa_print_choose_menu | tail -n -1)
+      [[ -z "$sock" ]] && return 1
+      sfa_debug 'export SSH_AUTH_SOCK=%s\n' "$sock"
+      export SSH_AUTH_SOCK=$sock
+      ;;
+    *)
+      sfa_usage
+      ;;
+  esac
+
+  # set agent pid - this is unreliable as the pid may be of the child rather than the agent
+  if [ -n "$SSH_AUTH_SOCK" ]; then
+    export SSH_AGENT_PID=$(($(basename "$SSH_AUTH_SOCK" | cut -d. -f2) + 1))
+  fi
+
+  return 0
 }
 
-function fingerprints() {
-	local file="$1"
-	while read -r l; do
-		[[ -n "$l" && ${l##\#} = "$l" ]] && ssh-keygen -l -f /dev/stdin <<<"$l"
-	done < "$file"
-}
-
-find_all_agent_sockets() {
-	_SHOW_IDENTITY=0
-	if [ "$1" = "-i" ] ; then
-		_SHOW_IDENTITY=1
-	fi
-	_LIVE_AGENT_LIST=
-	find_all_ssh_agent_sockets
-	find_all_gpg_agent_sockets
-	find_all_gnome_keyring_agent_sockets
-	find_all_osx_keychain_agent_sockets
-	find_live_ssh_agents
-	find_live_gpg_agents
-	find_live_gnome_keyring_agents
-	find_live_osx_keychain_agents
-	_debug_print "$_LIVE_AGENT_LIST"
-	_LIVE_AGENT_LIST=$(echo $_LIVE_AGENT_LIST | tr ' ' '\n' | sort -n -t: -k 2 -k 1 | uniq)
-	_LIVE_AGENT_SOCK_LIST=()
-	_debug_print "SORTED: $_LIVE_AGENT_LIST"
-	if [ -e ~/.ssh/authorized_keys ] ; then
-		_FINGERPRINTS=$(fingerprints ~/.ssh/authorized_keys)
-	fi
-	if [[ $_SHOW_IDENTITY -gt 0 ]]
-	then
-		i=0
-		for a in $_LIVE_AGENT_LIST ; do
-			sock=${a/:*/}
-			_LIVE_AGENT_SOCK_LIST[$i]=$sock
-			# technically we could have multiple keys forwarded
-			# But I haven't seen anyone do it
-			akeys=$(SSH_AUTH_SOCK=$sock ssh-add -l)
-			key_size=$(echo "${akeys}" | awk '{print $1}')
-			fingerprint=$(echo "${akeys}" | awk '{print $2}')
-			remote_name=$(echo "${akeys}" | awk '{print $3}')
-			if [ -e ~/.ssh/authorized_keys ] ; then
-				authorized_entry=$(fingerprints ~/.ssh/authorized_keys | grep "$fingerprint")
-			fi
-			comment=$(echo "${authorized_entry}" | awk '{print $3,$4,$5,$6,$7}')
-			printf "export SSH_AUTH_SOCK=%s \t#%i) \t%s\n" "$sock" $((i+1)) "$comment"
-			i=$((i+1))
-		done
-	else
-		printf "%s\n" "$_LIVE_AGENT_LIST" | sed -e 's/ /\n/g' | sort -n -t: -k 2 -k 1
-	fi
-}
-
-set_ssh_agent_socket() {
-	if [[ "$1" = "-c" ]] || [[ "$1" = "--choose" ]]
-	then
-		find_all_agent_sockets -i
-
-		if [ -z "$_LIVE_AGENT_LIST" ] ; then
-			echo "No agents found"
-			return 1
-		fi
-
-		echo -n "Choose (1-${#_LIVE_AGENT_SOCK_LIST[@]})? "
-		read -r choice
-		if [ -n "$choice" ]
-		then
-			n=$((choice-1))
-			if [ -z "${_LIVE_AGENT_SOCK_LIST[$n]}" ] ; then
-				echo "Invalid choice"
-				return 1
-			fi
-			echo "Setting export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}"
-			export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}
-		fi
-	else
-		# Choose the first available
-		SOCK=$(find_all_agent_sockets|tail -n 1|awk -F: '{print $1}')
-		if [ -z "$SOCK" ] ; then
-			return 1
-		fi
-		export SSH_AUTH_SOCK=$SOCK
-	fi
-
-	# set agent pid
-	if [ -n "$SSH_AUTH_SOCK" ] ; then
-		export SSH_AGENT_PID=$(($(basename "$SSH_AUTH_SOCK" | cut -d. -f2) + 1))
-	fi
-
-	return 0
+sfa_usage() {
+  sfa_err 'ssh-find-agent <[-c|--choose|-a|--auto|-h|--help]>\n'
+  return 1
 }
 
 # Renamed for https://github.com/wwalker/ssh-find-agent/issues/12
 ssh_find_agent() {
-	if [[ "$1" = "-c" ]] || [[ "$1" = "--choose" ]]
-	then
-		set_ssh_agent_socket -c
-		return $?
-	elif [[ "$1" = "-a" ]] || [[ "$1" = "--auto" ]]
-	then
-		set_ssh_agent_socket
-		return $?
-	else
-		find_all_agent_sockets -i
-		return 0
-	fi
+  sfa_init
+
+  case $1 in
+    -c | --choose | -a | --auto)
+      sfa_set_ssh_agent_socket "$1"
+      return $?
+      ;;
+    -l | --list)
+      sfa_print_choose_menu -i
+      ;;
+    *)
+      sfa_usage
+      ;;
+  esac
 }
 
 # Original function name is still supported.
 # https://github.com/wwalker/ssh-find-agent/issues/12 points out that I
 # should use ssh_find_agent() for best compatibility.
 ssh-find-agent() {
-	ssh_find_agent "$@"
+  ssh_find_agent "$@"
 }
