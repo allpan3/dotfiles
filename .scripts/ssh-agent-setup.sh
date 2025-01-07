@@ -23,7 +23,7 @@ while getopts d option; do
 done
 
 
-if [ -f "$HOME/.ssh/id_rsa" ]; then
+if [ -f "$HOME/.ssh/id_ed25519" ]; then
     # set up ssh key for every shell opened using the same agent
     source $HOME/.scripts/ssh-find-agent.sh
     # list and automatically choose the fisrt agent; if no agent find, create agent
@@ -48,5 +48,7 @@ if [ -f "$HOME/.ssh/id_rsa" ]; then
     fi
     # key is already added (likely previously ssh'd in this shell)
     return 0
+else
+  echo "$HOME/.ssh/id_ed25519 not found"
+  return 1
 fi
-return 1
