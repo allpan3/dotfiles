@@ -45,9 +45,8 @@ map({ "v", "x" }, "<tab>", ">gv", { desc = "Indent" })
 map({ "v", "x" }, "<S-tab>", "<gv", { desc = "Unindent" })
 
 -- Tab management
--- LazyVim default uses <tab> as secondary key. I prefer to use t
--- Nvim doesn't have native support for showing only the buffers opened in each tab, but each tab maintains a window layout
--- I still almost never uses the native tabs in nvim
+-- LazyVim default uses <tab> as secondary key.
+-- Nvim doesn't have native support for showing only the buffers opened in each tab, but each tab maintains a window layout, so it's useless
 vim.keymap.del("n", "<leader><tab>l")
 vim.keymap.del("n", "<leader><tab>f")
 vim.keymap.del("n", "<leader><tab>o")
@@ -55,36 +54,19 @@ vim.keymap.del("n", "<leader><tab><tab>")
 vim.keymap.del("n", "<leader><tab>]")
 vim.keymap.del("n", "<leader><tab>[")
 vim.keymap.del("n", "<leader><tab>d")
-map("n", "<leader>te", "<cmd>tablast<cr>", { desc = "Last Tab" })
-map("n", "<leader>ta", "<cmd>tabfirst<cr>", { desc = "First Tab" })
-map("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
-map("n", "<leader>td", "<cmd>tabclose<cr>", { desc = "Close Tab" })
--- map("n", "<leader>to", "<cmd>tabnew %<CR>", { desc = "New Tab w/ Current Buffer" })
-map("n", "<leader>to", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 
 -- Window management
-vim.keymap.del("n", "<leader>-")
-map("n", "<leader>wv", "<C-w>v", { desc = "Split Window Right" }) -- :vsplit
-map("n", "<leader>ws", "<C-w>s", { desc = "Split window Below" }) -- :split
-map("n", "<leader>w\\", "<C-W>v", { desc = "Split Window Right" })
-map("n", "<leader>w|", "<C-W>s", { desc = "Split Window Below" })
-map("n", "<leader>\\", "<C-W>v", { desc = "Split Window Right" })
-map("n", "<leader>|", "<C-W>s", { desc = "Split Window Below" })
-map("n", "<leader>w=", "<C-w>=", { desc = "Make Windows Equal Size" })
-map("n", "<leader>wj", "<C-w>j", { desc = "Focus on Window Below" })
-map("n", "<leader>wk", "<C-w>k", { desc = "Focus on Window Above" })
-map("n", "<leader>wh", "<C-w>h", { desc = "Focus on Window Left" })
-map("n", "<leader>wl", "<C-w>l", { desc = "Focus on Window Right" })
+vim.keymap.del("n", "<leader>|")
+map("n", "<leader>\\", "<C-w>v", { desc = "Split Window Right" })
+map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below" })
 map("n", "<leader>wn", "<C-w>w", { desc = "Cycle Through Windows" })
 map("n", "<leader>wts", "<C-w>t<C-w>K", { desc = "Change Vertical to Horizontal" })
 map("n", "<leader>wtv", "<C-w>t<C-w>H", { desc = "Change Horizontal to Vertical" })
 -- LazyVim default uses ctrl-arrow to resize windows. Use leader key instead
-map("n", "<leader>w<Up>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height" })
-map("n", "<leader>w<Down>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
-map("n", "<leader>w<Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease Window Width" })
-map("n", "<leader>w<Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
+map("n", "<leader>w<Down>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height" })
+map("n", "<leader>w<Up>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
+map("n", "<leader>w<Right>", "<cmd>vertical resize -2<CR>", { desc = "Decrease Window Width" })
+map("n", "<leader>w<Left>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
 
 -- Buffer management
 -- LazyVim default is <leader>`
@@ -125,14 +107,15 @@ vim.keymap.set("n", "<leader>fp", ":edit ", { desc = "Open Path" }) -- open file
 
 -- LazyVim menu
 vim.keymap.del("n", "<leader>l")
+vim.keymap.del("n", "<leader>L")
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })
-
--- Diagnostic
-vim.keymap.set("n", "<leader>xf", vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
+map("n", "<leader>lg", function()
+	LazyVim.news.changelog()
+end, { desc = "LazyVim Changelog" })
 
 -- LazyVim default to save
-vim.keymap.del({ "i", "n", "x", "c" }, "<C-s>")
+vim.keymap.del({ "i", "n", "x", "s" }, "<C-s>")
 
 -- Lazygit
 -- This shows all (up to a limit) history of the line
@@ -147,15 +130,17 @@ map("n", "<leader>gH", LazyVim.lazygit.browse, { desc = "Git Remote Repo" })
 map("x", "X", "D")
 map("x", "d", '"_d')
 
--- zellij.vim - seamless navigation between nvim and zellij panes
--- stylua: ignore
-map({"n"}, "<c-h>", "<cmd>ZellijNavigateLeft!<cr>", { desc = "Navigate Left" })
-map({"n"}, "<c-l>", "<cmd>ZellijNavigateRight!<cr>", { desc = "Navigate Right" })
-map({"n"}, "<c-j>", "<cmd>ZellijNavigateDown<cr>", { desc = "Navigate Down" })
-map({"n"}, "<c-k>", "<cmd>ZellijNavigateUp<cr>", { desc = "Navigate Up" })
-
-
 -- Toggle line numbers: swap LazyVim default mappings 
 LazyVim.toggle.map("<leader>ul", LazyVim.toggle("relativenumber", { name = "Relative Number" }))
 LazyVim.toggle.map("<leader>uL", LazyVim.toggle.number)
+
+-- zellij.vim - seamless navigation between nvim and zellij panes
+-- stylua: ignore
+if os.getenv("ZELLIJ") then
+  -- Nav mappings within Zellij.
+  map({ "n" }, "<C-h>", "<cmd>ZellijNavigateLeft!<cr>", { desc = "Navigate Left" })
+  map({ "n" }, "<C-l>", "<cmd>ZellijNavigateRight!<cr>", { desc = "Navigate Right" })
+  map({ "n" }, "<C-j>", "<cmd>ZellijNavigateDown<cr>", { desc = "Navigate Down" })
+  map({ "n" }, "<C-k>", "<cmd>ZellijNavigateUp<cr>", { desc = "Navigate Up" })
+end
 
