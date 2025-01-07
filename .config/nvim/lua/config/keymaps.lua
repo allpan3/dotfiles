@@ -121,18 +121,22 @@ vim.keymap.del({ "i", "n", "x", "s" }, "<C-s>")
 -- This shows all (up to a limit) history of the line
 -- git log -L flag doesn't support uncommitted lines. It only sees the single revision (in this case the default is HEAD)
 -- So this command is only reliable in unchanged files
-map("n", "<leader>gB", function() LazyVim.lazygit.blame_line({count = 10}) end, { desc = "Blame Line History" })
+map("n", "<leader>gB", function()
+	Snacks.git.blame_line({ count = 10 })
+end, { desc = "Blame Line History" })
 -- Open git remote repo
-map("n", "<leader>gH", LazyVim.lazygit.browse, { desc = "Git Remote Repo" })
+map({ "n", "x" }, "<leader>gH", function()
+	Snacks.gitbrowse()
+end, { desc = "Open Remote Repo" })
 
 -- TODO:: would like to achieve everything in cutlass in custom keymaps.
 -- Cutlass has multiple bugs
 map("x", "X", "D")
 map("x", "d", '"_d')
 
--- Toggle line numbers: swap LazyVim default mappings 
-LazyVim.toggle.map("<leader>ul", LazyVim.toggle("relativenumber", { name = "Relative Number" }))
-LazyVim.toggle.map("<leader>uL", LazyVim.toggle.number)
+-- Toggle line numbers: swap LazyVim default mappings
+Snacks.toggle.line_number():map("<leader>uL")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ul")
 
 -- zellij.vim - seamless navigation between nvim and zellij panes
 -- stylua: ignore
