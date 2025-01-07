@@ -1,0 +1,41 @@
+
+## Fonts
+font-feature = -calt
+font-feature = -clig
+font-feature = -liga
+font-thicken = true
+
+## Appearance
+theme = carbonfox
+# macos-titlebar-style = tabs
+# macos-non-native-fullscreen = true
+# This disables both window bar and tab bar. Tabs are not allowed anymore
+# window-decoration = false
+
+## Functions
+copy-on-select = true
+window-save-state = always
+macos-option-as-alt = true
+auto-update = check
+
+# Keybindings
+keybind = global:shift+space=toggle_visibility
+keybind = global:super+ctrl+g=toggle_quick_terminal
+keybind = super+shift+alt+right_bracket=move_tab:1
+keybind = super+shift+alt+left_bracket=move_tab:-1
+keybind = super+right_bracket=next_tab
+keybind = super+left_bracket=previous_tab
+keybind = super+shift+right_bracket=goto_split:next
+keybind = super+shift+left_bracket=goto_split:previous
+keybind = super+shift+j=jump_to_prompt:1
+keybind = super+shift+k=jump_to_prompt:-1
+keybind = super+alt+o=write_scrollback_file:open
+keybind = super+alt+p=write_scrollback_file:paste
+keybind = super+backspace=text:\x15
+keybind = super+z=text:\x1f
+keybind = super+shift+z=esc:r
+keybind = super+left=esc:[H
+keybind = super+right=esc:[F
+keybind = alt+delete=esc:d
+keybind = super+delete=esc:e
+keybind = alt+backspace=text:\x17
