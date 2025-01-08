@@ -1,3 +1,4 @@
+-- TODO: see if there's a way to entirely remove tabs
 return {
 	"akinsho/bufferline.nvim",
 	opts = {
@@ -34,11 +35,10 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>tr", ":BufferLineTabRename ", desc = "Rename Tab" },
 		{ "<leader>bse", "<cmd>BufferLineSortByExtension<CR>", desc = "Sort by Extension" },
 		{ "<leader>bsd", "<cmd>BufferLineSortByDirectory<CR>", desc = "Sort by Directory" },
 		{ "<leader>bst", "<cmd>BufferLineSortByTabs<CR>", desc = "Sort" },
-		{ "<leader>bg", "<cmd>BufferLinePick<CR>", desc = "Pick Buffer" },
+		{ "<leader>bb", "<cmd>BufferLinePick<CR>", desc = "Pick Buffer" },
 		{ "<leader>bh", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
 		{ "<leader>bl", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
 		{ "<leader>br", false },

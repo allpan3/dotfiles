@@ -7,7 +7,7 @@ vim.opt.background = "dark" -- colorschemes that can be light or dark will be ma
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 
 -- line numbers
-vim.opt.relativenumber = false -- show relative line numbers
+vim.opt.relativenumber = true -- show relative line numbers
 vim.opt.numberwidth = 2 -- minimal number of columns to use for the line number {default 4}
 
 -- tabs & indentation

@@ -17,7 +17,12 @@ return {
 	--	{ "RRethy/vim-illuminate", opts = { under_cursor = false } },
 	{
 		"fresh2dev/zellij.vim",
-    lazy = false,
-    -- keys need to be set in the global keymaps to take precedence
+		lazy = false,
+		init = function()
+			-- Options:
+			vim.g.zelli_navigator_move_focus_or_tab = 1
+			-- vim.g.zellij_navigator_no_default_mappings = 1
+		end,
+		-- keys need to be set in the global keymaps to take precedence
 	},
 }

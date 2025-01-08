@@ -11,22 +11,22 @@ return {
 			use_as_default_explorer = true,
 		},
 	},
-	keys = {
-    {"<leader>fm", false},
-    {"<leader>fM", false},
-		{
-			"<leader>em",
-			function()
-				require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-			end,
-			desc = "mini.files (cwd)",
-		},
-		{
-			"<leader>eM",
-			function()
-				require("mini.files").open(vim.uv.cwd(), true)
-			end,
-			desc = "mini.files (root)",
-		},
-	},
+	-- keys = {
+	--    {"<leader>fm", false},
+	--    {"<leader>fM", false},
+	-- 	{
+	-- 		"<leader>em",
+	-- 		function()
+	-- 			require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+	-- 		end,
+	-- 		desc = "mini.files (cwd)",
+	-- 	},
+	-- 	{
+	-- 		"<leader>eM",
+	-- 		function()
+	-- 			require("mini.files").open(vim.uv.cwd(), true)
+	-- 		end,
+	-- 		desc = "mini.files (root)",
+	-- 	},
+	-- },
 }
