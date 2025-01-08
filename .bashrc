@@ -189,15 +189,15 @@ if type fzf &>/dev/null; then
   # Only way to keep the view consistent is to make it full screen
   # Ctrl-v: open file in neovim (`become` somehow doesn't work for me, execute+abort achieves the same thing)
   FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target \
-                   --height ~100% --layout default \
-                   --header 'Enter to paste, <C-v> to open in nvim, <C-d> to show files only, <M-i> to hide ignored, <C-o> to peek in bat, <C-/> to toggle preview' \
-                   --bind 'ctrl-v:execute(nvim {})+abort'"
+                   --header 'Enter to paste, <C-v> to open in nvim, <C-t> to show files only, <C-i> to hide ignored, <C-o> to peek in bat, <C-/> to toggle preview' \
+                   --bind 'ctrl-v:execute(nvim {})+abort' \
+                   --bind 'ctrl-x:jump'"
   if type bat &>/dev/null && type fd &>/dev/null; then
     # ctrl-o: view file in bat, useful to quick peek and exit
     FZF_CTRL_T_OPTS+=" --preview 'bat --color=always --style=plain {}' \
                        --preview-window border-thinblock --preview-label='Preview'\
-                       --bind 'ctrl-d:reload(eval \"fd $FD_DEFUALT_OPTS --type f --ignore\")' \
-                       --bind 'alt-i:reload(eval \"fd $FD_DEFUALT_OPTS --ignore\")' \
+                       --bind 'ctrl-t:reload(eval \"fd $FD_DEFUALT_OPTS --type f --ignore\")' \
+                       --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --ignore\")' \
                        --bind 'ctrl-/:change-preview-window(down|hidden|),ctrl-o:execute(bat --style=full --paging always {})'"
   fi
 
@@ -206,8 +206,8 @@ if type fzf &>/dev/null; then
   FZF_ALT_C_OPTS="--walker-skip .git,node_modules,target"
   if type tree &>/dev/null && type fd &>/dev/null; then
     FZF_ALT_C_OPTS+=" --preview 'tree -C {} | head -200' \
-                      --header '<M-i> to hide ignored' \
-                      --bind 'alt-i:reload(eval \"fd $FD_DEFUALT_OPTS --type d --ignore\")'"
+                      --header '<C-g> to hide ignored' \
+                      --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --type d --ignore\")'"
   fi
   bind -r "\ec" # unbind default keybinding for __fzf_cd__
   bind -m emacs '"\C-s":" \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
@@ -286,8 +286,8 @@ if type fzf &>/dev/null; then
       FZF_CD_REPO_OPTS=$(
         __fzf_defaults "--reverse --scheme=path \
                         --preview 'tree -C $repo_root/{} | head -200' \
-                        --header 'Root is $(basename $repo_root). <C-o> to search in $(basename $current_repo), <M-i> to hide ignored' \
-                        --bind 'alt-i:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory $repo_root . \")' \
+                        --header 'Root is $(basename $repo_root). <C-o> to search in $(basename $current_repo), <C-g> to hide ignored' \
+                        --bind 'ctrl-g:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory $repo_root . \")' \
                         --bind 'ctrl-o:reload(echo $cur_rel_path ;eval \"fd $FD_DEFUALT_OPTS --type d --base-directory $repo_root --search-path $cur_rel_path . \")' \
                         +m"
       )
@@ -324,9 +324,9 @@ if type fzf &>/dev/null; then
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2}' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --header "<Enter> to open in nvim, <C-i> to show ignored, <C-f> to switch to fuzzy find" \
-        --bind "ctrl-i:reload($RG_PREFIX $RG_OPTS --no-ignore {q} || true)" \
-        --bind "ctrl-f:unbind(change,ctrl-f)+change-prompt(fzf> )+enable-search+clear-query" \
+        --header "<Enter> to open in nvim, <C-g> to show ignored, <C-l> to switch to fuzzy find" \
+        --bind "ctrl-g:reload($RG_PREFIX $RG_OPTS --no-ignore {q} || true)" \
+        --bind "ctrl-l:unbind(change,ctrl-l)+change-prompt(fzf> )+enable-search+clear-query" \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --bind 'enter:become(nvim {1} +{2})'
     }
