@@ -2,9 +2,11 @@
 -- LazyVim default keymaps are automatically loaded: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 ---------- Keys free to map -------------
--- key     mode      description
--- M        n         not useful
--- <C-r>    n         use U for redo
+-- key        mode      description
+-- M           n         not useful
+-- <C-r>       n         use U for redo
+-- <C-/>       n         unbound
+-- <leader>`   n         switch buffer, redundant
 -----------------------------------------
 
 -- remap: recursively map the keys when the rhs contains lhs
@@ -26,10 +28,18 @@ end
 --   command_mode = "c",
 --   operator-pending = "o"
 
--- TODO: This function doesn't support icon, not sure which function I should use
 vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
--- Edit
+
+-- Floating terminal, handle <C-/>
+vim.keymap.del("n", "<leader>ft")
+vim.keymap.del("n", "<leader>fT")
+-- Since I barely use neovim builtin float terminal, prefer to leave <C-/> for use by terminal programs (like fzf)
+vim.keymap.del({ "n", "t" }, "<C-/>") -- neovim default is terminal
 vim.keymap.del({ "n", "t" }, "<C-_>") -- neovim default is terminal
+-- This is required to makes ctrl-/ mappable in terminal mode programs (like fzf). https://github.com/neovim/neovim/issues/18735#issuecomment-1136527335
+map("t", "<C-/>", "<C-_>")
+
+-- Edit
 map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo" }) -- same as terminal
 map({ "n", "i", "v", "x" }, "<M-r>", "<cmd>redo<CR>", { desc = "Redo" }) -- ctrl-r is search history in shell; this is mainly for mapping cmd-shift-z
 map("n", "U", "<C-r>", { desc = "Redo" }) -- pair with u as undo; using ctrl-r instead of :redo allows count
@@ -37,7 +47,8 @@ map("n", "<S-enter>", "<cmd>put _<cr>") -- shift-enter to insert new line below 
 map("i", "<M-e>", "<C-o>d$") -- delete to end of line, match shell (customized)
 
 -- Indentation
--- Workaround: this mapping to itself is needed to seprate ctrl-i from tab even when CSI-u is enabled. Don't know why
+-- <tab> and ctrl-i are distinguished if both are unmapped or both are mapped. So here we map ctrl-i to itself.
+-- however in insert and terminal mode ctrl-i seems to be equivalent to <tab>
 map({ "n", "v", "x" }, "<c-i>", "<c-i>")
 map("n", "<tab>", ">>", { desc = "Indent" })
 map("n", "<S-tab>", "<<", { desc = "Unindent" })
@@ -69,8 +80,7 @@ map("n", "<leader>w<Right>", "<cmd>vertical resize -2<CR>", { desc = "Decrease W
 map("n", "<leader>w<Left>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
 
 -- Buffer management
--- LazyVim default is <leader>`
-map("n", "<leader><tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+map("n", "<leader><tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" }) -- LazyVim default is <leader>`
 
 -- Save File
 map({ "n", "x", "s" }, "<leader>fs", "<cmd>w<CR>", { desc = "Save File" })
@@ -96,10 +106,6 @@ map("n", "<leader>qw", "<cmd>wq<cr>", { desc = "Save and Quit" })
 -- By default, pasting in visual mode puts the replaced text in default register. This writes to blackhole register instead
 -- both p and P work
 map({ "v", "x" }, "p", '"_dP', { desc = "Replace with Paste" })
-
--- Floating terminal
-vim.keymap.del("n", "<leader>ft")
-vim.keymap.del("n", "<leader>fT")
 
 -- Copy current file path
 map("n", "<leader>fy", "<cmd>let @+ = expand('%:p')<cr>", { desc = "Copy File Path" })
@@ -147,4 +153,3 @@ if os.getenv("ZELLIJ") then
   map({ "n" }, "<C-j>", "<cmd>ZellijNavigateDown<cr>", { desc = "Navigate Down" })
   map({ "n" }, "<C-k>", "<cmd>ZellijNavigateUp<cr>", { desc = "Navigate Up" })
 end
-
