@@ -1,4 +1,5 @@
 -- fzf uses neovim's terminal mode, hence there's no modal edit (maybe there's a way to enable?)
+-- both fzf and zellij seem to not support CSI-u at the moment, so avoid using conflicting ctrl sequences
 return {
 	"ibhagwan/fzf-lua",
 	opts = function(_, opts)
@@ -10,11 +11,11 @@ return {
 		opts.keymap = {
 			builtin = {
 				false, -- remove defaults
-				["<M-/>"] = "toggle-help",
+				["<C-->"] = "toggle-help",
 				["<C-d>"] = "preview-page-down",
 				["<C-u>"] = "preview-page-up",
-				-- ["<C-/>"] = "toggle-preview",
-				["<C-o>"] = "toggle-preview",
+				["<C-/>"] = "toggle-preview",
+				["<M-/>"] = "toggle-preview-wrap",
 				["<M-]>"] = "toggle-preview-ccw",
 				["<M-[>"] = "toggle-preview-cw",
 			},
@@ -29,10 +30,10 @@ return {
 				["ctrl-x"] = "jump",
 				["ctrl-q"] = "select-all+accept",
 				-- non-builtin previewer such as bat won't inherit the key's set above. Need separate commands set here
-				-- and somehow these keybindings are not able to interpret CSI-u (even tho fzf binary does support in native terminal)
 				["ctrl-d"] = "preview-page-down",
 				["ctrl-u"] = "preview-page-up",
-				["ctrl-o"] = "toggle-preview",
+				["ctrl-/"] = "toggle-preview", -- this requires mapping C-/ to C-_ in terminal mode, see keymaps.lua
+        ["alt-/"] = "toggle-preview-wrap",
 			},
 		}
 
@@ -42,8 +43,7 @@ return {
 				["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-files-history",
 			},
 			actions = {
-				["ctrl-g"] = false,
-				["ctrl-i"] = { actions.toggle_ignore },
+				["ctrl-g"] = { actions.toggle_ignore },
 				["ctrl-h"] = { actions.toggle_hidden },
 			},
 		}
@@ -53,8 +53,8 @@ return {
 				["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-grep-history",
 			},
 			actions = {
-				["ctrl-g"] = { actions.grep_lgrep },
-				["ctrl-i"] = { actions.toggle_ignore },
+				["ctrl-l"] = { actions.grep_lgrep },
+				["ctrl-g"] = { actions.toggle_ignore },
 				["ctrl-h"] = { actions.toggle_hidden },
 			},
 		}
