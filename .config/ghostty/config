@@ -13,6 +13,8 @@ theme = carbonfox
 # window-decoration = false
 
 ## Functions
+# source shell integratin script manually
+shell-integration = none
 copy-on-select = true
 window-save-state = always
 macos-option-as-alt = true

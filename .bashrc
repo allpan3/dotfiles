@@ -7,6 +7,12 @@ case $- in
 *) return ;;
 esac
 
+# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+# Manually sourcing to fix ble.sh issue (https://github.com/akinomyoga/ble.sh/issues/543)
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+  builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+fi
+
 # Set up bash line editor, must be at the top per documentation
 test -f ${HOME}/.local/share/blesh/ble.sh && source ${HOME}/.local/share/blesh/ble.sh --attach=none
 
