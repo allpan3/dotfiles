@@ -164,7 +164,7 @@ test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && . "${HOME}/.iterm2/it
 
 # pyenv
 # place this after other PATH setup so that pyenv takes precedence over say conda base env if it is actiated by default
-# higher priority than base env but lower priority than manually activated env 
+# higher priority than base env but lower priority than manually activated env
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH" && eval "$(pyenv init -)"
 
@@ -489,7 +489,13 @@ _zellij_update_tab_name() {
   if [[ -n $ZELLIJ ]]; then
     tab_name=''
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-      tab_name+=$(basename "$(git rev-parse --show-toplevel)")/
+      root=$(git rev-parse --show-toplevel)
+      # since my home directory is a repo, also need to handle the shortening here
+      if [[ $root == $HOME ]]; then
+        tab_name+="~/"
+      else
+        tab_name+=$(basename "$(git rev-parse --show-toplevel)")/
+      fi
       # dir wrt git root
       path=$(git rev-parse --show-prefix)
       if [[ -n $path ]]; then
@@ -500,12 +506,12 @@ _zellij_update_tab_name() {
       tab_name=$PWD
       if [[ $tab_name == $HOME ]]; then
         tab_name="~"
-      else
+      # don't strip off / if the pwd is /
+      elif [[ $tab_name != "/" ]]; then
         tab_name=${tab_name##*/}
       fi
     fi
     command nohup zellij action rename-tab $tab_name >/dev/null 2>&1
-    # command nohup zellij action rename-session $(PWD)
   fi
 }
 
