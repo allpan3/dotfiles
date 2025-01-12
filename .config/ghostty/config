@@ -37,5 +37,4 @@ keybind = super+shift+z=esc:r
 keybind = super+left=esc:[H
 keybind = super+right=esc:[F
 keybind = alt+delete=esc:d
-keybind = super+delete=esc:e
 keybind = alt+backspace=text:\x17

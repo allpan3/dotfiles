@@ -59,20 +59,25 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 ###############################
 # Keybinding
 ###############################
-# readline does not bind over Ctrl-W since it is handled by the terminal driver by default
-# run the following command to disable it
 # Seems like key binding is causing issue with dumb termimal, temporarily working around by skipping
 if [ "$TERM" != "dumb" ]; then
   # stty: set terminal type, used to change and print terminal line settings
   # Run stty -a to see all settings
-  stty werase undef # needed to unbind Ctrl-W
+  stty werase undef  # needed to unbind Ctrl-W
   stty discard undef # needed to unbined Ctrl-O
   stty stop undef    # needed to unbined Ctrl-S
-  # note I put some default keymaps here just for reference
-  bind -m emacs '"\C-w":backward-kill-word' # this doesn't treat slashes as part of word, more robust. Map the same in neovim
-  bind -m emacs '"\ed":kill-word'           # default in bash
-  bind -m emacs '"\ee":kill-line'           # forward delete line, originally ctrl-k. Map the same in neovim
-  bind -m emacs '"\C-u":backward-kill-line' # default both bash and neovim
+  # C-w is already backward delete word by default, but uses are different function
+  # backward-kill-word doesn't treat slashes as part of word, more robust.
+  bind -m emacs '"\C-w":backward-kill-word'
+  bind -m vi-insert '"\C-w":backward-kill-word' # neovim default
+  bind -m vi-insert '"\ed":kill-word'           # alt-delete, forward delete word, match emacs mode. Map the same in neoim
+  # I try to map special keys to a bash default (emacs mode) at the terminal level whenever possible so that terminal apps are more likely to work right away
+  # But forward delete line uses C-k which is reserved for zellij, so have to bind M-DEL explicitly
+  # Note remapping this to "\C-k" still won't work in zellij
+  bind -m emacs '"\e[3;9~":kill-line'     # super-delete, forward delete line, originally ctrl-k. Map the same in neovim
+  bind -m vi-insert '"\e[3;9~":kill-line' # super-delete, forward delete line
+  bind -m vi-insert '"\eb":backward-word' # match emacs mode
+  bind -m vi-insert '"\ef":forward-word'  # match emacs mode
 fi
 
 ###############################
@@ -264,7 +269,7 @@ if type fzf &>/dev/null; then
       *) fzf --preview 'bat -n --color=always {}' "$@" ;;
       esac
     }
-    
+
     # Custom widget to nagivate anywhere in git repo
     fzf_cd_repo_widget() {
       local dir
@@ -276,7 +281,7 @@ if type fzf &>/dev/null; then
       if [[ -z $repo_root ]]; then
         return 0
       fi
-      
+
       # Get the relative path of the current repo to the parent repo
       cur_rel_path=$(realpath --relative-to=$repo_root $current_repo)
       # Command to search for directories within the current git repo, including the root

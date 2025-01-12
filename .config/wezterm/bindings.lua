@@ -61,7 +61,6 @@ bindings.keys = {
 	-- (or customize them in shells). Configure the same in neovim
 	{ key = "Backspace", mods = "SUPER", action = act.SendKey({ key = "u", mods = "CTRL" }) }, -- backward delete line
 	{ key = "Backspace", mods = "ALT", action = act.SendKey({ key = "w", mods = "CTRL" }) }, -- backward delete word
-	{ key = "Delete", mods = "SUPER", action = act.SendKey({ key = "e", mods = "ALT" }) }, -- forward delete line
 	{ key = "Delete", mods = "ALT", action = act.SendString("\x1bd") }, -- forward delete word
 	{ key = "LeftArrow", mods = "ALT", action = act.SendString("\x1bb") },
 	{ key = "RightArrow", mods = "ALT", action = act.SendString("\x1bf") },

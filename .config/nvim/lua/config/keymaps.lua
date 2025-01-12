@@ -44,7 +44,8 @@ map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo" }) -- same
 map({ "n", "i", "v", "x" }, "<M-r>", "<cmd>redo<CR>", { desc = "Redo" }) -- ctrl-r is search history in shell; this is mainly for mapping cmd-shift-z
 map("n", "U", "<C-r>", { desc = "Redo" }) -- pair with u as undo; using ctrl-r instead of :redo allows count
 map("n", "<S-enter>", "<cmd>put _<cr>") -- shift-enter to insert new line below in normal mode
-map("i", "<M-e>", "<C-o>d$") -- delete to end of line, match shell (customized)
+map("i", "<D-DEL>", "<C-o>d$") -- delete to end of line, match shell (customized)
+map("i", "<M-d>", "<C-o>db") -- delete word forward, match shell (customized for vi mode)
 
 -- Indentation
 -- <tab> and ctrl-i are distinguished if both are unmapped or both are mapped. So here we map ctrl-i to itself.
