@@ -519,8 +519,9 @@ _zellij_update_tab_name
 CHPWD_COMMAND=${CHPWD_COMMAND:+$CHPWD_COMMAND;}_zellij_update_tab_name
 
 # This needs to be placed at the end according to the documentation
-# if [[ ${BLE_VERSION-} ]]; then
-#   # ble/debug/profiler/start a
-#   ble-attach
-#   # ble/debug/profiler/stop
-# fi
+if [[ ${BLE_VERSION-} ]]; then
+  set -o vi
+  # ble/debug/profiler/start a
+  ble-attach
+  # ble/debug/profiler/stop
+fi
