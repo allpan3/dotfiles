@@ -84,6 +84,8 @@ if [ "$TERM" != "dumb" ]; then
   bind -m vi-insert '"\e[3;9~":kill-line' # super-delete, forward delete line
   bind -m vi-insert '"\eb":backward-word' # match emacs mode
   bind -m vi-insert '"\ef":forward-word'  # match emacs mode
+  bind -m vi-command '"gh":beginning-of-line'
+  bind -m vi-command '"gl":end-of-line'
 fi
 
 ###############################

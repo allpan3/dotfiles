@@ -1264,6 +1264,7 @@ function blerc/vim-load-hook {
   ## command history.  If you would like to move the cursor position in the
   ## current command entry, you can overwrite the bindings as follows.
 
+  ## These are mainly for multiline commands
   ble-bind -m vi_nmap -f 'g g' vi-command/first-nol
   ble-bind -m vi_omap -f 'g g' vi-command/first-nol
   ble-bind -m vi_xmap -f 'g g' vi-command/first-nol
