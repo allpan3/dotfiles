@@ -10,10 +10,11 @@ return {
       -- Enable this to override mini.diff's number, which doesn't have staged info
 			numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
       -- signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
-			-- NOTE: there's a problem with sign display when we stage partial hunk. Disabling this will stop tracking staged info.
-      -- mini.diff fixes this somehow.
-			-- With this enabled, stage_hunk can also toggle stage/unstage
+
+      -- With this enabled, staged changes will be shown in darker color
+      -- Select line and <leader>ga to stage partial hunks. Partial hunks cannot be unstaged (undo) by staging again.
 			-- signs_staged_enable = false,
+
 			attach_to_untracked = true,
 			current_line_blame_opts = {
 				-- ignore_whitespace = true,
