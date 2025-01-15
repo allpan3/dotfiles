@@ -156,9 +156,6 @@ fi
 # INFO: put source and alias after .bashrc_local because some executables are set up there
 # Not sure if this will cause any side effect yet
 
-# iTerm2 shell integration
-test -e "${HOME}/.iterm2/iterm2_shell_integration.bash" && . "${HOME}/.iterm2/iterm2_shell_integration.bash"
-
 # wezterm shell integration
 # test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
 
