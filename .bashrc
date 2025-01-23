@@ -180,30 +180,44 @@ fi
 
 # fzf
 if type fzf &>/dev/null; then
-  # I tried the best to make fzf use fd, rg, bat and other better utilities when available, but some in-process keybindinds may still not work without them
+  # I tried the best to make fzf use fd, rg, bat and other better utilities when available while supporting fallback, 
+  # but some in-process keybindinds may still not work without them
+
   # fzf shell intergration
   eval "$(fzf --bash)"
 
-  FZF_DEFAULT_OPTS="--color header:italic --info=inline --border none --no-separator"
+  FZF_DEFAULT_OPTS="--style full \
+    --color 'border:#aaaaaa,label:#cccccc' \
+    --color 'preview-border:#9999cc,preview-label:#ccccff' \
+    --color 'list-border:#669966,list-label:#99cc99' \
+    --color 'input-border:#996666,input-label:#ffcccc' \
+    --color 'header-border:#6699cc,header-label:#99ccff'"
+
   FD_DEFAULT_OPTS="--hidden --follow --no-ignore --exclude .git --strip-cwd-prefix"
   # If there's a global ignore file, use it
   [[ -f $HOME/.ignore ]] && FD_DEFAULT_OPTS+=" --ignore-file $HOME/.ignore"
 
+  # Use bat for full-screen preview if available
+  if type bat &>/dev/null; then
+    PREVIEW_CMD="bat --style=full --paging=always"
+  else
+    PREVIEW_CMD="less"
+  fi
+
   # FZF FILE WIDGET
-  # Make it full screen since exiting from bat preview would clear the screen (I think it's cuz fzf process clears the lines that it uses)
-  # Only way to keep the view consistent is to make it full screen
   # Ctrl-v: open file in neovim (`become` somehow doesn't work for me, execute+abort achieves the same thing)
+  # ctrl-o: view file in bat or less, useful to quick peek and exit
   FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target \
-                   --header 'Enter to paste, <C-v> to open in nvim, <C-t> to show files only, <C-i> to hide ignored, <C-o> to peek in bat, <C-/> to toggle preview' \
+                   --header 'Enter to paste, <C-v> to open in nvim, <C-t> to show files only, <C-g> to hide ignored, <C-o> to peek, <C-/> to toggle preview' \
+                   --preview 'fzf-preview.sh {}' \
+                   --preview-label='Preview' \
                    --bind 'ctrl-v:execute(nvim {})+abort' \
+                   --bind 'ctrl-/:toggle-preview,ctrl-o:execute($PREVIEW_CMD {})'
                    --bind 'ctrl-x:jump'"
-  if type bat &>/dev/null && type fd &>/dev/null; then
-    # ctrl-o: view file in bat, useful to quick peek and exit
-    FZF_CTRL_T_OPTS+=" --preview 'bat --color=always --style=plain {}' \
-                       --preview-window border-thinblock --preview-label='Preview'\
-                       --bind 'ctrl-t:reload(eval \"fd $FD_DEFUALT_OPTS --type f --ignore\")' \
-                       --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --ignore\")' \
-                       --bind 'ctrl-/:change-preview-window(down|hidden|),ctrl-o:execute(bat --style=full --paging always {})'"
+
+  if type fd &>/dev/null; then
+    FZF_CTRL_T_OPTS+=" --bind 'ctrl-t:reload(eval \"fd $FD_DEFUALT_OPTS --type f --ignore\")' \
+                       --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --ignore\")'"
   fi
 
   # FZF CD WIDGET
@@ -318,18 +332,25 @@ if type fzf &>/dev/null; then
     # Initially using rg for exact match, Ctrl-f to switch to use fzf as secondary fuzzy filter
     # Query automatically reloads as you type
     # Extra rg options can be passed as arguments, but must proceed the query
-    # Ctrl-i to show ignored files, but it's not persistent across reloads
+    # Ctrl-g to show ignored files, but it's not persistent across reloads
+    # TODO: use fzf-preview.sh for previe. Still don't know how to pass in params 
     rgi() {
       RG_PREFIX="rg --line-number --no-heading --color=always --smart-case "
       INITIAL_QUERY="${@: -1}"
       RG_OPTS=${@:1:$#-1}
-      fzf --ansi --disabled --prompt 'rg> ' --query "$INITIAL_QUERY" \
+      fzf --style full \
+        --color 'border:#aaaaaa,label:#cccccc' \
+        --color 'preview-border:#9999cc,preview-label:#ccccff' \
+        --color 'list-border:#669966,list-label:#99cc99' \
+        --color 'input-border:#996666,input-label:#ffcccc' \
+        --color 'header-border:#6699cc,header-label:#99ccff' \
+        --ansi --disabled --prompt 'rg> ' --query "$INITIAL_QUERY" \
         --bind "start:reload:$RG_PREFIX $RG_OPTS {q} || true" \
         --bind "change:reload:sleep 0.1; $RG_PREFIX $RG_OPTS {q} || true" \
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2}' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --header "<Enter> to open in nvim, <C-g> to show ignored, <C-l> to switch to fuzzy find" \
+        --header "<Enter> to open in nvim, <C-g> to show ignored, <C-l> to switch to fuzzy find, <C-/> to toggle line wrap" \
         --bind "ctrl-g:reload($RG_PREFIX $RG_OPTS --no-ignore {q} || true)" \
         --bind "ctrl-l:unbind(change,ctrl-l)+change-prompt(fzf> )+enable-search+clear-query" \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
@@ -386,10 +407,6 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 if type rg &>/dev/null; then
   alias rg='rg --smart-case --hidden'
-fi
-
-if command -v bat &>/dev/null; then
-  alias cat='bat'
 fi
 
 if command -v nvim &>/dev/null; then
