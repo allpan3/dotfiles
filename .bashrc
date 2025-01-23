@@ -228,8 +228,9 @@ if type fzf &>/dev/null; then
                       --header '<C-g> to hide ignored' \
                       --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --type d --ignore\")'"
   fi
+  # bind to ctrl-s instead
   bind -r "\ec" # unbind default keybinding for __fzf_cd__
-  bind -m emacs '"\C-s":" \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+  bind -m emacs '"\C-s":" \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h"'
   bind -m vi-command '"\C-s": "\C-z\C-s\C-z"'
   bind -m vi-insert '"\C-s": "\C-z\C-s\C-z"'
 
@@ -319,12 +320,9 @@ if type fzf &>/dev/null; then
       ) && printf 'builtin cd -- %q' "$(builtin unset CDPATH && builtin cd -- "$dir" && builtin pwd)"
     }
     # map to ctrl-o
-    bind -m emacs '"\C-o": " \C-b\C-k \C-u`fzf_cd_repo_widget`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+    bind -m emacs '"\C-o": " \C-b\C-k \C-u`fzf_cd_repo_widget`\e\C-e\er\C-m\C-y\C-h"'
     bind -m vi-command '"\C-o": "\C-z\C-q\C-z"'
     bind -m vi-insert '"\C-o": "\C-z\C-q\C-z"'
-  else
-    # fallback if fd is not available
-    echo "[Warning] Installing fd is strongly recommended for fzf."
   fi
 
   if type rg &>/dev/null && type bat &>/dev/null; then
