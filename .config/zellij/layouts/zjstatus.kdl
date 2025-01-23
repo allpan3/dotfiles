@@ -94,7 +94,7 @@ layout {
   default_tab_template {
     children
     pane size=1 borderless=true {
-      plugin location="file:~/.config/zellij/plugins/zjstatus-0.19.2.wasm" {
+      plugin location="file:~/.config/zellij/plugins/zjstatus-0.20.0.wasm" {
 
         color_rosewater "#f5e0dc"
         color_flamingo "#f2cdcd"
@@ -137,9 +137,13 @@ layout {
         border_format   "#[fg=$overlay2]{char}"
         border_position "top"
 
-        // currently only able to toggle frames if we disable this
-        // search bar is in the frame, when hidden it shows up quite slow, hence not using it for now
-        hide_frame_for_single_pane "false"   
+        // These features are nice in theory, but still don't work very well
+        // They disable manual toggling of pane frame, and the auto togging is quite slow
+        // Also when the pane frame displays the cwd, it's actually useful
+        // hide_frame_for_single_pane       "true"
+        // hide_frame_except_for_search     "true"
+        // hide_frame_except_for_scroll     "true"
+        // hide_frame_except_for_fullscreen "true"
 
         mode_normal        "#[bg=$green,fg=$surface0,bold]  #[bg=$bg,fg=$green]"
         mode_tmux          "#[bg=$yellow,fg=$surface0,bold] 󱁐 #[bg=$bg,fg=$yellow]"
