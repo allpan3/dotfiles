@@ -496,7 +496,9 @@ PROMPT_COMMAND="_chpwd_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 _zellij_update_tab_name() {
   if [[ -n $ZELLIJ ]]; then
     tab_name=''
-    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    # use --is-inside-work-tree instead of --git-dir so that non-worktree directories (like .git/) won't evalute to true
+    # this is needed beacuse the proceeding commands only work inside worktree
+    if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]]; then
       root=$(git rev-parse --show-toplevel)
       # since my home directory is a repo, also need to handle the shortening here
       if [[ $root == $HOME ]]; then
