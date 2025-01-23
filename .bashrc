@@ -258,15 +258,14 @@ if type fzf &>/dev/null; then
     export FZF_CTRL_T_COMMAND="fd $FD_DEFAULT_OPTS"
     export FZF_ALT_C_COMMAND="fd $FD_DEFAULT_OPTS --type d"
 
-    # Use fd for listing path candidates.
-    # - The first argument to the function ($1) is the base path to start traversal
+    # To use custom commands instead of find, override _fzf_compgen_{path,dir}
     _fzf_compgen_path() {
-      fd $FD_DEFAULT_OPTS "$1"
+      echo "$1"
+      command fd "$1" $FD_DEFAULT_OPTS 2>/dev/null | command sed 's@^\./@@'
     }
 
-    # Use fd to generate the list for directory completion
     _fzf_compgen_dir() {
-      fd --type d $FD_DEFAULT_OPTS "$1"
+      command fd "$1" $FD_DEFAULT_OPTS --type d 2>/dev/null | command sed 's@^\./@@'
     }
 
     # Advanced customization of fzf options via _fzf_comprun function
