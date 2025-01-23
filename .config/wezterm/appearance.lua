@@ -9,7 +9,7 @@ local scheme = wezterm.get_builtin_color_schemes()["carbonfox"]
 scheme.ansi = {
 	"#282828",
 	"#ee5396",
-	"#25be6a",
+  "#46c880",
 	"#e5e575",
 	"#78a9ff",
 	"#be95ff",
@@ -20,7 +20,7 @@ scheme.ansi = {
 scheme.brights = {
 	"#484848",
 	"#f16da6",
-	"#46c880",
+	"#88f397",
 	"#fffa44",
 	"#8cb6ff",
 	"#c8a5ff",
