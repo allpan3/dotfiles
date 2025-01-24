@@ -65,15 +65,6 @@ if type fd &>/dev/null; then
   export FZF_CTRL_T_COMMAND="fd $FD_DEFAULT_OPTS"
   export FZF_ALT_C_COMMAND="fd $FD_DEFAULT_OPTS --type d"
 
-  # To use custom commands instead of find, override _fzf_compgen_{path,dir}
-  _fzf_compgen_path() {
-    command fd "$1" $FD_DEFAULT_OPTS 2>/dev/null | command sed 's@^\./@@'
-  }
-
-  _fzf_compgen_dir() {
-    command fd "$1" $FD_DEFAULT_OPTS --type d 2>/dev/null | command sed 's@^\./@@'
-  }
-
   # Advanced customization of fzf options via _fzf_comprun function
   # - The first argument to the function is the name of the command.
   # - You should make sure to pass the rest of the arguments to fzf.
