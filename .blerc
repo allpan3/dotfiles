@@ -1091,13 +1091,6 @@
 # ble-bind -m vi_nmap -f 'C-m' 'accept-line'
 # ble-bind -m vi_nmap -f 'RET' 'accept-line'
 
-# Workaround for multiline accept in zellij: 
-# In zellij, ctrl-j is reserved, C-enter, S-enter both get mapped to C-m
-# Only option is M-enter, which is mapped to M-C-m. Default is newline, but not useful
-ble-bind -m emacs -f 'M-C-m' 'accept-line'
-ble-bind -m vi_imap -f 'M-C-m' 'accept-line'
-ble-bind -m vi_nmap -f 'M-C-m' 'accept-line'
-
 ## If you want to accept the suggestion by auto-complete using TAB, please use
 ## the following keybindings.  By default, <right> key can be used to accept
 ## the suggestion, and <TAB> is assigned to the normal TAB completion which is
@@ -1139,6 +1132,12 @@ function blerc/emacs-load-hook {
   #ble-bind -f 'C-m' accept-line
   #ble-bind -f 'RET' accept-line
 
+
+  ## Workaround for multiline accept in zellij:
+  ## In zellij, ctrl-j is reserved, C-enter, S-enter both get mapped to C-m
+  ## Only option is M-enter, which is mapped to C-M-m. Default is newline, but not useful
+  ble-bind -m emacs -f 'C-M-m' 'accept-line'   # this is needed to work inside zellij
+  ble-bind -m emacs -f 'M-RET' 'accept-line' # this is needed to work outside of zellij
 
   ## With the following settings, M-backspace (whose actual key sequence
   ## depends on your terminal) will kill the backward word as in the default
@@ -1237,6 +1236,14 @@ function blerc/vim-load-hook {
   #ble-bind -m vi_imap -f 'RET' accept-line
   #ble-bind -m vi_nmap -f 'C-m' accept-line
   #ble-bind -m vi_nmap -f 'RET' accept-line
+
+  ## Workaround for multiline accept in zellij:
+  ## In zellij, ctrl-j is reserved, C-enter, S-enter both get mapped to C-m
+  ## Only option is M-enter, which is mapped to C-M-m. Default is newline, but not useful
+  ble-bind -m vi_imap -f 'C-M-m' 'accept-line'
+  ble-bind -m vi_nmap -f 'C-M-m' 'accept-line'
+  ble-bind -m vi_imap -f 'M-RET' 'accept-line'
+  ble-bind -m vi_nmap -f 'M-RET' 'accept-line'
 
 
   ## The default mapping of C-o is vi_imap/single-command-mode.  If you want to
