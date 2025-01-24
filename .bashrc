@@ -214,7 +214,7 @@ if type fzf &>/dev/null; then
   # Ctrl-v: open file in neovim (`become` somehow doesn't work for me, execute+abort achieves the same thing)
   # ctrl-o: view file in bat or less, useful to quick peek and exit
   FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target \
-                   --header 'Enter to paste, <C-v> to open in nvim, <C-t> to show files only, <C-g> to hide ignored, <C-o> to peek, <C-/> to toggle preview' \
+                   --header 'Enter to paste, <C-v> to open in nvim, <C-t> to show files only, <C-g> to hide ignored, <C-o> to peek, <C-/> to toggle preview, <M-/> to toggle wrap' \
                    --preview 'fzf-preview.sh {}' \
                    --preview-label='Preview' \
                    --bind 'ctrl-v:execute(nvim {})+abort' \
@@ -230,8 +230,10 @@ if type fzf &>/dev/null; then
   # Seems like --walker doesn't work once I use custom command.
   FZF_ALT_C_OPTS="--walker-skip .git,node_modules,target"
   if type tree &>/dev/null && type fd &>/dev/null; then
+    # Somehow in this mode alt-/ doesn't toggle wrap when csi-u is enabled, but other modes work
     FZF_ALT_C_OPTS+=" --preview 'tree -C {} | head -200' \
-                      --header '<C-g> to hide ignored' \
+                      --header '<C-g> to hide ignored, <C-/> to toggle preview, <M-/> to toggle wrap' \
+                      --bind 'ctrl-/:toggle-preview' \
                       --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --type d --ignore\")'"
   fi
   # bind to ctrl-s instead
@@ -241,10 +243,9 @@ if type fzf &>/dev/null; then
   bind -m vi-insert '"\C-s": "\C-z\C-s\C-z"'
 
   # FZF HISTORY WIDGET
-  FZF_CTRL_R_OPTS="--header '<C-y> to copy, <C-/> to toggle preview, <M-/> to toggle line wrap' \
+  FZF_CTRL_R_OPTS="--header '<C-y> to copy, <C-/> or <M-/> to toggle wrap' \
                    --preview 'echo {}' \
-                   --preview-window down:3:hidden:wrap \
-                   --bind 'ctrl-/:toggle-preview'"
+                   --preview-window up:3:hidden:wrap"
   # ctrl-y to copy the command into clipboard using pbcopy
   if type pbcopy &>/dev/null; then
     FZF_CTRL_R_OPTS+=" --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
@@ -308,10 +309,12 @@ if type fzf &>/dev/null; then
       # . means the root of repo (since it's relative to the root, and fd only returns the child directories, not itself)
       FZF_CD_REPO_COMMAND="{ echo '.'; fd $FD_DEFAULT_OPTS --type d --base-directory $repo_root .; }"
 
+      # Somehow in this mode alt-/ doesn't toggle wrap when csi-u is enabled, but other modes work
       FZF_CD_REPO_OPTS=$(
         __fzf_defaults "--reverse --scheme=path \
                         --preview 'tree -C $repo_root/{} | head -200' \
-                        --header 'Root is $(basename $repo_root). <C-o> to search in $(basename $current_repo), <C-g> to hide ignored' \
+                        --header 'Root is $(basename $repo_root). <C-o> to search in $(basename $current_repo), <C-g> to hide ignored, <C-/> to toggle preview, <M-/> to toggle wrap' \
+                        --bind 'ctrl-/:toggle-preview' \
                         --bind 'ctrl-g:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory $repo_root . \")' \
                         --bind 'ctrl-o:reload(echo $cur_rel_path ;eval \"fd $FD_DEFUALT_OPTS --type d --base-directory $repo_root --search-path $cur_rel_path . \")' \
                         +m"
@@ -353,7 +356,7 @@ if type fzf &>/dev/null; then
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2}' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --header "<Enter> to open in nvim, <C-g> to show ignored, <C-l> to switch to fuzzy find, <C-/> to toggle line wrap" \
+        --header "<Enter> to open in nvim, <C-g> to show ignored, <C-l> to switch to fuzzy find, <C-/> or <M-/> to toggle wrap" \
         --bind "ctrl-g:reload($RG_PREFIX $RG_OPTS --no-ignore {q} || true)" \
         --bind "ctrl-l:unbind(change,ctrl-l)+change-prompt(fzf> )+enable-search+clear-query" \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
