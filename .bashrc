@@ -296,7 +296,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
       fi
     done
   }
-  alias rm='trash'
 elif [[ "$USER" == "root" ]]; then
   alias rm='rm -i'
   alias cp='cp -i'
