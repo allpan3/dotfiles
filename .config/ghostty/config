@@ -21,7 +21,7 @@ macos-option-as-alt = true
 auto-update = check
 
 # Keybindings
-keybind = global:shift+space=toggle_visibility
+keybind = global:super+ctrl+s=toggle_visibility
 keybind = global:super+ctrl+g=toggle_quick_terminal
 keybind = super+shift+alt+right_bracket=move_tab:1
 keybind = super+shift+alt+left_bracket=move_tab:-1
