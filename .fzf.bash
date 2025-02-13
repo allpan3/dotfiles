@@ -27,8 +27,8 @@ FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target \
       --preview 'fzf-preview.sh {}' \
       --preview-label='Preview' \
       --bind 'ctrl-v:execute(nvim {})+abort' \
-      --bind 'ctrl-/:toggle-preview,ctrl-o:execute($PREVIEW_CMD {})'
-          --bind 'ctrl-x:jump'"
+      --bind 'ctrl-/:toggle-preview,ctrl-o:execute($PREVIEW_CMD {})' \
+      --bind 'ctrl-x:jump'"
 
 if type fd &>/dev/null; then
   FZF_CTRL_T_OPTS+=" --bind 'ctrl-t:reload(eval \"fd $FD_DEFUALT_OPTS --type f --ignore\")' \
