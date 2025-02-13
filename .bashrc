@@ -166,7 +166,7 @@ fi
 # place this after other PATH setup so that pyenv takes precedence over say conda base env if it is actiated by default
 # higher priority than base env but lower priority than manually activated env
 export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH" && eval "$(pyenv init -)"
+[[ -d $PYENV_ROOT/shims ]] && export PATH="$PYENV_ROOT/shims:$PATH" && eval "$(pyenv init -)"
 
 # git status in prompt
 test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
