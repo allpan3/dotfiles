@@ -226,7 +226,7 @@ plugins {
 // Calling up fzf with keybindings (e.g. ctrl-r) won't trigger
 // There are some workarounds (https://github.com/fresh2dev/zellij-autolock/issues/12) but not nice
 // So I use ctrl-n/p to move up/down in fzf
-autolock location="file:~/.config/zellij/plugins/zellij-autolock-0.2.2.wasm" {
+autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
         // Enabled at start?
         is_enabled true
         // Lock when any open these programs open.
