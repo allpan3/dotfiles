@@ -296,6 +296,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
       fi
     done
   }
+  alias rm='trash'
 elif [[ "$USER" == "root" ]]; then
   alias rm='rm -i'
   alias cp='cp -i'
@@ -303,7 +304,10 @@ elif [[ "$USER" == "root" ]]; then
 fi
 
 # Make completion work for aliases
-complete -F _complete_alias "${!BASH_ALIASES[@]}"
+# This conflicts with blesh, which automatically handles alias completion
+if [[ -z ${BLE_VERSION-} ]]; then
+  complete -F _complete_alias "${!BASH_ALIASES[@]}"
+fi
 
 ###############################
 # Change directory hook
