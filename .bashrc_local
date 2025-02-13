@@ -36,9 +36,3 @@ else
         [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
     done
 fi
-
-########## wezterm ##########
-# set alias if installed through flatpak
-if ! command -v wezterm &> /dev/null && command -v flatpak run org.wezfurlong.wezterm &> /dev/null; then
-  alias wezterm='flatpak run org.wezfurlong.wezterm'
-fi
