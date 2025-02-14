@@ -177,9 +177,9 @@ if command -v zoxide &>/dev/null; then
 fi
 
 # starship
-# if command -v starship &>/dev/null; then
-#   eval "$(starship init bash)"
-# fi
+if command -v starship &>/dev/null; then
+  eval "$(starship init bash)"
+fi
 
 # atuin
 # command -v atuin &>/dev/null && eval "$(atuin init bash)"
