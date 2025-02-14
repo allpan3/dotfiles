@@ -13,7 +13,6 @@ require("lazyvim.config").init()
 return {
 	{ "folke/lazy.nvim", version = "*" },
 	{ "LazyVim/LazyVim", priority = 10000, lazy = false, config = true, cond = true, version = "*" },
-	{ "nvim-neo-tree/neo-tree.nvim", enabled = false }, -- use nvim-tree instead, more lightweight
 	--	{ "RRethy/vim-illuminate", opts = { under_cursor = false } },
 	{
 		"fresh2dev/zellij.vim",
