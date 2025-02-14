@@ -4,16 +4,6 @@ return {
 	"echasnovski/mini.diff",
 	event = "VeryLazy",
 	opts = {
-		view = {
-      -- Setting this to number (and the default priority) somehow fixes the partial hunk signcolumn issue in gitsigns
-			style = "number",
-			priority = 199,
-			signs = {
-				add = "▎",
-				change = "▎",
-				delete = "",
-			},
-		},
 		options = {
 			algorithm = "minimal",
 		},

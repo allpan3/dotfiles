@@ -27,7 +27,6 @@ return {
 					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
 				end
 
-				map("n", "<leader>gp", gs.preview_hunk_inline, "Preview Hunk Inline")
 				map("n", "]h", function()
 					if vim.wo.diff then
 						vim.cmd.normal({ "]h", bang = true })
@@ -69,9 +68,9 @@ return {
 				map("n", "<leader>gb", function()
 					gs.blame_line({ full = true })
 				end, "Blame Line")
-        -- map("n", "<leader>gB", function() gs.blame() end, "Blame Buffer")
+        map("n", "<leader>gB", function() gs.blame() end, "Blame Buffer")
         map("n", "<leader>gtb", gs.toggle_current_line_blame, "Toggle Blame Inline")
-				map("n", "<leader>gd", gs.diffthis, "Diff This")
+				map("n", "<leader>gd", gs.diffthis, "Side-by-side Diff")
 				map("n", "<leader>gtd", gs.toggle_deleted, "Toggle Diff")
 				map("n", "<leader>gtw", gs.toggle_word_diff, "Toggle Word Diff")
 				map("n", "<leader>gtl", gs.toggle_linehl, "Toggle Line Highlight")
