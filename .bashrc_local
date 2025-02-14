@@ -36,3 +36,7 @@ else
         [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
     done
 fi
+
+
+########## Ad-hoc ##########
+export DISPLAY=:10.0
