@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Allen Pan
-	email = aifusenno1@gmail.com
+	email = allpan@stanford.edu
 [core]
   excludesfile = $HOME/.gitignore_global
   pager = delta
