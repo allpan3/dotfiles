@@ -112,7 +112,7 @@ map({ "v", "x" }, "p", '"_dP', { desc = "Replace with Paste" })
 
 -- Copy current file path
 map("n", "<leader>fy", "<cmd>let @+ = expand('%:p')<cr>", { desc = "Copy File Path" })
-vim.keymap.set("n", "<leader>fp", ":edit ", { desc = "Open Path" }) -- open file with absolute or relative path
+vim.keymap.set("n", "<leader>fe", ":edit ", { desc = "Open Path" }) -- open file with absolute or relative path
 
 -- LazyVim menu
 vim.keymap.del("n", "<leader>l")
@@ -126,17 +126,26 @@ end, { desc = "LazyVim Changelog" })
 -- LazyVim default to save
 vim.keymap.del({ "i", "n", "x", "s" }, "<C-s>")
 
--- Lazygit
+-- Git
 -- This shows all (up to a limit) history of the line
 -- git log -L flag doesn't support uncommitted lines. It only sees the single revision (in this case the default is HEAD)
 -- So this command is only reliable in unchanged files
-map("n", "<leader>gB", function()
-	Snacks.git.blame_line({ count = 10 })
-end, { desc = "Blame Line History" })
+-- NOTE: very hard to use this view
+-- map("n", "<leader>gB", function()
+-- 	Snacks.git.blame_line({ count = 10 })
+-- end, { desc = "Blame Line History" })
 -- Open git remote repo
 map({ "n", "x" }, "<leader>gH", function()
 	Snacks.gitbrowse()
 end, { desc = "Open Remote Repo" })
+map({"n", "x" }, "<leader>gY", function()
+  Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false })
+end, { desc = "Copy Repo URL" })
+if vim.fn.executable("lazygit") == 1 then
+  map("n", "<leader>gg", function() Snacks.lazygit( { cwd = LazyVim.root.git() }) end, { desc = "Lazygit (root)" })
+  map("n", "<leader>gG", function() Snacks.lazygit() end, { desc = "Lazygit (cwd)" })
+end
+
 
 -- TODO:: would like to achieve everything in cutlass in custom keymaps.
 -- Cutlass has multiple bugs
