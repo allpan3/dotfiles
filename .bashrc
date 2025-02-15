@@ -63,6 +63,9 @@ shopt -s dirspell
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
 ###############################
 # Keybinding
 ###############################
@@ -95,51 +98,21 @@ fi
 # Enable true colors in terminal
 export COLORTERM=truecolor
 
-# Source: http://unix.stackexchange.com/a/147
-# More info: http://unix.stackexchange.com/a/108840
-# Man Page: https://linux.die.net/man/5/termcap
-export LESS_TERMCAP_mb=$(
-  tput bold
-  tput setaf 2
-) # green
-export LESS_TERMCAP_md=$(
-  tput bold
-  tput setaf 2
-)
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_so=$(
-  tput bold
-  tput setaf 3
-  tput setab 4
-) # yellow on blue
-export LESS_TERMCAP_se=$(
-  tput rmso
-  tput sgr0
-)
-export LESS_TERMCAP_us=$(
-  tput smul
-  tput bold
-  tput setaf 7
-) # white
-export LESS_TERMCAP_ue=$(
-  tput rmul
-  tput sgr0
-)
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
-# export LESS_TERMCAP_ZN=$(tput ssubm)
-# export LESS_TERMCAP_ZV=$(tput rsubm)
-# export LESS_TERMCAP_ZO=$(tput ssupm)
-# export LESS_TERMCAP_ZW=$(tput rsupm)
+# man page colors
+: "${LESS_TERMCAP_mb:=$'\e[1;32m'}"
+: "${LESS_TERMCAP_md:=$'\e[1;32m'}"
+: "${LESS_TERMCAP_me:=$'\e[0m'}"
+: "${LESS_TERMCAP_se:=$'\e[0m'}"
+: "${LESS_TERMCAP_so:=$'\e[01;33m'}"
+: "${LESS_TERMCAP_ue:=$'\e[0m'}"
+: "${LESS_TERMCAP_us:=$'\e[1;4;31m'}"
+: "${LESS:=}"
+export "${!LESS_TERMCAP@}"
+export LESS="R${LESS#-}"
 
 ###############################
-# Set up cmdline environment
+# PATH Setup
 ###############################
-## Set up config home for macOS
-if [ "$(uname -s)" == "Darwin" ]; then
-  export XDG_CONFIG_HOME=${HOME}/.config
-fi
-
 ## Set up homebrew paths if exists
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -151,13 +124,22 @@ fi
 [[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
 export PATH LD_LIBRARY_PATH MANPATH
 
-# Source .bashrc_local if it exists
+
+###############################
+# Load Local rc
+###############################
+# Put executable setup and alias after this because PATH may be modified there
 if [ -f "$HOME/.bashrc_local" ]; then
   . "$HOME/.bashrc_local"
 fi
 
-# INFO: put source and alias after .bashrc_local because some executables are set up there
-# Not sure if this will cause any side effect yet
+###############################
+# Executable Setup
+###############################
+## Set up config home for macOS
+if [ "$(uname -s)" == "Darwin" ]; then
+  export XDG_CONFIG_HOME=${HOME}/.config
+fi
 
 # wezterm shell integration
 # test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
@@ -167,9 +149,6 @@ fi
 # higher priority than base env but lower priority than manually activated env
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/shims ]] && export PATH="$PYENV_ROOT/shims:$PATH" && eval "$(pyenv init -)"
-
-# git status in prompt
-test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
 
 # zoxide
 if command -v zoxide &>/dev/null; then
@@ -199,6 +178,14 @@ if command -v direnv &>/dev/null; then
   eval "$(direnv hook bash)"
 fi
 
+# thefuck
+if command -v fuck &>/dev/null; then
+  eval $(thefuck --alias)
+fi
+
+###############################
+# Aliases & Utility Functions
+###############################
 # Set up function for completion for aliases
 # Place this after all command and default complete are sourced
 # Use auto unmask to record the default completion
@@ -220,12 +207,16 @@ if command -v eza &>/dev/null; then
   alias ltree="eza --tree"
   alias lld='ll -d'
 else
-  alias ls='ls -F --color=auto'
+  if command ls --color -d . &> /dev/null; then
+    alias ls='ls -F --color=auto'
+    # BSD `ls` doesn't need an argument (`-G`) when `$CLICOLOR` is set.
+  fi
   alias la='ls -A'
   alias ld='ls -d'
   alias lda='la -d'
   alias lt="ls -t" # oldest first
   alias lta="la -t"
+  alias l1='ls -1'
   alias ll='ls -lh'
   alias lla='la -lh'
   alias llt="ll -tr" # oldest at bottom
@@ -240,6 +231,19 @@ alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+alias ..='cd ..'
+alias ...='cd ../..'     # Go up two directories
+alias ....='cd ../../..' # Go up three directories
+
+alias md='mkdir -p'
+alias rd='rmdir'
+
+# emulate tree if it's not installed
+if type -t tree > /dev/null; then
+	alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+fi
+
 if type rg &>/dev/null; then
   alias rg='rg --smart-case --hidden'
 fi
@@ -258,24 +262,64 @@ if type fd &>/dev/null; then
   alias fd="fd --hidden"
 fi
 
+function bak() {
+	local filename="${1?}" filetime
+	filetime=$(date +%Y%m%d_%H%M%S)
+	cp -a "${filename}" "${filename}_${filetime}"
+}
+
 # tar helper fuctions
 targz() { tar -zcvf $1.tar.gz $1; }
 untargz() { tar -zxvf $1; }
 
-# tmux iterm2 integration
-alias tatt="tmux -CC attach -t"
-alias tnew="tmux -CC new -s"
-alias tkill="tmux kill-session -t"
-
-# Emacs
-export EMACS_SERVER_DIR=/tmp/emacs-allpan # the custom directory for TCP and Socket server
-mkdir -p -m 700 $EMACS_SERVER_DIR
-alias et="emacs-tramp.sh -n"
-alias eg="emacs.sh -s gui_server" # open the file in gui emacs
-alias ec="emacs.sh -s cli_server" # open the file in the current terminal window
+alias py='python'
 
 # git
-alias gitviz="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gdt='git difftool'
+function gdv() {
+  git diff --ignore-all-space "$@" | vi -R -
+}
+alias gf='git fetch --all --prune --tags'
+alias gl='git log --graph --date=short --pretty=format:'\''%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'\'''
+alias gls='gg --stat'
+alias ggup='git log --branches --not --remotes --no-walk --decorate --oneline' # FROM https://stackoverflow.com/questions/39220870/in-git-list-names-of-branches-with-unpushed-commits
+alias gll="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
+alias gnew='git log HEAD@{1}..HEAD@{0}' # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
+alias gmv='git mv'
+alias grm='git rm'
+alias grms='git rm --cached' # Removes the file only from the Git repository, but not from the filesystem. 
+alias gpatch='git format-patch -1' # gpatch <commit>
+alias gph='git push'
+alias gphf='git push --force-with-lease'
+alias gpl='git pull --prune'
+alias gplr='git pull --prune --rebase'
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias gsu='git submodule update --init --recursive'
+
+function git-ignore() {
+	# about 'Places the latest .gitignore file for a given project type in the current directory, or concatenates onto an existing .gitignore'
+	# group 'git'
+	# param '1: the language/type of the project, used for determining the contents of the .gitignore file'
+	# example '$ gittowork java'
+
+	result=$(curl -L "https://www.gitignore.io/api/$1" 2> /dev/null)
+
+	if [[ "${result}" =~ ERROR ]]; then
+		echo "Query '$1' has no match. See a list of possible queries with 'gittowork list'"
+	elif [[ $1 == list ]]; then
+		echo "${result}"
+	else
+		if [[ -f .gitignore ]]; then
+			result=$(grep -v "# Created by http://www.gitignore.io" <<< "${result}")
+			echo ".gitignore already exists, appending..."
+		fi
+		echo "${result}" >> .gitignore
+	fi
+}
 
 # lazygit
 alias lg=lazygit
@@ -376,3 +420,4 @@ if [[ ${BLE_VERSION-} ]]; then
   ble-attach
   # ble/debug/profiler/stop
 fi
+
