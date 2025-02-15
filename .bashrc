@@ -2,23 +2,27 @@
 ### This file is shared between systems. Put any localized features in .bashrc_local
 
 # If not running interactively, don't do anything
+# This is typically already handled by /etc/bash.bashrc file
 case $- in
 *i*) ;;
 *) return ;;
 esac
 
 # Ghostty shell integration for Bash. This should be at the top of your bashrc!
-# Manually sourcing this allows cwd to appear in zellij's pane frame as pane name.  
+# Manually sourcing this allows cwd to appear in zellij's pane frame as pane name.
 # This somehow doesn't happen if I just let ghostty automatically turn on shell integration
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
   builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
 fi
 
+# Wezterm shell integration
+# test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
+
 # Set up bash line editor, must be at the top per documentation
 test -f ${HOME}/.local/share/blesh/ble.sh && source ${HOME}/.local/share/blesh/ble.sh --attach=none
 
 ###############################
-# History
+# Options
 ###############################
 # Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -28,10 +32,10 @@ shopt -s histappend
 # For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=500
 HISTFILESIZE=2000
+# Append last command to history every time prompt is shown
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-###############################
-# Options
-###############################
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -58,11 +62,6 @@ shopt -s cdspell
 shopt -s autocd
 # Spelling correction on directory names during word completion if the directory name initially supplied does not exist
 shopt -s dirspell
-
-# Append last command to history every time prompt is shown
-shopt -s histappend
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
 # Don't check mail when opening terminal.
 unset MAILCHECK
 
@@ -124,6 +123,10 @@ export LESS="R${LESS#-}"
 [[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
 export PATH LD_LIBRARY_PATH MANPATH
 
+# Set up config home for macOS
+if [ "$(uname -s)" == "Darwin" ]; then
+  export XDG_CONFIG_HOME=${HOME}/.config
+fi
 
 ###############################
 # Load Local rc
@@ -136,13 +139,6 @@ fi
 ###############################
 # Executable Setup
 ###############################
-## Set up config home for macOS
-if [ "$(uname -s)" == "Darwin" ]; then
-  export XDG_CONFIG_HOME=${HOME}/.config
-fi
-
-# wezterm shell integration
-# test -e "${HOME}/.config/wezterm/wezterm_shell_integration.sh" && . "${HOME}/.config/wezterm/wezterm_shell_integration.sh"
 
 # pyenv
 # place this after other PATH setup so that pyenv takes precedence over say conda base env if it is actiated by default
@@ -207,7 +203,7 @@ if command -v eza &>/dev/null; then
   alias ltree="eza --tree"
   alias lld='ll -d'
 else
-  if command ls --color -d . &> /dev/null; then
+  if command ls --color -d . &>/dev/null; then
     alias ls='ls -F --color=auto'
     # BSD `ls` doesn't need an argument (`-G`) when `$CLICOLOR` is set.
   fi
@@ -240,8 +236,8 @@ alias md='mkdir -p'
 alias rd='rmdir'
 
 # emulate tree if it's not installed
-if type -t tree > /dev/null; then
-	alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+if type -t tree >/dev/null; then
+  alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 fi
 
 if type rg &>/dev/null; then
@@ -263,9 +259,9 @@ if type fd &>/dev/null; then
 fi
 
 function bak() {
-	local filename="${1?}" filetime
-	filetime=$(date +%Y%m%d_%H%M%S)
-	cp -a "${filename}" "${filename}_${filetime}"
+  local filename="${1?}" filetime
+  filetime=$(date +%Y%m%d_%H%M%S)
+  cp -a "${filename}" "${filename}_${filetime}"
 }
 
 # tar helper fuctions
@@ -289,7 +285,7 @@ alias gll="git log --graph --full-history --all --color --pretty=format:\"%x1b[3
 alias gnew='git log HEAD@{1}..HEAD@{0}' # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
 alias gmv='git mv'
 alias grm='git rm'
-alias grms='git rm --cached' # Removes the file only from the Git repository, but not from the filesystem. 
+alias grms='git rm --cached'       # Removes the file only from the Git repository, but not from the filesystem.
 alias gpatch='git format-patch -1' # gpatch <commit>
 alias gph='git push'
 alias gphf='git push --force-with-lease'
@@ -301,24 +297,24 @@ alias grbc='git rebase --continue'
 alias gsu='git submodule update --init --recursive'
 
 function git-ignore() {
-	# about 'Places the latest .gitignore file for a given project type in the current directory, or concatenates onto an existing .gitignore'
-	# group 'git'
-	# param '1: the language/type of the project, used for determining the contents of the .gitignore file'
-	# example '$ gittowork java'
+  # about 'Places the latest .gitignore file for a given project type in the current directory, or concatenates onto an existing .gitignore'
+  # group 'git'
+  # param '1: the language/type of the project, used for determining the contents of the .gitignore file'
+  # example '$ gittowork java'
 
-	result=$(curl -L "https://www.gitignore.io/api/$1" 2> /dev/null)
+  result=$(curl -L "https://www.gitignore.io/api/$1" 2>/dev/null)
 
-	if [[ "${result}" =~ ERROR ]]; then
-		echo "Query '$1' has no match. See a list of possible queries with 'gittowork list'"
-	elif [[ $1 == list ]]; then
-		echo "${result}"
-	else
-		if [[ -f .gitignore ]]; then
-			result=$(grep -v "# Created by http://www.gitignore.io" <<< "${result}")
-			echo ".gitignore already exists, appending..."
-		fi
-		echo "${result}" >> .gitignore
-	fi
+  if [[ "${result}" =~ ERROR ]]; then
+    echo "Query '$1' has no match. See a list of possible queries with 'gittowork list'"
+  elif [[ $1 == list ]]; then
+    echo "${result}"
+  else
+    if [[ -f .gitignore ]]; then
+      result=$(grep -v "# Created by http://www.gitignore.io" <<<"${result}")
+      echo ".gitignore already exists, appending..."
+    fi
+    echo "${result}" >>.gitignore
+  fi
 }
 
 # lazygit
@@ -416,8 +412,7 @@ CHPWD_COMMAND=${CHPWD_COMMAND:+$CHPWD_COMMAND;}_zellij_update_tab_name
 # This needs to be placed at the end according to the documentation
 if [[ ${BLE_VERSION-} ]]; then
   set -o vi
-  # ble/debug/profiler/start a
+  # ble/debug/profiler/start
   ble-attach
   # ble/debug/profiler/stop
 fi
-
