@@ -77,7 +77,7 @@ return {
 				map("n", "<leader>gtn", gs.toggle_numhl, "Toggle Number Highlight") -- this is currently controlled by mini.diff so not working
 				map("n", "<leader>gts", gs.toggle_signs, "Toggle Signcolumn")
 				-- text object
-				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Hunk")
 			end,
 		},
 	},
