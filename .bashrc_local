@@ -1,19 +1,15 @@
 ### Local bashrc file containing system-specific settings
 
-## Set up Google Clound SDK
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then . '/opt/google-cloud-sdk/path.bash.inc'; fi
-# The next line enables shell command completion for gcloud.
-if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then . '/opt/google-cloud-sdk/completion.bash.inc'; fi
-
 ########## Prompt ##########
 # References: https://misc.flogisoft.com/bash/tip_colors_and_formatting
 #             https://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
-# git status in prompt
-test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
-export GIT_PS1_SHOWDIRTYSTATE=1
-RESTORE='\[\e[0m\]'
-export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE} ⨕ "
+if ! type -p starship &>/dev/null; then
+  # git status in prompt
+  test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
+  export GIT_PS1_SHOWDIRTYSTATE=1
+  RESTORE='\[\e[0m\]'
+  export PS1="\[\e[00;42;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE} ⨕ "
+fi
 
 ########## Variables ##########
 # macOS automatically adds all paths in /etc/paths.d
@@ -32,17 +28,17 @@ else
 fi
 
 ########## Completion ##########
-if type brew &>/dev/null
-then
-    HOMEBREW_PREFIX="$(brew --prefix)"
-    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-    then
-        source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-    else
-        for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-        do
-            [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-        done
-    fi
+# ble.sh ships its own completion scripts, no need to load again
+if [[ -z ${BLE_VERSION-} ]]; then
+  if [[ -d "${HOMEBREW_PREFIX}" ]] ; then
+      if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+      then
+          source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+      else
+          for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+          do
+              [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+          done
+      fi
+  fi
 fi
-
