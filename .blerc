@@ -1516,5 +1516,5 @@ blehook/eval-after-load keymap_vi blerc/vim-load-hook
 # So far, fzf tab completions like `vi **<Tab>` doesn't work reliably.
 # It triggers fzf menu sometimes and completes ble.sh suggestions other times.
 # And sometimes line just doesn't render right after enter/esc
-ble-import -d integration/fzf-completion -C 'source ~/.fzf.bash'
-ble-import -d integration/fzf-key-bindings -C 'fzf_bind_cd_widget; fzf_bind_cd_repo_widget'
+ble-import -d integration/fzf-completion -C 'source ~/.fzf.bash' &> /dev/null
+ble-import -d integration/fzf-key-bindings -C 'fzf_bind_cd_widget; fzf_bind_cd_repo_widget' &> /dev/null
