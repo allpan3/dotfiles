@@ -112,8 +112,14 @@ export LESS="R${LESS#-}"
 ###############################
 # PATH Setup
 ###############################
-## Set up homebrew paths if exists
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+# Set up homebrew paths if exists
+# Manual setup is faster than `eval "$(homebrew/bin/brew shellenv)"`
+if [[ -f /opt/homebrew/bin/brew && -z $HOMEBREW_PREFIX ]]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+  PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:${PATH+:$PATH}"
+  INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}"
+fi
 
 ## Local executable paths
 [[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH" # installed from source
@@ -121,7 +127,7 @@ export LESS="R${LESS#-}"
 [[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH=":${HOME}/.local/share/man${MANPATH:+${MATHPATH}}"
 [[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH" # rustup
 [[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
-export PATH LD_LIBRARY_PATH MANPATH
+export PATH LD_LIBRARY_PATH MANPATH INFOPATH
 
 # Set up config home for macOS
 if [ "$(uname -s)" == "Darwin" ]; then
@@ -139,12 +145,12 @@ fi
 ###############################
 # Executable Setup
 ###############################
-
 # pyenv
 # place this after other PATH setup so that pyenv takes precedence over say conda base env if it is actiated by default
 # higher priority than base env but lower priority than manually activated env
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/shims ]] && export PATH="$PYENV_ROOT/shims:$PATH" && eval "$(pyenv init -)"
+# pyenv initialization is super slow
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/shims ]] && export PATH="$PYENV_ROOT/shims:$PATH" && eval "$(pyenv init -)"
 
 # zoxide
 if command -v zoxide &>/dev/null; then
@@ -161,7 +167,7 @@ fi
 
 # fzf, must be loaded after bash_completion
 # if ble.sh enabled, let .blerc handle
-if type fzf &>/dev/null && [[ -z ${BLE_VERSION-} ]]; then
+if command -v fzf &>/dev/null && [[ -z ${BLE_VERSION-} ]]; then
   # fzf shell intergration
   eval "$(fzf --bash)"
   source ~/.fzf.bash
@@ -174,10 +180,11 @@ if command -v direnv &>/dev/null; then
   eval "$(direnv hook bash)"
 fi
 
-# thefuck
-if command -v fuck &>/dev/null; then
-  eval $(thefuck --alias)
-fi
+## thefuck
+## thefuck startup is slow
+## if command -v fuck &>/dev/null; then
+##   eval $(thefuck --alias)
+## fi
 
 ###############################
 # Aliases & Utility Functions
@@ -236,7 +243,7 @@ alias md='mkdir -p'
 alias rd='rmdir'
 
 # emulate tree if it's not installed
-if type -t tree >/dev/null; then
+if type tree >/dev/null; then
   alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 fi
 
@@ -320,7 +327,7 @@ function git-ignore() {
 # lazygit
 alias lg=lazygit
 
-# accidental action prevention
+# Accidental action prevention
 if [ "$(uname -s)" == "Darwin" ]; then
   trash() {
     if [ "$#" -eq 0 ]; then
