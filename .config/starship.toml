@@ -90,8 +90,8 @@ $container\
 $shell\
 $character"""
 
+add_newline = false
 
-# Customize the prompt symbol
 [character]
 success_symbol = '[❯](bold green) '
 error_symbol = '[❯](bold red) '
@@ -153,6 +153,9 @@ symbol = " "
 
 [fossil_branch]
 symbol = " "
+
+[gcloud]
+symbol = "  "
 
 [golang]
 symbol = " "
