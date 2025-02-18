@@ -606,7 +606,7 @@
 ## functionality is inactive.
 
 #bleopt complete_auto_complete=1
-#bleopt complete_menu_complete=1
+bleopt complete_menu_complete=
 #bleopt complete_menu_filter=1
 
 
@@ -694,8 +694,7 @@
 ## automatically show the menu of completions after the idle time (for which
 ## user input does not arrive) reaches the delay.
 
-#bleopt complete_auto_menu=500
-
+bleopt complete_auto_menu=500
 
 ## When there are user inputs while generating completion candidates, the
 ## candidates generation will be canceled to process the user inputs. The
@@ -849,7 +848,7 @@
 ## completions in the menu.  The characters "@", "/" and "*" are added to
 ## symbolic links, directories and executables, respectively.
 
-#bind 'set visible-stats off'
+bind 'set visible-stats on'
 
 
 ## When this Readline setting is turned on, the suffix "/" is inserted after
