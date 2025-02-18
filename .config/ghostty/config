@@ -34,6 +34,7 @@ keybind = super+shift+k=jump_to_prompt:-1
 keybind = super+alt+o=write_scrollback_file:open
 keybind = super+alt+p=write_scrollback_file:paste
 keybind = super+backspace=text:\x15
+keybind = super+delete=esc:h
 keybind = super+z=text:\x1f
 keybind = super+shift+z=esc:r
 keybind = super+left=esc:[H

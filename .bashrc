@@ -77,16 +77,16 @@ if [ "$TERM" != "dumb" ]; then
   stty werase undef  # needed to unbind Ctrl-W
   stty discard undef # needed to unbined Ctrl-O
   stty stop undef    # needed to unbined Ctrl-S
-  # C-w is already backward delete word by default, but uses are different function
+  # C-w is already backward delete word by default, but uses a different function
   # backward-kill-word doesn't treat slashes as part of word, more robust.
   bind -m emacs '"\C-w":backward-kill-word'
   bind -m vi-insert '"\C-w":backward-kill-word' # neovim default
   bind -m vi-insert '"\ed":kill-word'           # alt-delete, forward delete word, match emacs mode. Map the same in neoim
   # I try to map special keys to a bash default (emacs mode) at the terminal level whenever possible so that terminal apps are more likely to work right away
-  # But forward delete line uses C-k which is reserved for zellij, so have to bind M-DEL explicitly
+  # But forward delete line uses C-k which is reserved for zellij, so bind M-h to forward kill line and then bind M-DEL to it at terminal level 
   # Note remapping this to "\C-k" still won't work in zellij
-  bind -m emacs '"\e[3;9~":kill-line'     # super-delete, forward delete line, originally ctrl-k. Map the same in neovim
-  bind -m vi-insert '"\e[3;9~":kill-line' # super-delete, forward delete line
+  bind -m emacs '"\eh":kill-line'         # M-h, forward delete line, originally ctrl-k. Map the same in neovim
+  bind -m vi-insert '"\eh":kill-line'     # M-h, forward delete line
   bind -m vi-insert '"\eb":backward-word' # match emacs mode
   bind -m vi-insert '"\ef":forward-word'  # match emacs mode
   bind -m vi-command '"gh":beginning-of-line'
