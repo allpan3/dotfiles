@@ -24,18 +24,6 @@ test -f ${HOME}/.local/share/blesh/ble.sh && source ${HOME}/.local/share/blesh/b
 ###############################
 # Options
 ###############################
-# Don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-# Append to the history file, don't overwrite it
-shopt -s histappend
-# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=500
-HISTFILESIZE=2000
-# Append last command to history every time prompt is shown
-shopt -s histappend
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -64,6 +52,20 @@ shopt -s autocd
 shopt -s dirspell
 # Don't check mail when opening terminal.
 unset MAILCHECK
+
+# History
+# Don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+# Append to the history file, don't overwrite it
+shopt -s histappend
+# History length in memory
+HISTSIZE=500
+# History length on disk
+HISTFILESIZE=2000
+# Append last command to history every time prompt is shown
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 ###############################
 # Keybinding
