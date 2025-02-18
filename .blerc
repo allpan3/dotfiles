@@ -1147,6 +1147,10 @@ function blerc/emacs-load-hook {
   #ble-bind -f 'M-C-h' kill-backward-cword
   #ble-bind -f 'M-BS'  kill-backward-cword
 
+  ## The following settings allows select to beginning/end of line with shift
+  ble-bind -f 's-S-left'  '@marked beginning-of-line'
+  ble-bind -f 's-S-right' '@marked end-of-line'
+
   return 0
 }
 blehook/eval-after-load keymap_emacs blerc/emacs-load-hook
