@@ -11,6 +11,9 @@ return {
 		keymap = {
 			preset = "super-tab",
 			["Esc"] = { "hide", "fallback" },
+			["<C-e>"] = {},
+			["<C-y>"] = {},
+			["<C-g>"] = { "hide" },
 			-- ["<C-k>"] = { "select_prev", "fallback" }, -- this somwhow doesn't work
 			-- ["<C-j>"] = { "select_next", "fallback" },
 			["<C-s>"] = {
@@ -25,6 +28,18 @@ return {
 						end)
 					end
 				end,
+			},
+			-- Don't use tab to complete ai ghost text - use <C-f> instead
+			["<Tab>"] = {
+				function(cmp)
+					if cmp.snippet_active() then
+						return cmp.accept()
+					else
+						return cmp.select_and_accept()
+					end
+				end,
+				"snippet_forward",
+				"fallback",
 			},
 		},
 	},

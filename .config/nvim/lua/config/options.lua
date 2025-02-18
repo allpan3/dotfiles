@@ -80,3 +80,8 @@ vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
 -- Note: do not turn off ttimeout altogether. Some escape sequences are being typed at
 -- neovim startup by some plugins, which is also affectd by ttimeout. But setting len to 0 works so far.
 vim.cmd("set ttimeoutlen=0")
+
+-- if the completion engine supports the AI source,
+-- use that instead of inline suggestions
+vim.g.ai_cmp = false
+
