@@ -3,9 +3,13 @@
 # export TZ="America/Los_Angeles"
 
 ########## Prompt ##########
-export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
-RESTORE='\[\e[0m\]'
-export PS1="\[\e[0;44;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;4m\] ⨕ ${RESTORE}"
+if ! type -p starship &>/dev/null; then
+  # git status in prompt
+  test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
+  export GIT_PS1_SHOWDIRTYSTATE="" # chipyard is slow with this
+  RESTORE='\[\e[0m\]'
+  export PS1="\[\e[0;44;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;4m\] ⨕ ${RESTORE}"
+fi
 
 ########## Environment ##########
 ## Conda
@@ -17,6 +21,7 @@ CONDA_HOME=${HOME}/.conda
 # This is effectively `conda init`
 [[ -e "${CONDA_HOME}" ]] && . "${CONDA_HOME}/etc/profile.d/conda.sh"
 [[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
+[[ ":$LD_LIBRARY_PATH:" =~ ":${CONDA_HOME}/lib:" ]] || LD_LIBRARY_PATH="${CONDA_HOME}/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 [[ ":$MANPATH:" =~ ":${CONDA_HOME}/share/man:" ]] || MANPATH=":${CONDA_HOME}/share/man${MANPATH:+${MANPATH}}"
 ## Coursier
 [[ ":$PATH:" =~ ":${HOME}/.local/share/coursier/bin:" ]] || PATH="${HOME}/.local/share/coursier/bin:$PATH"
