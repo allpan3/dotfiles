@@ -2,7 +2,7 @@ return {
 	"stevearc/conform.nvim",
 	opts = {
 		formatters_by_ft = {
-			["python"] = {
+			python = {
         -- "ruff_fix",
 				"ruff_format",
 			},

@@ -85,3 +85,6 @@ vim.cmd("set ttimeoutlen=0")
 -- use that instead of inline suggestions
 vim.g.ai_cmp = false
 
+-- Treat xsh files as python files
+vim.filetype.add({ extension = { xsh = "python" }})
+
