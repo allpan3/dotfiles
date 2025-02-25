@@ -29,6 +29,21 @@ CONDA_HOME=${HOME}/.conda
 export INFOPATH="${CONDA_HOME}/share/info"
 export PATH MANPATH
 
+########## Refresh SSH Sock ##########
+# Terminal multiplexers like tmux/zellij won't update environment variables once they are started (even new tabs would just inherit the old environment)
+# Set SSH_AUTH_SOCK to a static sock, which is a symlink to the actual forwarded sock, then relink it to the newly forwarded sock upon login
+# (I think we could even put this in .bash_profile since it just needs to be run one time at the login)
+if [ "${TERM}" != 'dumb' ]; then
+    if [ -S ${SSH_AUTH_SOCK} ] && [ -w "/run/user/$(id -u)/" ] && ! [ -S "/run/user/$( id -u )/ssh_auth.sock" ]; then
+        rm -f /run/user/$(id -u)/ssh_auth.sock
+        ln -s "${SSH_AUTH_SOCK}" "/run/user/$(id -u)/ssh_auth.sock"
+    fi
+fi
+# Upon login, SSH_AUTH_SOCK is set to the forwarded sock, change it to the static sock
+if [ -S "/run/user/$(id -u)/ssh_auth.sock" ]; then
+    export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh_auth.sock"
+fi
+
 ########## Completion ##########
 # zellij doesn't automatically source /etc/profile in new panes
 # so manually source the system-wide completion scripts
