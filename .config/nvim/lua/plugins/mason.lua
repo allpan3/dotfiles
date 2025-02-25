@@ -2,12 +2,13 @@ return {
 	"williamboman/mason.nvim",
 	opts = {
 		ensure_installed = {
-			"stylua",
-			"shfmt",
 			"bash-language-server",
-			"html-lsp",
-			"json-lsp",
-			"lua-language-server",
+      "html-lsp",
+      "json-lsp",
+      "lua-language-server",
+      "ruff",
+      "shfmt",
+			"stylua",
 			"verible",
 		},
 		ui = {
