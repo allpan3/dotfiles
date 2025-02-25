@@ -6,33 +6,33 @@ return {
 			default_mappings = false,
 			mappings = {
 				i = {
-					d = {
+					j = {
 						-- These can all also be functions
-						f = "<Esc>",
+						k = "<Esc>",
 					},
 				},
 				c = {
-					d = {
+					j = {
 						-- These can all also be functions
-						f = "<Esc>",
+						k = "<Esc>",
 					},
 				},
 				-- t = {
-				-- 	d = {
+				-- 	j = {
 				-- 		-- These can all also be functions
-				-- 		f = "<Esc>",
+				-- 		k = "<Esc>",
 				-- 	},
 				-- },
 				v = {
-          d = {
+          j = {
 						-- These can all also be functions
-            f = "<Esc>"
+            k = "<Esc>"
           }
 				},
 				s = {
-          d = {
+          j = {
 						-- These can all also be functions
-            f = "<Esc>"
+            k = "<Esc>"
           }
 				},
 			},
