@@ -1,11 +1,11 @@
 format = """
+$directory\
 $username\
 $hostname\
 $localip\
 $shlvl\
 $singularity\
 $kubernetes\
-$directory\
 $vcsh\
 $fossil_branch\
 $fossil_metrics\
@@ -17,6 +17,9 @@ $git_status\
 $hg_branch\
 $pijul_channel\
 $docker_context\
+$conda\
+$fill\
+$direnv\
 $package\
 $c\
 $cmake\
@@ -65,7 +68,6 @@ $vagrant\
 $zig\
 $buf\
 $nix_shell\
-$conda\
 $meson\
 $spack\
 $memory_usage\
@@ -74,7 +76,6 @@ $gcloud\
 $openstack\
 $azure\
 $nats\
-$direnv\
 $env_var\
 $crystal\
 $custom\
@@ -87,8 +88,7 @@ $battery\
 $status\
 $os\
 $container\
-$shell\
-$character"""
+"""
 
 add_newline = false
 
@@ -96,6 +96,15 @@ add_newline = false
 success_symbol = '[❯](bold green) '
 error_symbol = '[❯](bold red) '
 # vimcmd_symbol = "[<](bold green)"
+
+[cmd_duration]
+format = ' took [$duration]($style)'
+
+[direnv]
+disabled = false
+format = '[$loaded]($style) '
+loaded_msg = 'direnv'
+unloaded_msg = ''
 
 [git_branch]
 symbol = " "
@@ -105,7 +114,7 @@ format = 'on [$symbol$branch(:$remote_branch)]($style)'
 tag_symbol = '  '
 
 [git_status]
-format = '([$modified $ahead_behind]($style)) '
+format = '([$modified $ahead_behind]($style))'
 ahead = '⇡${count}'
 diverged = '⇡${ahead_count}⇣${behind_count}'
 behind = '⇣${count}'
@@ -114,6 +123,14 @@ modified = '*'
 
 [time]
 disabled = false
+format = 'at [$time]($style)'
+
+[username]
+disabled = true
+
+[hostname]
+format = '@ [$ssh_symbol$hostname]($style) '
+ssh_symbol = " "
 
 [aws]
 symbol = "  "
@@ -128,7 +145,9 @@ symbol = " "
 symbol = " "
 
 [conda]
-symbol = " "
+# symbol = " "
+symbol = ""
+style	= "dimmed green"
 
 [crystal]
 symbol = " "
@@ -171,9 +190,6 @@ symbol = " "
 
 [hg_branch]
 symbol = " "
-
-[hostname]
-ssh_symbol = " "
 
 [java]
 symbol = " "
@@ -251,6 +267,9 @@ Ubuntu = " "
 Unknown = " "
 Void = " "
 Windows = "󰍲 "
+
+[os]
+disabled = false
 
 [package]
 symbol = "󰏗 "
