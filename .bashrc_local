@@ -21,7 +21,6 @@ CONDA_HOME=${HOME}/.conda
 # This is effectively `conda init`
 [[ -e "${CONDA_HOME}" ]] && . "${CONDA_HOME}/etc/profile.d/conda.sh"
 [[ ":$PATH:" =~ ":${CONDA_HOME}/bin:" ]] || PATH="${CONDA_HOME}/bin:$PATH"
-[[ ":$LD_LIBRARY_PATH:" =~ ":${CONDA_HOME}/lib:" ]] || LD_LIBRARY_PATH="${CONDA_HOME}/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 [[ ":$MANPATH:" =~ ":${CONDA_HOME}/share/man:" ]] || MANPATH=":${CONDA_HOME}/share/man${MANPATH:+${MANPATH}}"
 ## Coursier
 [[ ":$PATH:" =~ ":${HOME}/.local/share/coursier/bin:" ]] || PATH="${HOME}/.local/share/coursier/bin:$PATH"
