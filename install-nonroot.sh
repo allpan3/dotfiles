@@ -34,15 +34,21 @@ popd
 # Refresh
 source .bashrc
 
+# Set up conda
+conda config --set changeps1 False
+
 ##### Install software #####
 # neovim
 conda install nvim nodejs ripgrep
 
 # Zellij
-cargo install --locked zellij
+cargo install zellij
 
 # Other utilities
-conda install fzf fd-find bat zoxide dnachun::btop
+conda install fzf fd-find bat zoxide btop eza starship 
+
+# Environment management
+conda install direnv
 
 # Git
 conda install git gh git-delta lazygit
