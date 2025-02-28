@@ -24,5 +24,14 @@ return {
 				-- },
 			},
 		}
+    opts.servers.marksman = {
+      -- Disable diagnostics for markdown because markdownlint-cli2 reports too many unnecessary warnings
+      -- I don't want to disable markdownlint-cli2 altogether because of formatting
+      -- In the future may want to add a configuration for markdownlint-cli2 to customize the rules
+      -- There's a visible delay for diagnostics to be disabled
+      on_attach = function(client, bufnr)
+        vim.diagnostic.disable(bufnr)
+      end,
+    }
 	end,
 }
