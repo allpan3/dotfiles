@@ -23,12 +23,15 @@ auto-update = check
 # Keybindings
 keybind = global:super+ctrl+s=toggle_visibility
 # keybind = global:super+ctrl+g=toggle_quick_terminal
+keybind = ctrl+tab=goto_split:next
+keybind = super+enter=toggle_split_zoom
+keybind = super+shift+enter=toggle_fullscreen
 keybind = super+shift+alt+right_bracket=move_tab:1
 keybind = super+shift+alt+left_bracket=move_tab:-1
 keybind = super+right_bracket=next_tab
 keybind = super+left_bracket=previous_tab
-keybind = super+shift+right_bracket=goto_split:next
-keybind = super+shift+left_bracket=goto_split:previous
+keybind = alt+right_bracket=goto_split:next
+keybind = alt+left_bracket=goto_split:previous
 keybind = super+shift+j=jump_to_prompt:1
 keybind = super+shift+k=jump_to_prompt:-1
 keybind = super+alt+o=write_scrollback_file:open
