@@ -197,6 +197,11 @@ fi
 export COMPAL_AUTO_UNMASK=1
 source ${HOME}/.scripts/complete-alias.sh
 
+# emulate tree if it's not installed
+if ! type tree >/dev/null; then
+  alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+fi
+
 # ls - use eza if available
 if command -v eza &>/dev/null; then
   alias ls='eza -F --icons=auto --hyperlink'
@@ -209,8 +214,8 @@ if command -v eza &>/dev/null; then
   alias lta="la -s=oldest"
   alias llt="ll -s=newest" # oldest at bottom, easier to see
   alias llta="lla -s=newest"
-  alias ltree="eza --tree"
   alias lld='ll -d'
+  alias tree="eza --tree"
 else
   if command ls --color -d . &>/dev/null; then
     alias ls='ls -F --color=auto'
@@ -243,11 +248,6 @@ alias ....='cd ../../..' # Go up three directories
 
 alias md='mkdir -p'
 alias rd='rmdir'
-
-# emulate tree if it's not installed
-if type tree >/dev/null; then
-  alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-fi
 
 if type rg &>/dev/null; then
   alias rg='rg --smart-case --hidden'
