@@ -1,4 +1,5 @@
 format = """
+$os\
 $directory\
 $username\
 $hostname\
@@ -86,11 +87,11 @@ $line_break\
 $jobs\
 $battery\
 $status\
-$os\
 $container\
+$character\
 """
 
-add_newline = false
+add_newline = true
 
 [character]
 success_symbol = '[❯](bold green) '
