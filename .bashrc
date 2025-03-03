@@ -181,6 +181,11 @@ if command -v fzf &>/dev/null && [[ -z ${BLE_VERSION-} ]]; then
   fzf_bind_cd_repo_widget
 fi
 
+# dircolors
+if command -v dircolors &>/dev/null; then
+  eval "$(dircolors -b ${HOME}/.config/dircolors)"
+fi
+
 # direnv
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook bash)"
