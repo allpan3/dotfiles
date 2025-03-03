@@ -5,10 +5,18 @@ font-feature = -clig
 font-feature = -liga
 font-thicken = true
 
-## Appearance
+## Color
 theme = carbonfox
+palette = 3=#e5e575
+palette = 11=#fffa44
+# palette = 4=#31b2ff
+# palette = 12=#52beff
+# palette = 6=#08bdbb
+# palette = 14=#2ac7c5
+
+## Appearance
 # macos-titlebar-style = tabs
-# macos-non-native-fullscreen = true
+macos-non-native-fullscreen = true
 # This disables both window bar and tab bar. Tabs are not allowed anymore
 # window-decoration = false
 
