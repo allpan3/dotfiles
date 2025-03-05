@@ -122,6 +122,10 @@ behind = '⇣${count}'
 style = 'yellow'
 modified = '*'
 
+[status]
+# BLE also shows exit code
+disabled = true
+
 [time]
 disabled = false
 format = 'at [$time]($style)'
