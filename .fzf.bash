@@ -1,7 +1,8 @@
 # I tried the best to make fzf use fd, rg, bat and other better utilities when available while supporting fallback,
 # but some in-process keybindinds may still not work without them
+# fzf doesn't seem to support CSI u, so avoid using those keys 
 
-FZF_DEFAULT_OPTS="--style full --ansi \
+FZF_DEFAULT_OPTS="--style full --no-header-border --ansi \
   --color 'border:#aaaaaa,label:#cccccc' \
   --color 'preview-border:#9999cc,preview-label:#ccccff' \
   --color 'list-border:#669966,list-label:#99cc99' \
@@ -23,35 +24,40 @@ fi
 # Ctrl-v: open file in neovim (`become` somehow doesn't work for me, execute+abort achieves the same thing)
 # ctrl-o: view file in bat or less, useful to quick peek and exit
 FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target \
-      --header 'Enter to paste, <C-v> to open in nvim, <C-t> to show files only, <C-g> to hide ignored, <C-o> to peek, <C-/> to toggle preview, <M-/> to toggle wrap' \
+      --header 'Enter to paste, <C-v> to open in nvim, <C-t> to show files only, <M-i> to hide ignored, <C-o> to peek, <C-/> to toggle preview, <M-/> to toggle preview wrap' \
       --preview 'fzf-preview.sh {}' \
-      --preview-label='Preview' \
+      --bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" Previewing [%s] \" {}' \
       --bind 'ctrl-v:execute(nvim {})+abort' \
       --bind 'ctrl-/:toggle-preview,ctrl-o:execute($PREVIEW_CMD {})' \
-      --bind 'ctrl-x:jump'"
+      --bind 'alt-/:toggle-preview-wrap' \
+      --bind 'alt-s:jump'"
 
 if type fd &>/dev/null; then
   FZF_CTRL_T_OPTS+=" --bind 'ctrl-t:reload(eval \"fd $FD_DEFUALT_OPTS --type f --ignore\")' \
-              --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --ignore\")'"
+                     --bind 'alt-i:reload(eval \"fd $FD_DEFUALT_OPTS --ignore\")'"
 fi
 
 # FZF CD WIDGET
 # Seems like --walker doesn't work once I use custom command.
-FZF_ALT_C_OPTS="--walker-skip .git,node_modules,target"
+FZF_ALT_C_OPTS="--walker-skip .git,node_modules,target \
+                --header '<M-i> to hide ignored, <M-s> to jump, <C-/> to toggle preview, <M-/> to toggle preview wrap' \
+                --bind 'alt-s:jump'"
 if type tree &>/dev/null && type fd &>/dev/null; then
   FZF_ALT_C_OPTS+=" --preview 'tree -C {} | head -200' \
-        --header '<C-g> to hide ignored, <C-/> to toggle preview, <M-/> to toggle wrap' \
+        --bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" Previewing [%s] \" {}' \
         --bind 'ctrl-/:toggle-preview' \
-        --bind 'ctrl-g:reload(eval \"fd $FD_DEFUALT_OPTS --type d --ignore\")'"
+        --bind 'alt-/:toggle-preview-wrap' \
+        --bind 'alt-i:reload(eval \"fd $FD_DEFUALT_OPTS --type d --ignore\")'"
 fi
 
 # FZF HISTORY WIDGET
-FZF_CTRL_R_OPTS="--header '<C-y> to copy, <C-/> or <M-/> to toggle wrap' \
+FZF_CTRL_R_OPTS="--header '<C-y> to copy, <M-s> to jump, <C-/> or <M-/> to toggle wrap' \
       --preview 'echo {}' \
-      --preview-window up:3:hidden:wrap"
+      --preview-window up:3:hidden:wrap \
+      --bind 'alt-s:jump'"
 # ctrl-y to copy the command into clipboard using pbcopy
 if type pbcopy &>/dev/null; then
-  FZF_CTRL_R_OPTS+=" --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+  FZF_CTRL_R_OPTS+=" --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+bell+abort'"
 fi
 
 export FZF_CTRL_T_OPTS FZF_CTRL_R_OPTS FZF_ALT_C_OPTS
@@ -102,9 +108,12 @@ if type fd &>/dev/null; then
     FZF_CD_REPO_OPTS=$(
       __fzf_defaults "--reverse --scheme=path \
         --preview 'tree -C $repo_root/{} | head -200' \
-        --header 'Root is $(basename $repo_root). <C-o> to search in $(basename $current_repo), <C-g> to hide ignored, <C-/> to toggle preview, <M-/> to toggle wrap' \
+        --bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" Previewing [%s] \" {}' \
+        --header 'Root is $(basename $repo_root). <C-o> to search in $(basename $current_repo), <M-i> to hide ignored, <M-s> to jump, <C-/> to toggle preview, <M-/> to toggle preview wrap' \
+        --bind 'alt-s:jump' \
         --bind 'ctrl-/:toggle-preview' \
-        --bind 'ctrl-g:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory $repo_root . \")' \
+        --bind 'alt-/:toggle-preview-wrap' \
+        --bind 'alt-i:reload(echo .; eval \"fd $FD_DEFUALT_OPTS --ignore --type d --base-directory $repo_root . \")' \
         --bind 'ctrl-o:reload(echo $cur_rel_path ;eval \"fd $FD_DEFUALT_OPTS --type d --base-directory $repo_root --search-path $cur_rel_path . \")' \
         +m"
     )
@@ -142,9 +151,12 @@ if type rg &>/dev/null && type bat &>/dev/null; then
       --delimiter : \
       --preview 'bat --color=always {1} --highlight-line {2}' \
       --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-      --header "<Enter> to open in nvim, <C-g> to show ignored, <C-l> to switch to fuzzy find, <C-/> or <M-/> to toggle wrap" \
-      --bind "ctrl-g:reload($RG_PREFIX $RG_OPTS --no-ignore {q} || true)" \
-      --bind "ctrl-l:unbind(change,ctrl-l)+change-prompt(fzf> )+enable-search+clear-query" \
+      --header "<Enter> to open in nvim, <M-i> to show ignored, <M-s> to jump, <C-g> to switch to fuzzy find, <C-/> to toggle preview, <M-/> to toggle preview wrap" \
+      --bind 'alt-s:jump' \
+      --bind 'ctrl-/:toggle-preview' \
+      --bind 'alt-/:toggle-preview-wrap' \
+      --bind "alt-i:reload($RG_PREFIX $RG_OPTS --no-ignore {q} || true)" \
+      --bind "ctrl-g:unbind(change,ctrl-l)+change-prompt(fzf> )+enable-search+clear-query" \
       --color "hl:-1:underline,hl+:-1:underline:reverse" \
       --bind 'enter:become(nvim {1} +{2})'
   }
