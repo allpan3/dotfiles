@@ -127,8 +127,9 @@ if type rg &>/dev/null && type bat &>/dev/null; then
   # TODO: use fzf-preview.sh for preview. Still don't know how to pass in params
   rgi() {
     RG_PREFIX="rg --line-number --no-heading --color=always --smart-case "
-    INITIAL_QUERY="${@: -1}"
-    RG_OPTS=${@:1:$#-1}
+    INITIAL_QUERY="${*:-}"
+    # TODO: right now rg doesn't support flags. Need to figure out a way
+    # RG_OPTS=${@:1:$#-1}
     fzf --style full \
       --color 'border:#aaaaaa,label:#cccccc' \
       --color 'preview-border:#9999cc,preview-label:#ccccff' \
