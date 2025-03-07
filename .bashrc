@@ -119,14 +119,14 @@ export LESS="R${LESS#-}"
 if [[ -f /opt/homebrew/bin/brew && -z $HOMEBREW_PREFIX ]]; then
   export HOMEBREW_PREFIX="/opt/homebrew"
   export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-  PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:${PATH+:$PATH}"
+  PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH}"
   INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}"
 fi
 
 ## Local executable paths
 [[ ":$PATH:" =~ ":${HOME}/.local/bin:" ]] || PATH="${HOME}/.local/bin:$PATH" # installed from source
-[[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/.local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
-[[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH=":${HOME}/.local/share/man${MANPATH:+${MATHPATH}}"
+[[ ":$LD_LIBRARY_PATH:" =~ ":${HOME}/.local/lib:" ]] || LD_LIBRARY_PATH="${HOME}/.local/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+[[ ":$MANPATH:" =~ ":${HOME}/.local/man:" ]] || MANPATH=":${HOME}/.local/share/man${MANPATH:+$MATHPATH}"
 [[ ":$PATH:" =~ ":${HOME}/.cargo/bin:" ]] || PATH="${HOME}/.cargo/bin:$PATH" # rustup
 [[ ":$PATH:" =~ ":${HOME}/.scripts:" ]] || PATH="${HOME}/.scripts:$PATH"     # personal scripts
 export PATH LD_LIBRARY_PATH MANPATH INFOPATH
