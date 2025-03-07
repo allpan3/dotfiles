@@ -52,7 +52,8 @@ return {
 						["<c-p>"] = { "history_back", mode = { "i", "n" } },
 						-- Right now there's no action to directly toggle preview wrap, have to switch to preview window then <leader>uw
 						["<c-m>"] = { "cycle_win", mode = { "i", "n" } },
-						["<c-/>"] = { "toggle_preview", mode = { "i", "n" } },
+            -- With zellij kitty keyboard protocol disabled, <c-/> is the same as <c-_> in neovim, which is reserved by undo
+						-- ["<c-/>"] = { "toggle_preview", mode = { "i", "n" } },
 						["<c-t>"] = { "trouble_open", mode = { "n", "i" } },
 					},
 				},
@@ -61,7 +62,7 @@ return {
 				list = {
 					keys = {
 						["<c-m>"] = "cycle_win",
-						["<c-/>"] = "toggle_preview",
+						-- ["<c-/>"] = "toggle_preview",
 						["<c-t>"] = "trouble_open",
 					},
 					-- wo = {
@@ -72,7 +73,7 @@ return {
 				preview = {
 					keys = {
 						["<c-m>"] = "cycle_win",
-						["<c-/>"] = "toggle_preview",
+						-- ["<c-/>"] = "toggle_preview",
 					},
 				},
 			},

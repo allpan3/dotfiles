@@ -35,11 +35,11 @@ vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
 -- Floating terminal, handle <C-/>
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")
--- Since I barely use neovim builtin float terminal, prefer to leave <C-/> for use by terminal programs (like fzf)
+-- Since I barely use neovim builtin float terminal, prefer to leave <C-/> for other keybindings
 vim.keymap.del({ "n", "t" }, "<C-/>") -- neovim default is terminal
 vim.keymap.del({ "n", "t" }, "<C-_>") -- neovim default is terminal
 -- This is required to makes ctrl-/ mappable in terminal mode programs (like fzf). https://github.com/neovim/neovim/issues/18735#issuecomment-1136527335
-map("t", "<C-/>", "<C-_>")
+-- map("t", "<C-/>", "<C-_>")
 
 -- Edit
 map({ "n", "i", "v", "x" }, "<C-_>", "<cmd>undo<CR>", { desc = "Undo" }) -- same as terminal
