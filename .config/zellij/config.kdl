@@ -72,8 +72,6 @@ keybinds clear-defaults=true {
     bind "Ctrl Space" { SwitchToMode "tmux"; } // leader go to tmux mode from any mode
     bind "Alt =" "Alt +" { Resize "Increase"; }
     bind "Alt -" { Resize "Decrease"; }
-    bind "Alt [" { PreviousSwapLayout; }
-    bind "Alt ]" { NextSwapLayout; }
     bind "Alt h" { GoToPreviousTab; }
     bind "Alt l" { GoToNextTab; }
   }
