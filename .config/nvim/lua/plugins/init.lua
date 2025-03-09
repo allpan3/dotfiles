@@ -24,4 +24,11 @@ return {
 		end,
 		-- keys need to be set in the global keymaps to take precedence
 	},
+	{
+		"fei6409/log-highlight.nvim",
+		lazy = false,
+		config = function()
+			require("log-highlight").setup({})
+		end,
+	},
 }
