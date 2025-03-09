@@ -76,6 +76,7 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below" })
 map("n", "<leader>wn", "<C-w>w", { desc = "Cycle Through Windows" })
 map("n", "<leader>wts", "<C-w>t<C-w>K", { desc = "Change Vertical to Horizontal" })
 map("n", "<leader>wtv", "<C-w>t<C-w>H", { desc = "Change Horizontal to Vertical" })
+map("n", "<leader>`", "<cmd>wincmd p<CR>", { desc = "Switch to Other Window" })
 -- LazyVim default uses ctrl-arrow to resize windows. Use leader key instead
 map("n", "<leader>w<Down>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height" })
 map("n", "<leader>w<Up>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
