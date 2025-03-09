@@ -120,7 +120,7 @@ export GROFF_NO_SGR=1
 if [[ -f /opt/homebrew/bin/brew && -z $HOMEBREW_PREFIX ]]; then
   export HOMEBREW_PREFIX="/opt/homebrew"
   export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-  PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH}"
+  PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
   INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}"
 fi
 
