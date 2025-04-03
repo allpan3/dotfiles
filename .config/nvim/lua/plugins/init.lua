@@ -31,4 +31,16 @@ return {
 			require("log-highlight").setup({})
 		end,
 	},
+  {
+    "cappyzawa/trim.nvim",
+    event = { "LazyFile" },
+    opts = {
+      trim_on_write = false,
+      highlight = true,
+    },
+    keys = {
+      { "<leader>ct", "<cmd>Trim<CR>", desc = "Trim Whitespace" },
+      { "<leader>ut", "<cmd>TrimToggle<CR>", desc = "Toggle Trim On Save" },
+    }
+  }
 }
