@@ -101,12 +101,6 @@ error_symbol = '[❯](bold red) '
 [cmd_duration]
 format = ' took [$duration]($style)'
 
-[direnv]
-disabled = false
-format = '[$loaded]($style) '
-loaded_msg = 'direnv'
-unloaded_msg = ''
-
 [git_branch]
 symbol = " "
 format = 'on [$symbol$branch(:$remote_branch)]($style)'
