@@ -4,23 +4,32 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Right shift changed to CAPS_LOCK if pressed alone",
+                        "description": "Change right_shift + left_shift to CAPS_LOCK",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "right_shift",
-                                    "modifiers": { "optional": ["caps_lock"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_shift",
-                                        "lazy": true
+                                    "key_code": "left_shift",
+                                    "modifiers": {
+                                        "mandatory": ["right_shift"],
+                                        "optional": ["caps_lock"]
                                     }
-                                ],
-                                "to_if_alone": [{ "key_code": "caps_lock" }],
+                                },
+                                "to": [{ "key_code": "caps_lock" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_shift",
+                                    "modifiers": {
+                                        "mandatory": ["left_shift"],
+                                        "optional": ["caps_lock"]
+                                    }
+                                },
+                                "to": [{ "key_code": "caps_lock" }],
                                 "type": "basic"
                             }
-                        ]
+                        ],
+                        "title": "Change right_shift + left_shift to caps_lock"
                     },
                     {
                         "description": "CAPS_LOCK to control when pressed with any other key, to ESC when alone.",
