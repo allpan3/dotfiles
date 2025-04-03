@@ -40,8 +40,25 @@ keybinds clear-defaults=true {
     bind "8" { GoToTab 8; SwitchToMode "normal"; }
     bind "9" { GoToTab 9; SwitchToMode "normal"; }
 
+    // scroll
+    bind "Ctrl d" { HalfPageScrollDown; }
+    bind "Ctrl u" { HalfPageScrollUp; }
+    bind "Ctrl f" "PageDown" { PageScrollDown; }
+    bind "Ctrl b" "PageUp" { PageScrollUp; }
+
     // search
     bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
+
+    // scroll
+    bind "Ctrl d" { HalfPageScrollDown; }
+    bind "Ctrl u" { HalfPageScrollUp; }
+    bind "Ctrl f" { PageScrollDown; }
+    bind "Ctrl b" { PageScrollUp; }
+
+    // resize
+    bind "=" "+" { Resize "Increase"; }
+    bind "-" { Resize "Decrease"; }
+
   }
   normal {
     bind "Enter" { // Intercept `Enter`.
@@ -74,6 +91,15 @@ keybinds clear-defaults=true {
     bind "Alt -" { Resize "Decrease"; }
     bind "Alt h" { GoToPreviousTab; }
     bind "Alt l" { GoToNextTab; }
+    bind "Alt 1" { GoToTab 1; }
+    bind "Alt 2" { GoToTab 2; }
+    bind "Alt 3" { GoToTab 3; }
+    bind "Alt 4" { GoToTab 4; }
+    bind "Alt 5" { GoToTab 5; }
+    bind "Alt 6" { GoToTab 6; }
+    bind "Alt 7" { GoToTab 7; }
+    bind "Alt 8" { GoToTab 8; }
+    bind "Alt 9" { GoToTab 9; }
   }
   // I use autolock for particular apps/front processes
   // These are the keybindings I want to pass to apps and let them handle
@@ -106,6 +132,7 @@ keybinds clear-defaults=true {
     bind "f" { ToggleFloatingPanes; SwitchToMode "normal"; }
     bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
     bind "r" { SwitchToMode "renamepane"; PaneNameInput 0;}
+    bind "p" { TogglePanePinned; SwitchToMode "normal"; }
   }
   move {
     bind "n" { MovePane; } // move pane forward
@@ -146,10 +173,10 @@ keybinds clear-defaults=true {
     bind "k" "up" { ScrollUp; }
     bind "g" { ScrollToTop; }
     bind "G" { ScrollToBottom; }
-    bind "Ctrl d" { HalfPageScrollDown; }
-    bind "Ctrl u" { HalfPageScrollUp; }
-    bind "Ctrl f" "PageDown" "right" "l" { PageScrollDown; }
-    bind "Ctrl b" "PageUp" "left" "h" { PageScrollUp; }
+    bind "d" { HalfPageScrollDown; }
+    bind "u" { HalfPageScrollUp; }
+    bind "f" "right" { PageScrollDown; }
+    bind "b" "left" { PageScrollUp; }
   }
   scroll {
     bind "e" { EditScrollback; SwitchToMode "normal"; }
@@ -201,12 +228,20 @@ keybinds clear-defaults=true {
       }
       SwitchToMode "normal"
     }
+    bind "a" {
+      LaunchOrFocusPlugin "zellij:about" {
+        floating true
+        move_to_focused_tab true
+      };
+      SwitchToMode "Normal"
+    }
   }
 }
 
 // Plugin aliases - can be used to change the implementation of Zellij
 // changing these requires a restart to take effect
 plugins {
+    about location="zellij:about"
     compact-bar location="zellij:compact-bar"
     configuration location="zellij:configuration"
     filepicker location="zellij:strider" {
@@ -256,7 +291,7 @@ load_plugins {
 // Default: default
 // 
 theme "catppuccin-mocha"
- 
+
 // Choose the base input mode of zellij.
 // Default: normal
 // 
@@ -286,14 +321,15 @@ default_layout "zjstatus"
 // 
 // theme_dir "/tmp"
  
+
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
 // potentially interfere with copying text.
+// (Requires restart)
 // Options:
 //   - true (default)
 //   - false
-// 
-// mouse_mode false
+
  
 // Toggle having pane frames around the panes
 // Options:
@@ -420,5 +456,19 @@ default_layout "zjstatus"
 // (Requires restart)
 // Default: true (if the host terminal supports it)
 // 
-support_kitty_keyboard_protocol false
+// support_kitty_keyboard_protocol false
 
+// Whether to stack panes when resizing beyond a certain size
+// Default: true
+//
+// stacked_resize false
+
+// Whether to show release notes on first version run
+// Default: true
+//
+// show_release_notes false
+
+// Whether to show startup tips on session start
+// Default: true
+//
+// show_startup_tips false
