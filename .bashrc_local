@@ -1,8 +1,6 @@
 ### Local bashrc file containing system-specific settings
 
-# export TZ="America/Los_Angeles"
-
-########## Prompt ##########
+## Prompt
 if ! type -p starship &>/dev/null; then
   # git status in prompt
   test -e "${HOME}/.scripts/git-prompt.sh" && source "${HOME}/.scripts/git-prompt.sh"
@@ -11,7 +9,7 @@ if ! type -p starship &>/dev/null; then
   export PS1="\[\e[0;44;30m\][\w]${RESTORE}\[\e[33m\]\$(__git_ps1 \"[\[\e[03m\]%s\[\e[23m\]]\")${RESTORE}\[\e[1;38;5;4m\] ⨕ ${RESTORE}"
 fi
 
-########## Environment ##########
+## Environment
 ## Conda
 # The base env bin is added to PATH and will always be implicitly activated
 # To activate/deactivate other environment, run the following commands
@@ -28,7 +26,7 @@ CONDA_HOME=${HOME}/.conda
 export INFOPATH="${CONDA_HOME}/share/info"
 export PATH MANPATH
 
-########## Refresh SSH Sock ##########
+## Refresh SSH Sock
 # Terminal multiplexers like tmux/zellij won't update environment variables once they are started (even new tabs would just inherit the old environment)
 # Set SSH_AUTH_SOCK to a static sock, which is a symlink to the actual forwarded sock, then relink it to the newly forwarded sock upon login
 # (I think we could even put this in .bash_profile since it just needs to be run one time at the login)
@@ -43,10 +41,18 @@ if [ -S "/run/user/$(id -u)/ssh_auth.sock" ]; then
     export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh_auth.sock"
 fi
 
-########## Completion ##########
+## Completion
 # zellij doesn't automatically source /etc/profile in new panes
 # so manually source the system-wide completion scripts
-source /etc/profile.d/bash_completion.sh
+for i in /etc/profile.d/*.sh /etc/profile.d/sh.local ; do
+    if [ -r "$i" ]; then
+        if [ "${-#*i}" != "$-" ]; then
+            . "$i"
+        else
+            . "$i" >/dev/null
+        fi
+    fi
+done
 
 if [[ -r "${CONDA_HOME}/etc/profile.d/bash_completion.sh" ]]; then
     source "${CONDA_HOME}/etc/profile.d/bash_completion.sh"
@@ -56,6 +62,8 @@ else
     done
 fi
 
-
-########## Ad-hoc ##########
-export DISPLAY=:10.0
+## Ad-hoc
+if [[ -z "$DISPLAY" ]]; then
+    # Set the display for X11 forwarding
+    export DISPLAY=:11.0
+fi
