@@ -42,7 +42,7 @@ key-mapping.preset = 'qwerty'
 # Drop it from your config, if you don't like this behavior
 # See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
-on-focused-monitor-changed = 'exec-and-forget aerospace move-mouse window-lazy-center || aerospace monitor-lazy-center'
+# on-focused-monitor-changed = 'exec-and-forget aerospace move-mouse window-lazy-center || aerospace move-mouse monitor-lazy-center'
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -89,8 +89,8 @@ outer.right =      0
 # '''
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-cmd-ctrl-slash = 'layout horizontal vertical'
-cmd-ctrl-period = 'layout tiles accordion'
+cmd-ctrl-period = 'layout horizontal vertical'
+cmd-ctrl-comma = 'layout tiles accordion'
 # Toggle between floating and tiling layout, apply to the window in focus
 cmd-ctrl-f = 'layout floating tiling'
 cmd-ctrl-m = 'fullscreen'
@@ -123,16 +123,11 @@ ctrl-8 = 'workspace 8'
 ctrl-9 = 'workspace 9'
 ctrl-0 = 'workspace 10'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-# Go to next/previous non-empty workspace in the focused monitor
-cmd-ctrl-n = 'exec-and-forget aerospace list-workspaces --monitor focused --empty no | aerospace workspace next --wrap-around'
-cmd-ctrl-p = 'exec-and-forget aerospace list-workspaces --monitor focused --empty no | aerospace workspace prev --wrap-around'
-# cmd-ctrl-n = 'aerospace list-workspaces --monitor focused --empty no | aerospace workspace next'
-# cmd-ctrl-p = 'aerospace list-workspaces --monitor focused --empty no | aerospace workspace prev'
 cmd-ctrl-shift-h = 'join-with left'
 cmd-ctrl-shift-j = 'join-with down'
 cmd-ctrl-shift-k = 'join-with up'
 cmd-ctrl-shift-l = 'join-with right'
+
 
 # Move node to workspace and focus follows
 cmd-ctrl-1 = ['move-node-to-workspace 1', 'workspace 1']
@@ -146,14 +141,33 @@ cmd-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']
 cmd-ctrl-9 = ['move-node-to-workspace 9', 'workspace 9']
 cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-# Move node to the next workspace in focused monitor, follow focus
-cmd-ctrl-i = ['move-node-to-workspace --wrap-around next', 'workspace --wrap-around next']
-# Move node to the next empty workspace in the focused monitor, follow focus
-# TODO: looks like follow focus is sequential, so you see a split second of the old screen. This doesn't happen in other commands that are specified as lists
-cmd-ctrl-o = '''exec-and-forget
+# Go to next/previous workspace in focused monitor
+cmd-ctrl-rightSquareBracket = 'workspace --wrap-around next'
+cmd-ctrl-leftSquareBracket = 'workspace --wrap-around prev'
+
+# Move node to the next/prev workspace in focused monitor, follow focus
+cmd-ctrl-shift-rightSquareBracket = ['move-node-to-workspace --wrap-around next', 'workspace --wrap-around next']
+cmd-ctrl-shift-leftSquareBracket = ['move-node-to-workspace --wrap-around prev', 'workspace --wrap-around prev']
+
+# Go to next/previous non-empty workspace in the focused monitor
+# cmd-ctrl-n = 'exec-and-forget aerospace list-workspaces --monitor focused --empty no | aerospace workspace next --wrap-around'
+
+# Make all windows in current workspace tiled. This is very slow but currently not possible through single command
+cmd-ctrl-slash = '''exec-and-forget
+ids=$(aerospace list-windows --workspace focused --format %{window-id});
+for id in $ids; do
+    aerospace focus --window-id $id;
+    aerospace layout tiling;
+done
+'''
+
+# Move node to the next empty workspace in the focused monitor
+# TODO: looks like follow focus is sequential, so you see a split second of the old screen. 
+# So disabling follow focus for now (hoesnetly not even sure if I want it)
+cmd-ctrl-n = '''exec-and-forget
 id=$(aerospace list-workspaces --monitor focused --empty);
 id=$(echo $id | awk '{print $1}');
-aerospace move-node-to-workspace $id && aerospace workspace $id
+aerospace move-node-to-workspace $id
 '''
 
 # Aerospace assigns all secondary monitors to an initial workspace that's not reached by key (like 10, 11, etc.) by design.
@@ -161,15 +175,15 @@ aerospace move-node-to-workspace $id && aerospace workspace $id
 # A way to work around this is to preserve the last two windows for secondary monitors and foce assign them. So far I don't know if I need this.
 
 # Move node to monitor and focus follows
-cmd-ctrl-rightSquareBracket = ['move-node-to-monitor --wrap-around next', 'focus-monitor --wrap-around next']
-cmd-ctrl-leftSquareBracket = ['move-node-to-monitor --wrap-around prev', 'focus-monitor --wrap-around prev']
+cmd-ctrl-backslash = ['move-node-to-monitor --wrap-around next', 'focus-monitor --wrap-around next']
 # Since by default all workspaces are tied to the main monitor, we will have to move a workspace into a secondary monitor, otherwise only one will be available
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-cmd-ctrl-backslash = 'move-workspace-to-monitor --wrap-around next'
+cmd-ctrl-shift-backslash = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-# alt-tab = 'workspace-back-and-forth'
-alt-tab = 'exec-and-forget aerospace focus-back-and-forth || aerospace workspace-back-and-forth'
+alt-tab = 'workspace-back-and-forth'
+# Typically switching workspace should be enough, since I use cmd-ctrl-hjkl to switch window focus
+# alt-tab = 'exec-and-forget aerospace focus-back-and-forth || aerospace workspace-back-and-forth'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 cmd-ctrl-semicolon = 'mode service'
