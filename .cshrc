@@ -63,9 +63,6 @@ alias zgrep 'zgrep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'
 alias dgit 'git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
-alias tatt "tmux -CC attach -t"
-alias tnew "tmux -CC new -s" 
-alias tkill "tmux kill-session -t"
 alias cp "cp -v"
 alias mv "mv -v"
 alias ff 'find . -name $*'
@@ -99,8 +96,3 @@ if ( -f "$HOME/.cshrc_local" ) then
     source "$HOME/.cshrc_local"
 endif
 
-
-# Ideally this should be in .login, but csh is not the login shell for some systems.
-# Don't see an issue putting here yet. Put at the end becasuse this script modifies prompt
-setenv ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX YES
-source ${HOME}/.iterm2/iterm2_shell_integration.tcsh
