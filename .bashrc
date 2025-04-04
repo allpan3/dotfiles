@@ -148,12 +148,6 @@ fi
 ###############################
 # Executable Setup
 ###############################
-# pyenv
-# place this after other PATH setup so that pyenv takes precedence over say conda base env if it is actiated by default
-# higher priority than base env but lower priority than manually activated env
-# pyenv initialization is super slow
-# export PYENV_ROOT="$HOME/.pyenv"
-# [[ -d $PYENV_ROOT/shims ]] && export PATH="$PYENV_ROOT/shims:$PATH" && eval "$(pyenv init -)"
 
 # zoxide
 if command -v zoxide &>/dev/null; then
