@@ -36,7 +36,7 @@ return {
     event = { "LazyFile" },
     opts = {
       trim_on_write = false,
-      highlight = true,
+      highlight = false,
     },
     keys = {
       { "<leader>ct", "<cmd>Trim<CR>", desc = "Trim Whitespace" },
