@@ -30,7 +30,7 @@ end
 --   command_mode = "c",
 --   operator-pending = "o"
 
-vim.keymap.set({"n", "x"}, "<leader><space>", ":", { desc = "Command Mode" })
+vim.keymap.set({"n", "v"}, "<leader><space>", ":", { desc = "Command Mode" })
 
 -- Floating terminal, handle <C-/>
 vim.keymap.del("n", "<leader>ft")
