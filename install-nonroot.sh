@@ -23,14 +23,6 @@ rm -f Miniforge3-$(uname)-$(uname -m).sh
 # Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 
-# ble.sh
-mkdir ${PREFIX}/source
-pushd ${PREFIX}/source
-git clone --recursive https://github.com/akinomyoga/ble.sh.git
-cd ble.sh
-make && make install
-popd
-
 # Refresh
 source .bashrc
 
@@ -38,17 +30,16 @@ source .bashrc
 conda config --set changeps1 False
 
 ##### Install software #####
-# neovim
+# Neovim
 conda install nvim nodejs ripgrep
 
-# Zellij
+# Cargo crates
 cargo install zellij
+cargo install cargo-update
 
-# Other utilities
-conda install fzf fd-find bat zoxide btop eza starship 
-
-# Environment management
-conda install direnv
+# Utilities
+conda install fzf fd-find bat zoxide eza starship \
+      procs btop dust sd tokei direnv
 
 # Git
 conda install git gh git-delta lazygit
@@ -59,7 +50,15 @@ conda install bear
 # GPU
 conda install nvtop
 
-# Refresh
-source .bashrc
+##### Install from Source #####
+mkdir -p ${PREFIX}/source
+mkdir -p ${PREFIX}/share
+mkdir -p ${PREFIX}/bin
 
+# ble.sh
+pushd ${PREFIX}/source
+git clone --recursive https://github.com/akinomyoga/ble.sh.git
+cd ble.sh
+make && make install
+popd
 
