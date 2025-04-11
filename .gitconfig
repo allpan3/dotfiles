@@ -2,6 +2,8 @@
 [user]
 	name = Allen Pan
 	email = allpan@stanford.edu
+[include]
+  path = ~/.gitconfig-local  # Absolute path
 [core]
   excludesfile = $HOME/.gitignore_global
   pager = delta
