@@ -32,8 +32,7 @@ export PATH MANPATH
 # (I think we could even put this in .bash_profile since it just needs to be run one time at the login)
 if [ "${TERM}" != 'dumb' ]; then
     if [ -S ${SSH_AUTH_SOCK} ] && [ -w "/run/user/$(id -u)/" ] && ! [ -S "/run/user/$( id -u )/ssh_auth.sock" ]; then
-        rm -f /run/user/$(id -u)/ssh_auth.sock
-        ln -s "${SSH_AUTH_SOCK}" "/run/user/$(id -u)/ssh_auth.sock"
+        ln -sf "${SSH_AUTH_SOCK}" "/run/user/$(id -u)/ssh_auth.sock"
     fi
 fi
 # Upon login, SSH_AUTH_SOCK is set to the forwarded sock, change it to the static sock
