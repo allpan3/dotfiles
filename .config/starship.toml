@@ -94,9 +94,10 @@ $character\
 add_newline = true
 
 [character]
-success_symbol = '[❯](bold green) '
-error_symbol = '[❯](bold red) '
-# vimcmd_symbol = "[<](bold green)"
+success_symbol = '[➜](bold green) '
+error_symbol = '[➜](bold red) '
+vimcmd_symbol = "[➜](bold blue)"
+vimcmd_visual_symbol = "[➜](bold yellow)"
 
 [cmd_duration]
 format = ' took [$duration]($style)'
