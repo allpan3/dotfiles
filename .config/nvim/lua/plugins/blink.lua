@@ -27,7 +27,6 @@ return {
 					end
 				end,
 			},
-			["<Tab>"] = { "accept", "fallback" },
 		},
 	},
 }
