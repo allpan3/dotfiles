@@ -50,6 +50,9 @@ return {
 						--       support CSI u, and better to match fzf and snacks picker
 						["<c-n>"] = { "history_forward", mode = { "i", "n" } },
 						["<c-p>"] = { "history_back", mode = { "i", "n" } },
+            -- a-h is used by zellij
+            ["<a-g>"] = { "toggle_hidden", mode = { "i", "n" } },
+            ["<a-h>"] = false,
             -- With zellij kitty keyboard protocol disabled, <c-/> is the same as <c-_> in neovim, which is reserved by undo
 						-- ["<c-/>"] = { "toggle_preview", mode = { "i", "n" } },
 						["<c-t>"] = { "trouble_open", mode = { "n", "i" } },
@@ -62,6 +65,9 @@ return {
 					keys = {
 						-- ["<c-/>"] = "toggle_preview",
 						["<c-t>"] = "trouble_open",
+            -- a-h is used by zellij
+            ["<a-g>"] = "toggle_hidden",
+            ["<a-h>"] = false,
 					},
 					-- wo = {
 					-- 	wrap = true,
