@@ -11,7 +11,7 @@ return {
 			preset = "super-tab",
 			["Esc"] = { "hide", "fallback" },
 			["<C-e>"] = {},
-			["<C-g>"] = { "hide" },
+			["<C-g>"] = { "hide", "fallback" },
 			-- ["<C-k>"] = { "select_prev", "fallback" }, -- this somwhow doesn't work
 			-- ["<C-j>"] = { "select_next", "fallback" },
 			["<C-s>"] = {
@@ -27,6 +27,12 @@ return {
 					end
 				end,
 			},
+			["<Tab>"] = {
+        "accept",
+				LazyVim.cmp.map({ "snippet_forward", "ai_accept_line" }),
+				"fallback",
+			},
 		},
 	},
 }
+
