@@ -63,6 +63,6 @@ fi
 
 ## Ad-hoc
 if [[ -z "$DISPLAY" ]]; then
-    # Set the display for X11 forwarding
-    export DISPLAY=:11.0
+    # VNC session
+    export DISPLAY=:1
 fi
