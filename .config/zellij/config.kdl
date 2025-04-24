@@ -116,7 +116,7 @@ keybinds clear-defaults=true {
     bind "Ctrl k" { MoveFocus "up"; }
   }
   // In tmux and all action modes, esc or enter to switch back to normal mode
-  shared_except "normal" "locked" "entersearch" "renamepane" "renametab" {
+  shared_except "normal" "locked" "entersearch" "renamepane" "search" "renametab" {
     bind "esc" "enter" { SwitchToMode "normal"; } 
   }
   pane {
@@ -183,6 +183,7 @@ keybinds clear-defaults=true {
     bind "s" { SwitchToMode "entersearch"; SearchInput 0; }
   }
   search {
+    bind "esc" { SwitchToMode "normal"; }
     bind "n" { Search "up"; }    // makes more sense since first highlighted result is always at the bottom
     bind "p" "N" { Search "down"; }
     bind "c" { SearchToggleOption "CaseSensitivity"; }
