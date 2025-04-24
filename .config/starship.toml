@@ -110,7 +110,7 @@ format = 'on [$symbol$branch(:$remote_branch)]($style)'
 tag_symbol = '  '
 
 [git_status]
-format = '([$modified $ahead_behind]($style))'
+format = '([$modified$ahead_behind]($style)) '
 ahead = '⇡${count}'
 diverged = '⇡${ahead_count}⇣${behind_count}'
 behind = '⇣${count}'
