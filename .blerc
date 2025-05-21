@@ -606,7 +606,7 @@
 ## functionality is inactive.
 
 #bleopt complete_auto_complete=1
-# bleopt complete_menu_complete=
+#bleopt complete_menu_complete=1
 #bleopt complete_menu_filter=1
 
 
@@ -694,7 +694,7 @@ ble-face auto_complete='fg=240,italic' # darker background
 ## automatically show the menu of completions after the idle time (for which
 ## user input does not arrive) reaches the delay.
 
-bleopt complete_auto_menu=500
+# bleopt complete_auto_menu=500
 
 ## When there are user inputs while generating completion candidates, the
 ## candidates generation will be canceled to process the user inputs. The
