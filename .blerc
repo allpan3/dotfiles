@@ -659,7 +659,7 @@
 
 #ble-face auto_complete='fg=238,bg=254'           # default
 #ble-face auto_complete='fg=231,bg=69'            # blue background
-#ble-face auto_complete='fg=240,underline,italic' # darker background
+ble-face auto_complete='fg=240,italic' # darker background
 
 
 ## The setting "complete_auto_wordbreaks" is used as the delimiters for
@@ -823,8 +823,8 @@ bleopt complete_auto_menu=500
 ## "menu_complete_selected" specifies the additional style for the selected
 ## candidate.
 
-#ble-face menu_complete_match=bold
-#ble-face menu_complete_selected=reverse
+ble-face menu_complete_match=bold,underline
+ble-face menu_complete_selected='fg=232,bg=35'
 
 
 ## These faces control graphic styles used in the menu descriptions.  Face
@@ -1010,19 +1010,19 @@ bind 'set visible-stats on'
 #ble-face -s command_suffix_new        fg=231,bg=124
 #ble-face -s argument_option           fg=teal
 #ble-face -s argument_option           fg=black,bg=225
-#ble-face -s filename_directory        underline,fg=33
-#ble-face -s filename_directory_sticky underline,fg=231,bg=26
-#ble-face -s filename_link             underline,fg=teal
-#ble-face -s filename_orphan           underline,fg=16,bg=224
-#ble-face -s filename_setuid           underline,fg=black,bg=220
-#ble-face -s filename_setgid           underline,fg=black,bg=191
-#ble-face -s filename_executable       underline,fg=green
+ble-face -s filename_directory        fg=33
+ble-face -s filename_directory_sticky fg=231,bg=26
+ble-face -s filename_link             fg=teal
+ble-face -s filename_orphan           fg=16,bg=224
+ble-face -s filename_setuid           fg=black,bg=220
+ble-face -s filename_setgid           fg=black,bg=191
+ble-face -s filename_executable       fg=green
 #ble-face -s filename_other            underline
-#ble-face -s filename_socket           underline,fg=cyan,bg=black
-#ble-face -s filename_pipe             underline,fg=lime,bg=black
-#ble-face -s filename_character        underline,fg=231,bg=black
-#ble-face -s filename_block            underline,fg=yellow,bg=black
-#ble-face -s filename_warning          underline,fg=red
+ble-face -s filename_socket           fg=cyan,bg=black
+ble-face -s filename_pipe             fg=lime,bg=black
+ble-face -s filename_character        fg=231,bg=black
+ble-face -s filename_block            fg=yellow,bg=black
+ble-face -s filename_warning          fg=red
 #ble-face -s filename_url              underline,fg=blue
 #ble-face -s filename_ls_colors        underline
 #ble-face -s varname_array             fg=orange,bold
