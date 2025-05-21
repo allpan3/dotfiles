@@ -764,7 +764,7 @@ ble-face auto_complete='fg=240,italic' # darker background
 ## and additionally, the completion menu is hidden by default.  The default is
 ## "insert-selection".
 
-# bleopt complete_menu_complete_opts=insert-selection
+bleopt complete_menu_complete_opts=
 
 
 ## When a non-empty value is specified to this setting, the highlighting of the
