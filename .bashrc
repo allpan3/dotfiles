@@ -254,7 +254,7 @@ alias md='mkdir -p'
 alias rd='rmdir'
 
 if type rg &>/dev/null; then
-  alias rg='rg --smart-case --hidden --follow'
+  alias rg='rg --smart-case --hidden --follow -z'
 fi
 
 if command -v nvim &>/dev/null; then
