@@ -61,28 +61,10 @@ keybinds clear-defaults=true {
 
   }
   normal {
-    bind "Enter" { // Intercept `Enter`.
-      WriteChars "\u{000D}"; // Passthru `Enter`.
-      // Invoke autolock to immediately assess proper lock state.
-      // (This provides a snappier experience compared to
-      // solely relying on `reaction_seconds` to elapse.)
-      MessagePlugin "autolock" {};
-    }
   }
   locked {
-    bind "Alt z" {
-      // Disable the autolock plugin.
-      MessagePlugin "autolock" {payload "disable";};
-      // Unlock Zellij.
-      SwitchToMode "normal";
-    }
   }
   shared {
-    bind "Alt Shift z" {
-      // Enable the autolock plugin.
-      MessagePlugin "autolock" {payload "enable";};
-    }
-    //...
   }
   // Keybindings directly accessible without leader key
   shared_except "tmux" {
@@ -101,20 +83,51 @@ keybinds clear-defaults=true {
     bind "Alt 8" { GoToTab 8; }
     bind "Alt 9" { GoToTab 9; }
   }
-  // I use autolock for particular apps/front processes
   // These are the keybindings I want to pass to apps and let them handle
   shared_except "locked" {
-    bind "Alt z" {
-      // Disable the autolock plugin.
-      MessagePlugin "autolock" {payload "disable";};
-      // Lock Zellij.
-      SwitchToMode "locked";
+
+    bind "Ctrl h" {
+        MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+            name "move_focus_or_tab";
+            payload "left";
+
+            // Plugin Configuration
+            move_mod "ctrl"; // Optional, should be added on every move command if changed.
+            use_arrow_keys "false"; // Optional, uses arrow keys instead of hjkl. Should be added to every command where you want to use it.
+        };
     }
-    bind "Ctrl h" { MoveFocusOrTab "left"; }
-    bind "Ctrl l" { MoveFocusOrTab "right"; }
-    bind "Ctrl j" { MoveFocus "down"; }
-    bind "Ctrl k" { MoveFocus "up"; }
-  }
+
+    bind "Ctrl j" {
+        MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+            name "move_focus";
+            payload "down";
+
+            move_mod "ctrl";
+            use_arrow_keys "false";
+        };
+    }
+
+    bind "Ctrl k" {
+        MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+            name "move_focus";
+            payload "up";
+
+            move_mod "ctrl";
+            use_arrow_keys "false";
+        };
+    }
+
+    bind "Ctrl l" {
+        MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
+            name "move_focus_or_tab";
+            payload "right";
+
+            move_mod "ctrl"; // Optional, should be added on every command if you want to use it
+            use_arrow_keys "false";
+        };
+    }
+}
+
   // In tmux and all action modes, esc or enter to switch back to normal mode
   shared_except "normal" "locked" "entersearch" "renamepane" "search" "renametab" {
     bind "esc" "enter" { SwitchToMode "normal"; } 
@@ -257,27 +270,12 @@ plugins {
         welcome_screen true
     }
 
-// Calling up fzf with keybindings (e.g. ctrl-r) won't trigger
-// There are some workarounds (https://github.com/fresh2dev/zellij-autolock/issues/12) but not nice
-// So I use ctrl-n/p to move up/down in fzf
-autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
-        // Enabled at start?
-        is_enabled true
-        // Lock when any open these programs open.
-        triggers "nvim|vim|git|fzf|zoxide|atuin"
-        // Reaction to input occurs after this many seconds. (default=0.3)
-        // (An existing scheduled reaction prevents additional reactions.)
-        reaction_seconds "0.3"
-        // Print to Zellij log? (default=false)
-        print_to_log true
-    }
 }
 
 // Plugins to load in the background when a new session starts
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
-    autolock
 }
 
 
