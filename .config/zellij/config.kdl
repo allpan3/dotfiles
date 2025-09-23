@@ -49,20 +49,17 @@ keybinds clear-defaults=true {
     // search
     bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
 
-    // scroll
-    bind "Ctrl d" { HalfPageScrollDown; }
-    bind "Ctrl u" { HalfPageScrollUp; }
-    bind "Ctrl f" { PageScrollDown; }
-    bind "Ctrl b" { PageScrollUp; }
-
     // resize
     bind "=" "+" { Resize "Increase"; }
     bind "-" { Resize "Decrease"; }
 
   }
   normal {
+    // uncomment this and adjust key if using copy_on_select=false
+    // bind "Alt c" { Copy; }
   }
   locked {
+    bind "Alt z" { SwitchToMode "Normal"; }
   }
   shared {
   }
@@ -85,6 +82,9 @@ keybinds clear-defaults=true {
   }
   // These are the keybindings I want to pass to apps and let them handle
   shared_except "locked" {
+    bind "Alt z" { SwitchToMode "Locked"; }
+    bind "Alt p" { TogglePaneInGroup; }
+    bind "Alt Shift p" { ToggleGroupMarking; }
 
     bind "Ctrl h" {
         MessagePlugin "file:~/.config/zellij/plugins/vim-zellij-navigator.wasm" {
@@ -133,19 +133,21 @@ keybinds clear-defaults=true {
     bind "esc" "enter" { SwitchToMode "normal"; } 
   }
   pane {
-    bind "h" "left" { MoveFocus "left"; }
-    bind "l" "right" { MoveFocus "right"; }
-    bind "j" "down" { MoveFocus "down"; }
-    bind "k" "up" { MoveFocus "up"; }
+    bind "left" { MoveFocus "left"; }
+    bind "right" { MoveFocus "right"; }
+    bind "down" { MoveFocus "down"; }
+    bind "up" { MoveFocus "up"; }
     bind "w" { NewPane; SwitchToMode "normal"; }
-    bind "s" { NewPane "down"; SwitchToMode "normal"; }
+    bind "h" { NewPane "down"; SwitchToMode "normal"; }
     bind "v" { NewPane "right"; SwitchToMode "normal"; }
+    bind "s" { NewPane "stacked"; SwitchToMode "Normal"; }
     bind "d" { CloseFocus; SwitchToMode "normal"; }
     bind "m" { ToggleFocusFullscreen; SwitchToMode "normal"; }
     bind "f" { ToggleFloatingPanes; SwitchToMode "normal"; }
     bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
     bind "r" { SwitchToMode "renamepane"; PaneNameInput 0;}
     bind "p" { TogglePanePinned; SwitchToMode "normal"; }
+    bind "tab" { SwitchFocus; }
   }
   move {
     bind "n" { MovePane; } // move pane forward
@@ -247,7 +249,14 @@ keybinds clear-defaults=true {
         floating true
         move_to_focused_tab true
       };
-      SwitchToMode "Normal"
+      SwitchToMode "normal"
+    }
+    bind "s" {
+        LaunchOrFocusPlugin "zellij:share" {
+            floating true
+            move_to_focused_tab true
+        };
+        SwitchToMode "normal"
     }
   }
 }
@@ -269,7 +278,6 @@ plugins {
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
-
 }
 
 // Plugins to load in the background when a new session starts
@@ -302,11 +310,12 @@ theme "catppuccin-mocha"
 // default_shell "fish"
  
 // Choose the path to override cwd that zellij will use for opening new panes
-// 
-// default_cwd "/tmp"
+//
+// default_cwd ""
  
 // The name of the default layout to load on startup
 // Default: "default"
+// (Requires restart)
 // 
 default_layout "zjstatus"
  
@@ -320,7 +329,6 @@ default_layout "zjstatus"
 // 
 // theme_dir "/tmp"
  
-
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
 // potentially interfere with copying text.
@@ -328,13 +336,13 @@ default_layout "zjstatus"
 // Options:
 //   - true (default)
 //   - false
-
+// mouse_mode false
  
-// Toggle having pane frames around the panes
+// Toggle between having pane frames around the panes
 // Options:
-//   - true (default, enabled)
+//   - true (default)
 //   - false
-// 
+//
 // pane_frames false
  
 // When attaching to an existing session with other users,
@@ -384,13 +392,14 @@ default_layout "zjstatus"
 // 
 // copy_clipboard "primary"
  
-// Enable automatic copying (and clearing) of selection when releasing mouse
+// Enable or disable automatic copy (and clear) of selection when releasing mouse
 // Default: true
 // 
-// copy_on_select true
+// copy_on_select false
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
+//
 // scrollback_editor "/usr/bin/vim"
  
 // A fixed name to always give the Zellij session.
@@ -414,13 +423,13 @@ default_layout "zjstatus"
 // auto_layout false
  
 // Whether sessions should be serialized to the cache folder (including their tabs/panes, cwds and running commands) so that they can later be resurrected
+// (Requires restart)
 // Options:
 //   - true (default)
 //   - false
-// 
-// session_serialization false
  
 // Whether pane viewports are serialized along with the session, default is false
+// (Requires restart)
 // Options:
 //   - true
 //   - false (default)
@@ -430,7 +439,8 @@ default_layout "zjstatus"
 // Scrollback lines to serialize along with the pane viewport when serializing sessions, 0
 // defaults to the scrollback size. If this number is higher than the scrollback size, it will
 // also default to the scrollback size. This does nothing if `serialize_pane_viewport` is not true.
-// 
+// (Requires restart)
+//
 // scrollback_lines_to_serialize 10000
  
 // Enable or disable the rendering of styled and colored underlines (undercurl).
@@ -449,7 +459,7 @@ default_layout "zjstatus"
 // (Requires restart)
 // Default: false
 // 
-// disable_session_metadata false
+// disable_session_metadata true
  
 // Enable or disable support for the enhanced Kitty Keyboard Protocol (the host terminal must also support it)
 // (Requires restart)
@@ -462,6 +472,11 @@ support_kitty_keyboard_protocol false
 //
 // stacked_resize false
 
+// Whether to enable mouse hover effects and pane grouping functionality
+// Default: true
+//
+// advanced_mouse_actions false
+
 // Whether to show release notes on first version run
 // Default: true
 //
@@ -471,3 +486,79 @@ support_kitty_keyboard_protocol false
 // Default: true
 //
 // show_startup_tips false
+
+// A command to run (will be wrapped with sh -c and provided the RESURRECT_COMMAND env variable)
+// after Zellij attempts to discover a command inside a pane when resurrecting sessions, the STDOUT
+// of this command will be used instead of the discovered RESURRECT_COMMAND
+// can be useful for removing wrappers around commands
+// Note: be sure to escape backslashes and similar characters properly
+//
+// post_command_discovery_hook "echo $RESURRECT_COMMAND | sed <your_regex_here>"
+
+// Whether to make sure a local web server is running when a new Zellij session starts.
+// This web server will allow creating new sessions and attaching to existing ones that have
+// opted in to being shared in the browser.
+// When enabled, navigate to http://127.0.0.1:8082
+// (Requires restart)
+// 
+// Note: a local web server can still be manually started from within a Zellij session or from the CLI.
+// If this is not desired, one can use a version of Zellij compiled without
+// `web_server_capability`
+// 
+// Possible values:
+// - true
+// - false
+// Default: false
+//
+// web_server true
+
+// Whether to allow sessions started in the terminal to be shared through a local web server, assuming one is
+// running (see the `web_server` option for more details).
+// (Requires restart)
+// 
+// Note: This is an administrative separation and not intended as a security measure.
+// 
+// Possible values:
+// - "on" (allow web sharing through the local web server if it
+// is online)
+// - "off" (do not allow web sharing unless sessions explicitly opt-in to it)
+// - "disabled" (do not allow web sharing and do not permit sessions started in the terminal to opt-in to it)
+// Default: "off"
+// 
+// web_sharing "on"
+
+// The ip address the web server should listen on when it starts
+// Default: "127.0.0.1"
+// (Requires restart)
+//
+// web_server_ip "127.0.0.1"
+
+// A path to a certificate file to be used when setting up the web client to serve the
+// connection over HTTPs
+//
+// web_server_cert "/path/to/my/cert.pem"
+
+// A path to a key file to be used when setting up the web client to serve the
+// connection over HTTPs
+//
+// web_server_key "/path/to/my/key.pem"
+
+// Whether to enforce https connections to the web server when it is bound to localhost
+// (127.0.0.0/8)
+//
+// Note: https is ALWAYS enforced when bound to non-local interfaces
+//
+// Default: false
+//
+// enforce_https_for_localhost true
+
+// The port the web server should listen on when it starts
+// Default: 8082
+// (Requires restart)
+//
+// web_server_port 8082
+
+web_client {
+    font "monospace"
+}
+
