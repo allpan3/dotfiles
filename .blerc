@@ -659,7 +659,7 @@
 
 #ble-face auto_complete='fg=238,bg=254'           # default
 #ble-face auto_complete='fg=231,bg=69'            # blue background
-ble-face auto_complete='fg=240,italic' # darker background
+ble-face auto_complete='fg=241,italic' # darker background
 
 
 ## The setting "complete_auto_wordbreaks" is used as the delimiters for
@@ -1017,7 +1017,7 @@ ble-face -s filename_orphan           fg=16,bg=224
 ble-face -s filename_setuid           fg=black,bg=220
 ble-face -s filename_setgid           fg=black,bg=191
 ble-face -s filename_executable       fg=green
-#ble-face -s filename_other            underline
+ble-face -s filename_other            ''
 ble-face -s filename_socket           fg=cyan,bg=black
 ble-face -s filename_pipe             fg=lime,bg=black
 ble-face -s filename_character        fg=231,bg=black
