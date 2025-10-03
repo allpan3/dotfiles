@@ -92,10 +92,10 @@
   keepBackup = false
 [mergetool "diffview"]
   cmd = nvim -n -c "DiffviewOpen" "$MERGE"
-[https "https://github.com"]
-  proxy = socks5://127.0.0.1:7890
-[http "http://github.com"]
-  proxy = socks5://127.0.0.1:7890
 [submodule]
   # Automatically update submodules in pull
 	recurse = true
+[http]
+	proxy = http://127.0.0.1:7890
+[https]
+	proxy = https://127.0.0.1:7890
