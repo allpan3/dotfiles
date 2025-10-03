@@ -5,6 +5,7 @@
                 "rules": [
                     {
                         "description": "Change right_control to F17 when pressed alone",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -24,6 +25,7 @@
                     },
                     {
                         "description": "Change right_command to F18 when pressed alone",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
