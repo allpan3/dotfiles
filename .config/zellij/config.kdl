@@ -79,6 +79,8 @@ keybinds clear-defaults=true {
     bind "Alt 7" { GoToTab 7; }
     bind "Alt 8" { GoToTab 8; }
     bind "Alt 9" { GoToTab 9; }
+    bind "Alt [" { PreviousSwapLayout; }
+    bind "Alt ]" { NextSwapLayout; }
   }
   // These are the keybindings I want to pass to apps and let them handle
   shared_except "locked" {
@@ -138,7 +140,7 @@ keybinds clear-defaults=true {
     bind "down" { MoveFocus "down"; }
     bind "up" { MoveFocus "up"; }
     bind "w" { NewPane; SwitchToMode "normal"; }
-    bind "h" { NewPane "down"; SwitchToMode "normal"; }
+    bind "b" { NewPane "down"; SwitchToMode "normal"; }
     bind "v" { NewPane "right"; SwitchToMode "normal"; }
     bind "s" { NewPane "stacked"; SwitchToMode "Normal"; }
     bind "d" { CloseFocus; SwitchToMode "normal"; }
@@ -148,6 +150,10 @@ keybinds clear-defaults=true {
     bind "r" { SwitchToMode "renamepane"; PaneNameInput 0;}
     bind "p" { TogglePanePinned; SwitchToMode "normal"; }
     bind "tab" { SwitchFocus; }
+    bind "h"  { SwitchToMode "resize"; Resize "Increase left"; }
+    bind "j"  { SwitchToMode "resize"; Resize "Increase down"; }
+    bind "k"  { SwitchToMode "resize"; Resize "Increase up"; }
+    bind "l"  { SwitchToMode "resize"; Resize "Increase right"; }
   }
   move {
     bind "n" { MovePane; } // move pane forward
@@ -167,10 +173,6 @@ keybinds clear-defaults=true {
     bind "j" "down" { Resize "Increase down"; }
     bind "k" "up" { Resize "Increase up"; }
     bind "l" "right" { Resize "Increase right"; }
-    bind "H" { Resize "Decrease left"; }
-    bind "J" { Resize "Decrease down"; }
-    bind "K" { Resize "Decrease up"; }
-    bind "L" { Resize "Decrease right"; }
     bind "=" "+" { Resize "Increase"; }
     bind "-" { Resize "Decrease"; }
   }
