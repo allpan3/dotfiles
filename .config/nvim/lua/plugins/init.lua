@@ -14,16 +14,11 @@ return {
 	{ "folke/lazy.nvim", version = "*" },
 	{ "LazyVim/LazyVim", priority = 10000, lazy = false, config = true, cond = true, version = "*" },
 	--	{ "RRethy/vim-illuminate", opts = { under_cursor = false } },
-	{
-		"fresh2dev/zellij.vim",
-		lazy = false,
-		init = function()
-			-- Options:
-			vim.g.zelli_navigator_move_focus_or_tab = 1
-			-- vim.g.zellij_navigator_no_default_mappings = 1
-		end,
-		-- keys need to be set in the global keymaps to take precedence
-	},
+	{ "mrjones2014/smart-splits.nvim",
+    opts = {
+      zellij_move_focus_or_tab = true,
+    }
+  },
 	{
 		"fei6409/log-highlight.nvim",
 		lazy = false,
@@ -31,16 +26,16 @@ return {
 			require("log-highlight").setup({})
 		end,
 	},
-  {
-    "cappyzawa/trim.nvim",
-    event = { "LazyFile" },
-    opts = {
-      trim_on_write = false,
-      highlight = false,
-    },
-    keys = {
-      { "<leader>ct", "<cmd>Trim<CR>", desc = "Trim Whitespace" },
-      { "<leader>ut", "<cmd>TrimToggle<CR>", desc = "Toggle Trim On Save" },
-    }
-  }
+	{
+		"cappyzawa/trim.nvim",
+		event = { "LazyFile" },
+		opts = {
+			trim_on_write = false,
+			highlight = false,
+		},
+		keys = {
+			{ "<leader>ct", "<cmd>Trim<CR>", desc = "Trim Whitespace" },
+			{ "<leader>ut", "<cmd>TrimToggle<CR>", desc = "Toggle Trim On Save" },
+		},
+	},
 }

@@ -73,16 +73,11 @@ vim.keymap.del("n", "<leader><tab>d")
 vim.keymap.del("n", "<leader>|")
 map("n", "<leader>\\", "<C-w>v", { desc = "Split Window Right" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below" })
-map("n", "<leader>wh", "<C-w>s", { desc = "Split Window Below" })
+map("n", "<leader>wb", "<C-w>s", { desc = "Split Window Below" })
 map("n", "<leader>wn", "<C-w>w", { desc = "Cycle Through Windows" })
 map("n", "<leader>wth", "<C-w>t<C-w>K", { desc = "Change Vertical to Horizontal" })
 map("n", "<leader>wtv", "<C-w>t<C-w>H", { desc = "Change Horizontal to Vertical" })
 map("n", "<leader>`", "<cmd>wincmd p<CR>", { desc = "Switch to Other Window" })
--- LazyVim default uses ctrl-arrow to resize windows. Use leader key instead
-map("n", "<leader>w<Down>", "<cmd>resize -2<CR>", { desc = "Decrease Window Height" })
-map("n", "<leader>w<Up>", "<cmd>resize +2<CR>", { desc = "Increase Window Height" })
-map("n", "<leader>w<Right>", "<cmd>vertical resize -2<CR>", { desc = "Decrease Window Width" })
-map("n", "<leader>w<Left>", "<cmd>vertical resize +2<CR>", { desc = "Increase Window Width" })
 
 -- Buffer management
 map("n", "<leader><tab>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" }) -- LazyVim default is <leader>`
@@ -158,12 +153,20 @@ map("x", "d", '"_d')
 Snacks.toggle.line_number():map("<leader>uL")
 Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ul")
 
--- zellij.vim - seamless navigation between nvim and zellij panes
--- stylua: ignore
-if os.getenv("ZELLIJ") then
-  -- Nav mappings within Zellij.
-  map({ "n" }, "<C-h>", "<cmd>ZellijNavigateLeft!<cr>", { desc = "Navigate Left" })
-  map({ "n" }, "<C-l>", "<cmd>ZellijNavigateRight!<cr>", { desc = "Navigate Right" })
-  map({ "n" }, "<C-j>", "<cmd>ZellijNavigateDown<cr>", { desc = "Navigate Down" })
-  map({ "n" }, "<C-k>", "<cmd>ZellijNavigateUp<cr>", { desc = "Navigate Up" })
-end
+-- smart-split.vim 
+-- seamless navigation between nvim and zellij panes
+map('n', '<C-h>', require('smart-splits').move_cursor_left)
+map('n', '<C-j>', require('smart-splits').move_cursor_down)
+map('n', '<C-k>', require('smart-splits').move_cursor_up)
+map('n', '<C-l>', require('smart-splits').move_cursor_right)
+map('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+-- swapping buffers between windows
+map('n', '<leader>vh', require('smart-splits').swap_buf_left, {desc = "Swap Buffer Left"})
+map('n', '<leader>vj', require('smart-splits').swap_buf_down, {desc = "Swap Buffer Down"})
+map('n', '<leader>vk', require('smart-splits').swap_buf_up, {desc = "Swap Buffer Up"})
+map('n', '<leader>vl', require('smart-splits').swap_buf_right, {desc = "Swap Buffer Right"})
+-- resizing windows
+map('n', '<leader>wh', require('smart-splits').resize_left)
+map('n', '<leader>wj', require('smart-splits').resize_down)
+map('n', '<leader>wk', require('smart-splits').resize_up)
+map('n', '<leader>wl', require('smart-splits').resize_right)
