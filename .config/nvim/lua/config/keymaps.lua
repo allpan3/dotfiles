@@ -30,7 +30,9 @@ end
 --   command_mode = "c",
 --   operator-pending = "o"
 
-vim.keymap.set({"n", "v"}, "<leader><space>", ":", { desc = "Command Mode" })
+-- WARN: this would mess up which-key in big file mode until we double space for the first time. Removing this would fix the issue. Not sure why.
+-- FIX: adding 'v' or 'x' breaks space pressed alone - have to press combo very quickly to run any command, also which-key won't show
+vim.keymap.set("n", "<leader><space>", ":", { desc = "Command Mode" })
 
 -- Floating terminal, handle <C-/>
 vim.keymap.del("n", "<leader>ft")
