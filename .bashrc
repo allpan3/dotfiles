@@ -424,7 +424,6 @@ _zellij_update_tab_name
 
 # This needs to be placed at the end according to the documentation
 if [[ ${BLE_VERSION-} ]]; then
-  set -o vi
   # ble/debug/profiler/start
   ble-attach
   # ble/debug/profiler/stop
