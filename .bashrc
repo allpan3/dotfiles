@@ -85,8 +85,9 @@ if [ "$TERM" != "dumb" ]; then
   # I try to map special keys to a bash default (emacs mode) at the terminal level whenever possible so that terminal apps are more likely to work right away
   # But forward delete line uses C-k which is reserved for zellij, so bind M-h to forward kill line and then bind M-DEL to it at terminal level 
   # Note remapping this to "\C-k" still won't work in zellij
-  bind -m emacs '"\eh":kill-line'         # M-h, forward delete line, originally ctrl-k. Map the same in neovim
-  bind -m vi-insert '"\eh":kill-line'     # M-h, forward delete line
+  # TODO: these two are reserved for zellij. Need to use sth else
+  # bind -m emacs '"\eh":kill-line'         # M-h, forward delete line, originally ctrl-k. Map the same in neovim
+  # bind -m vi-insert '"\eh":kill-line'     # M-h, forward delete line
   bind -m vi-insert '"\eb":backward-word' # match emacs mode
   bind -m vi-insert '"\ef":forward-word'  # match emacs mode
   bind -m vi-command '"gh":beginning-of-line'
