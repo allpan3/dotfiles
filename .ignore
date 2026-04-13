@@ -1,0 +1,10 @@
+Library/
+Movies/
+Music/
+Pictures/
+Public/
+Desktop/
+Downloads/
+Applications/
+.dotfiles.git/
+.cache/
