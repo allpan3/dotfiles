@@ -1,7 +1,7 @@
 -- Enable this plugin mainly for the overlay feature.
 -- Want to keep using gitsigns so don't enable this plugin in LazyVim extra
 return {
-	"echasnovski/mini.diff",
+	"nvim-mini/mini.diff",
 	event = "VeryLazy",
 	opts = {
 		options = {
