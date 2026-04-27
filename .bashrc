@@ -203,7 +203,7 @@ export COMPAL_AUTO_UNMASK=1
 source ${HOME}/.scripts/complete-alias.sh
 
 # emulate tree if it's not installed
-if ! type tree >/dev/null; then
+if ! type tree &>/dev/null; then
   alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 fi
 
