@@ -1,9 +1,9 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Allen Pan
-	email = allpan@stanford.edu
+  name = Allen Pan
+  email = allpan@stanford.edu
 [include]
-  path = ~/.gitconfig-local  # Absolute path
+  path = ~/.gitconfig_local  # Absolute path
 [core]
   pager = delta
 [pager]
@@ -59,10 +59,10 @@
   line-numbers-right-format = "{np:>4}│"
   # Color moved
   map-styles = \
-    bold purple => syntax "#171531", \
-    bold blue => syntax "#271344", \
-    bold cyan => syntax "#0d3531", \
-    bold yellow => syntax "#222f14"
+  bold purple => syntax "#171531", \
+  bold blue => syntax "#271344", \
+  bold cyan => syntax "#0d3531", \
+  bold yellow => syntax "#222f14"
 [delta "delta-diff"]
   features = delta-general
   side-by-side = true
