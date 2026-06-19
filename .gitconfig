@@ -15,6 +15,7 @@
 [alias]
   mt = mergetool 
   logp = log -p
+  lg = "!f() { gd=\"$(git rev-parse --absolute-git-dir)\" || exit; wt=\"$(git rev-parse --show-toplevel)\" || exit; cd \"$wt\" || exit; if test \"$(git config --bool --get vcsh.vcsh)\" = true; then GIT_DIR=\"$gd\" GIT_WORK_TREE=\"$wt\" GIT_CONFIG_COUNT=2 GIT_CONFIG_KEY_0=status.relativePaths GIT_CONFIG_VALUE_0=false GIT_CONFIG_KEY_1=status.showUntrackedFiles GIT_CONFIG_VALUE_1=no lazygit --git-dir=\"$gd\" --work-tree=\"$wt\" \"$@\"; else GIT_DIR=\"$gd\" GIT_WORK_TREE=\"$wt\" lazygit --git-dir=\"$gd\" --work-tree=\"$wt\" \"$@\"; fi; }; f"
 [delta]
   features = delta-general
 [delta "delta-general"]
