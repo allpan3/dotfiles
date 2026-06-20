@@ -310,6 +310,7 @@ function gdv() {
 }
 alias gf='git fetch --all --prune --tags'
 alias gl='git log --graph --date=short --pretty=format:'\''%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'\'''
+alias gs='git status'
 alias gls='gg --stat'
 alias ggup='git log --branches --not --remotes --no-walk --decorate --oneline' # FROM https://stackoverflow.com/questions/39220870/in-git-list-names-of-branches-with-unpushed-commits
 alias gll="git log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\""
@@ -325,7 +326,7 @@ alias gplr='git pull --prune --rebase'
 alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
-alias gsu='git submodule update --init --recursive'
+alias gsb='git submodule update --init --recursive'
 
 function git-ignore() {
   # about 'Places the latest .gitignore file for a given project type in the current directory, or concatenates onto an existing .gitignore'
