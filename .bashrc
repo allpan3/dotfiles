@@ -351,6 +351,49 @@ function git-ignore() {
 # lazygit
 alias lg=lazygit
 
+# vcsh and myrepos
+_vcsh_repo_name() {
+  case "$1" in
+    d|dot) echo dot ;;
+    m|mr) echo mr ;;
+    l|loc|local) echo local ;;
+    *) echo "$1" ;;
+  esac
+}
+
+vc() {
+  local first="${1:-}"
+  local second="${2:-}"
+  case "$second" in
+    vi|vim|nvim)
+      local repo
+      repo="$(_vcsh_repo_name "$first")"
+      shift 2
+      vcsh run "$repo" nvim "$@"
+      ;;
+    *)
+      if [ $# -gt 0 ]; then
+        local repo="$(_vcsh_repo_name "$1")"
+        shift
+        vcsh "$repo" "$@"
+      else
+        vcsh
+      fi
+      ;;
+  esac
+}
+
+_mr_divider() {
+  perl -pe '
+    s/^(mr [^:]+: .*)$/\n\e[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n$1\e[0m/;
+    s/^(mr [^:]+: finished.*)$/\n\e[1;32m$1\e[0m/;
+  '
+}
+
+mr() {
+  command mr "$@" | _mr_divider
+}
+
 # Accidental action prevention
 if [ "$(uname -s)" == "Darwin" ]; then
   trash() {
